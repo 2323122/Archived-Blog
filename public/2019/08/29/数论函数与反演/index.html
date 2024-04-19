@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 3.9.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>数论函数与反演 - Yuki&#39;s Blog</title>
+
+
+
+
+
+
+
+
+<link rel="icon" href="/images/round.jpg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/tomorrow.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<!--<body class="is-2-column">-->
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="https://i.loli.net/2019/10/10/y9zYaVHLsNt1Cek.png" alt="数论函数与反演" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/notes">笔记</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="https://i.loli.net/2019/09/04/fUvVoR4chzxN6Pi.png" alt="数论函数与反演">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-08-29T11:01:41.000Z">2019-08-29</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/学习报告/">学习报告</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    39 分钟 读完 (大约 5868 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                数论函数与反演
+            
+        </h1>
+        <div class="content">
+            <p>总结了一下数论函数的相关知识。</p>
+<a id="more"></a>
+
+<p><strong>本文中所有 $x = \prod\limits_{i = 1} ^ k p_i^{a_i}$ 均表示将 $x$ 唯一分解，文中不再赘述。</strong></p>
+<h1 id="积性函数"><a href="#积性函数" class="headerlink" title="积性函数"></a>积性函数</h1><p>若定义在 $\mathrm N ^ {\star}$ 的函数 $f(x)$ 满足 $\forall x, y\in \mathrm N^{\star}$ 且 $\gcd(x,y) = 1$ 都有 $f(x\times y) = f(x) \times f(y)$ ，则 $f(x)$ 为<strong>积性函数</strong>。</p>
+<p><strong>定义：（完全积性函数）$\forall x, y \in \mathrm N^{\star}, f(x \times y) = f(x) \times f(y)$</strong></p>
+<h2 id="狄利克雷卷积"><a href="#狄利克雷卷积" class="headerlink" title="狄利克雷卷积"></a>狄利克雷卷积</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>对于两个积性函数 $f(x), g(x)$ ，其<strong>狄利克雷卷积</strong> $h(x) = (f * g)(x) = \sum\limits_{d|x} f(d)g(\frac{x}{d})$ 也是积性函数。</p>
+<p>简写为 $h = f * g$ 。</p>
+<h3 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h3><ul>
+<li>交换律： $f*g = g *f$；</li>
+<li>结合律： $(f * g) * h = f * (g * h)$；</li>
+<li>分配律： $(f + g) * h = f * h + g * h$；</li>
+<li>对于函数 $f, g$ ，若 $f*g = \epsilon$，则称 $g$ 为 $f$ 的逆元，$g$ 仍为积性函数。</li>
+</ul>
+<h2 id="常见积性函数"><a href="#常见积性函数" class="headerlink" title="常见积性函数"></a>常见积性函数</h2><h3 id="完全积性函数"><a href="#完全积性函数" class="headerlink" title="完全积性函数"></a>完全积性函数</h3><h4 id="epsilon-x-一元函数"><a href="#epsilon-x-一元函数" class="headerlink" title="$\epsilon(x)$ 一元函数"></a>$\epsilon(x)$ <strong><em>一元函数</em></strong></h4><p>定义： $\epsilon(x) = [x = 1]$</p>
+<p>性质：是狄利克雷卷积的<strong>单位元</strong>。</p>
+<h4 id="I-x-恒等函数"><a href="#I-x-恒等函数" class="headerlink" title="$I(x)$ 恒等函数"></a>$I(x)$ <strong><em>恒等函数</em></strong></h4><p>定义： $I(x) = 1$</p>
+<h4 id="id-x-单位函数"><a href="#id-x-单位函数" class="headerlink" title="$id(x)$ 单位函数"></a>$id(x)$ <strong><em>单位函数</em></strong></h4><p>定义： $\mathrm{id}(x) = x$</p>
+<h3 id="非完全积性函数"><a href="#非完全积性函数" class="headerlink" title="非完全积性函数"></a>非完全积性函数</h3><h4 id="mu-x-莫比乌斯函数"><a href="#mu-x-莫比乌斯函数" class="headerlink" title="$\mu(x)$ 莫比乌斯函数"></a>$\mu(x)$ <strong><em>莫比乌斯函数</em></strong></h4><p>定义：<br>$$<br>\mu(x) =<br>\begin{cases}<br>1 &amp; , x = 1 \\ (-1) ^ k &amp; , x = \prod\limits_{i = 1} ^ k p_i \\ 0 &amp; , Otherwise<br>\end{cases}<br>$$</p>
+<p>性质：$\sum\limits_{d|n} \mu(d) = [n = 1]$</p>
+<p>证明：</p>
+<p>&emsp;&emsp;$n = 1$ 时显然成立。</p>
+<p>&emsp;&emsp;$n \neq 1$ 时，将 $n$ 唯一分解：$n = \prod\limits_{i = 1} ^ {k} p_i^{a_i}$ 。</p>
+<p>&emsp;&emsp;在 $n$ 的所有因子中，仅素因子次数都为 $1$ 的因子 $\mu$ 值不为 $0$ ，这种因子共有 $\sum\limits_{i = 0} ^ {k} C_k^i$个，因子 $x$ 的贡献为 $\mu(x) = (-1) ^ x$，所以总和为 $\sum\limits_{i = 0} ^ k C_k^i\times (-1)^i$ ，这个式子可以<strong>二项式定理</strong>合并，得到 $(1 + (-1)) ^ k = 0$ 。</p>
+<p>&emsp;&emsp;性质得证。</p>
+<h4 id="varphi-x-欧拉函数"><a href="#varphi-x-欧拉函数" class="headerlink" title="$\varphi(x)$ 欧拉函数"></a>$\varphi(x)$ <strong><em>欧拉函数</em></strong></h4><p>定义：<br>$$<br>\varphi(x) = \sum\limits_{i = 1}^{x - 1}[\gcd(i, x) = 1]<br>$$<br>通项公式： 对于 $x = \prod\limits_{i = 1} ^ k p_i^{a_i}$，$ \varphi(x) = x\times \prod\limits_{i = 1} ^ {k} (1 - \frac{1}{p_i})$</p>
+<p>证明：<br>&emsp;&emsp;若 $x$ 为素数，显然 $\varphi(x) = x - 1$</p>
+<p>&emsp;&emsp;若 $x$ 不为素数，则将 $x$ 唯一分解为 $\prod\limits_{i = 1}^{k}p_i^{a_i}$ ，那么有：<br>$$<br>\begin{align}<br>\varphi(x) &amp;= \varphi(\prod\limits_{i=1}^{k}p_i^{a_i}) \\ &amp;= \prod\limits_{i=1}^k\varphi(p_i^{a_i})<br>\end{align}<br>$$<br>&emsp;&emsp;而又因为小于 $p^a$ 的数中，仅有 $p ^ m, m\in[0, a)$ 不与其互素，所以：<br>$$<br>\begin{align}<br>\varphi(p^a) &amp;= p ^ a - p ^ {a - 1} \\ &amp;= p ^ a (1 - \frac{1}{p})<br>\end{align}<br>$$<br> &emsp;&emsp;所以：<br>$$<br>\begin{align}<br>\text{Ans}  &amp;= \prod\limits_{i = 1}^kp_i^{a_i}(1 - \frac{1}{p_i}) \\ &amp;= \prod \limits_{i = 1} ^ k p_i^{a_i} \times \prod\limits_{i = 1} ^ k (1 - \frac{1}{p_i}) \\ &amp;= x \times \prod\limits_{i = 1} ^ k (1-\frac{1}{p_i})<br>\end{align}<br>$$<br>性质 $1$：$\sum\limits_{d|n}\varphi(d) = n$</p>
+<p>证明：</p>
+<p>&emsp;&emsp;<strong><em>引理：设 $f(x) = \sum\limits_{d|n}\varphi(d)$ ，那么 $f(x)$ 是一个非完全积性函数。</em></strong></p>
+<p>&emsp;&emsp;证明：</p>
+<p>&emsp;&emsp;&emsp;&emsp;设 $n, m$ 互素，则有：<br>$$<br>\begin{align}<br>f(n) \times f(m)<br>&amp;= \sum\limits_{i | n} \varphi(i) \times \sum\limits_{j | m} \varphi(j) \\ &amp;= \sum\limits_{i | n} \sum\limits_{j | m} \varphi(i) \times \varphi(j) \\ &amp;= \sum\limits_{i | n} \sum\limits_{j | m} \varphi(i \times j) \\ &amp;= \sum\limits_{d | nm} \varphi(d) \\ &amp;= f(n\times m)<br>\end{align}<br>$$<br>&emsp;&emsp;&emsp;&emsp;所以 $f(x)$ 是一个积性函数。</p>
+<p>&emsp;&emsp;将 $n$ 唯一分解为 $\prod\limits_{i = 1} ^ k p_i ^ {a _ i}$ ，由引理：<br>$$<br>\begin{align}<br>f(n)<br>&amp;= f(\prod\limits_{i = 1} ^ k p_i^{a _ i}) \\ &amp;= \prod\limits_{i = 1} ^ k f(p_i^{a_i}) \\ &amp;= \prod\limits_{i = 1} ^ k \sum\limits_{j = 0} ^ {a _ i}\varphi(p_i^j) \\ &amp;= \prod\limits_{i = 1} ^ k (\sum\limits_{j = 1} ^ {a _ i}(p_i^{a_i} - p_i^{a_i - 1}) + 1) \\ &amp;= \prod\limits_{i = 1} ^ k (p_i^{a_i}) \\ &amp;= n<br>\end{align}<br>$$<br>&emsp;&emsp;即 $\sum\limits_{d|n}\varphi(d) = n $ 。</p>
+<p>性质 $2$：$\sum\limits_{d|n}\frac{\mu(d)}{d} = \frac{\varphi(n)}{n}$</p>
+<p>证明：</p>
+<p>&emsp;&emsp;由<strong>性质 $1$</strong>： $\sum\limits_{d | n} \varphi(d) = n$</p>
+<p>&emsp;&emsp;表示为<strong>狄利克雷卷积</strong>： $\varphi * I = id$</p>
+<p>&emsp;&emsp;左右两边同时卷积 $\mu$： $\varphi * I * \mu = id * \mu$</p>
+<p>&emsp;&emsp;狄利克雷卷积具有结合律，所以： $\varphi * I * \mu = \varphi * (I * \mu)$</p>
+<p>&emsp;&emsp;由<strong>莫比乌斯函数</strong>性质： $\sum\limits_{d|n} \mu(d) = [n = 1]$</p>
+<p>&emsp;&emsp;表示为狄利克雷卷积的形式： $\mu * I  = \epsilon$</p>
+<p>&emsp;&emsp;代回上式： $\varphi * \epsilon = id * u$</p>
+<p>&emsp;&emsp;把这个卷积拆开并同时除以 $n$:  $\frac{\varphi(n)}{n} = \sum\limits_{d|n} \frac{\mu(d)}{d}$</p>
+<p>&emsp;&emsp;得证。</p>
+<h4 id="d-x-约数个数函数"><a href="#d-x-约数个数函数" class="headerlink" title="$d(x)$ 约数个数函数"></a>$d(x)$ <strong><em>约数个数函数</em></strong></h4><p>定义：<br>$$<br>d(x) = \sum\limits_{d | x}1<br>$$<br>通项公式（约数个数定理）：对于 $x= \prod\limits_{i = 1} ^ k p_i^{a_i}$，$d(x) = \prod\limits_{i  = 1} ^ k(a_i + 1)$ 。</p>
+<p>&emsp;&emsp;证明：考虑每一个素因子的贡献，对于 $x$ 的每一个素因子 $p$ ，它与其他所有素因子互素，所以它小于 $x$ 幂都会对约数个数有 $1$ 的贡献，在考虑这个数选或不选，那么对于每一个素因子，都会有 $a_i + 1$ 种方案，根据乘法原理，总方案数为 $\prod\limits_{i = 1} ^ k (a_i + 1)$ 。</p>
+<p>性质：<br>$$<br>d(ij) = \sum\limits_{x|i}\sum\limits_{y|j}[\gcd(i, j) = 1]<br>$$<br>证明：</p>
+<p>&emsp;&emsp;首先将 $ij $ 的一个因子唯一分解，考虑将它的一个因子 $p^c$ 映射到 $i, j$ 的对应项上，先从 $i$ 中找因子的因子 $p^a $ 。若 $a\leq c$，再从 $j$ 中找因子的因子 $p^{c - a}$。对于唯一分解得来的每一项都进行如上操作，我们便可以将 $ij$ 的每一个因子映射到二元组 $(i, j)$ 上。这是一个一一映射。所以对于每一个贡献因子的一个素因子，它不可能同时存在于 $i$ 和 $j$ 中，此时 $i,j$ 互素。</p>
+<h4 id="sigma-x-约数和函数"><a href="#sigma-x-约数和函数" class="headerlink" title="$\sigma(x)$ 约数和函数"></a>$\sigma(x)$ <strong><em>约数和函数</em></strong></h4><p>定义：<br>$$<br>\sigma(x) = \sum\limits_{d|x} d<br>$$<br>通项公式：</p>
+<p>&emsp;&emsp;对于 $x = \prod\limits_{i = 1} ^ k p_i  ^ {a_i}$，$\sigma(x) = \prod\limits_{i = 1} ^ k\sum\limits_{j = 0} ^ {a_i}p_i^j$</p>
+<p>证明：</p>
+<p>&emsp;&emsp;对于 $x$ 的每一个约数，它一定由若干个原数素因子的幂相乘得到，可以枚举原数素因子及其次数，然后相乘得到约数，再相加即可得到 $\sigma(x)$ 。</p>
+<h3 id="与狄利克雷卷积的相互转化"><a href="#与狄利克雷卷积的相互转化" class="headerlink" title="与狄利克雷卷积的相互转化"></a>与狄利克雷卷积的相互转化</h3><h4 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h4><p>$$<br>\begin{equation}<br>\begin{aligned} \varepsilon &amp;=\mu * 1 \Leftrightarrow \varepsilon(n)=\sum_{d | n} \mu(d) \\ d &amp;=1 * 1 \Leftrightarrow d(n)=\sum_{d | n} 1 \\ \sigma &amp;=d * 1 \Leftrightarrow \varepsilon(n)=\sum_{d | n} d \\ \varphi=&amp; \mu * \mathrm{id} \Leftrightarrow \varphi(n) = \sum_{d | n} d \cdot \mu\left(\frac{n}{d}\right) \end{aligned}<br>\end{equation}<br>$$</p>
+<h4 id="证明"><a href="#证明" class="headerlink" title="证明"></a>证明</h4><p>暴力展开配合上述函数性质即可，此处略。</p>
+<h2 id="计算"><a href="#计算" class="headerlink" title="计算"></a>计算</h2><p><strong>任意积性函数</strong>可通过 <strong>Euler 筛</strong> $O(n)$ 求出。</p>
+<p><a href="https://minagami.github.io/2019/08/29/%E6%95%B0%E8%AE%BA%E5%87%BD%E6%95%B0%E4%B8%8E%E5%8F%8D%E6%BC%94/#%E6%8E%A8%E5%B9%BF-Euler-%E7%AD%9B" target="_blank" rel="noopener">详见下文</a>。</p>
+<h1 id="筛法"><a href="#筛法" class="headerlink" title="筛法"></a>筛法</h1><h2 id="素数筛法"><a href="#素数筛法" class="headerlink" title="素数筛法"></a>素数筛法</h2><h3 id="Eratosthenes-筛法"><a href="#Eratosthenes-筛法" class="headerlink" title="Eratosthenes 筛法"></a>Eratosthenes 筛法</h3><p>俗称<strong>埃氏筛</strong>，是<strong>针对素数</strong>的一种筛法。</p>
+<p>考虑素数的性质：<br>对于每个素数，它仅有自己与 $1$ 两个因子，所以<strong>素数的倍数定为合数</strong>，利用此条性质，我们可以很快速的筛出给定范围的素数。</p>
+<h4 id="实现过程"><a href="#实现过程" class="headerlink" title="实现过程"></a>实现过程</h4><p>遍历范围，对于未被标记的数，我们将其置为素数，枚举其倍数，并标记；</p>
+<p>当访问到一个被标记过的数时，将其置为合数，并直接跳过。</p>
+<p>复杂度为 $\Theta(\sum\limits_{prime \leq n}\frac{n}{prime})$</p>
+<p>由素数分布密度 $D = \frac{1}{\ln n}$ 可得，上式 $= \Theta(n\ln\ln n)$</p>
+<h4 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h4><figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    <span class="hljs-keyword">if</span>(!v[i]) &#123;</span><br><span class="line">        p[++tot] = i;</span><br><span class="line">        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; i * j &lt;= n; j++) </span><br><span class="line">            v[i * j] = <span class="hljs-number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Euler-筛"><a href="#Euler-筛" class="headerlink" title="Euler 筛"></a>Euler 筛</h3><p>又称为<strong>线性筛</strong>，因为这个筛法是严格 $O(n)$ 的。</p>
+<p>考虑埃氏筛慢在哪里，我们回顾其实现过程，发现部分数会被重复筛去，比如 $6$ 这个数，在遍历到 $2$ 和 $3$ 的时候都会将它筛去， 所以我们考虑一种实现，能够保证每个数仅被筛去一次。</p>
+<h4 id="实现过程-1"><a href="#实现过程-1" class="headerlink" title="实现过程"></a>实现过程</h4><p>我们考虑用每一个数的最小素因子来筛除它，在访问到一个未被筛除的元素 $i$ 时，考虑从小到大枚举质数 $ p[j]$ ，当 <code>i % p[j] == 0</code> 时，说明此时筛到了最小素因子，应当在筛完此元素后 <code>break</code>。</p>
+<h4 id="参考代码-1"><a href="#参考代码-1" class="headerlink" title="参考代码"></a>参考代码</h4><figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    <span class="hljs-keyword">if</span>(!v[i]) p[++tot] = i;</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; i * p[j] &lt;= n; j++) &#123;</span><br><span class="line">        v[i * p[j]] = <span class="hljs-number">1</span>;</span><br><span class="line">        <span class="hljs-keyword">if</span>(i % p[j] == <span class="hljs-number">0</span>) <span class="hljs-keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="推广-Euler-筛"><a href="#推广-Euler-筛" class="headerlink" title="推广 Euler 筛"></a>推广 Euler 筛</h2><p>在上文中提到，我们可以通过<strong>线性筛</strong>筛出任何积性函数的值，先来看几个特例。</p>
+<h3 id="线性筛-mu-x"><a href="#线性筛-mu-x" class="headerlink" title="线性筛 $\mu(x)$"></a>线性筛 $\mu(x)$</h3><h4 id="推导过程"><a href="#推导过程" class="headerlink" title="推导过程"></a>推导过程</h4><p>设 $x = \prod \limits _{i = 1} ^ k {p_i ^ {a_i}}$，分情况讨论 $x$：</p>
+<ol>
+<li><p>若 $x$ 为素数，则 $\mu(x) = -1$ ；</p>
+<p>证明：莫比乌斯函数定义。</p>
+</li>
+<li><p>若 $p_i \nmid x$ ，则 $\mu(p_i \times x) = \mu(p_i)\times \mu(x) = -\mu(x)$ ；</p>
+<p>证明：积性函数性质。</p>
+</li>
+<li><p>若 $p_i \mid x$ ，则 $\mu(p_i \times x) = 0$。</p>
+<p>证明：莫比乌斯函数定义。</p>
+</li>
+</ol>
+<h4 id="参考代码-2"><a href="#参考代码-2" class="headerlink" title="参考代码"></a>参考代码</h4><figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    <span class="hljs-keyword">if</span>(!v[i]) p[++tot] = i, u[i] = <span class="hljs-number">-1</span>;</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; i * p[j] &lt;= n; j++) &#123;</span><br><span class="line">        v[i * p[j]] = <span class="hljs-number">1</span>;</span><br><span class="line">        <span class="hljs-keyword">if</span>(i % p[j] == <span class="hljs-number">0</span>) <span class="hljs-keyword">break</span>; <span class="hljs-comment">//一定要先判再赋值</span></span><br><span class="line">        u[i * p[j]] = -u[i];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="线性筛-varphi-x"><a href="#线性筛-varphi-x" class="headerlink" title="线性筛 $\varphi(x)$"></a>线性筛 $\varphi(x)$</h3><h4 id="推导过程-1"><a href="#推导过程-1" class="headerlink" title="推导过程"></a>推导过程</h4><p>依然分类讨论 $x$：</p>
+<ol>
+<li><p>若 $x$ 为素数，则 $\varphi(x) = x - 1$；</p>
+<p>证明：</p>
+<p>&emsp;&emsp;由于 $x$ 为素数，所以在区间 $[1, x -1]$ 中，所有的整数均与 $x$ 互素，根据欧拉函数定义可知 $\varphi(x) = x - 1$。</p>
+</li>
+<li><p>若 $p_i \nmid x$ ，则 $\varphi(p_i \times x) = \varphi(p_i)\times \varphi(x) = (p_i - 1) \times \varphi(x)$；</p>
+<p>证明：积性函数性质。</p>
+</li>
+<li><p>若 $p_i \mid x$，则 $\varphi(p_i \times x) = p_i \times \varphi(\frac{n}{p})$</p>
+<p>证明：</p>
+<p>$$\because p_i \mid x$$</p>
+<p>$$\text {又} \because p_i \text{为素数}$$</p>
+<p>$$\therefore p_i\text{为}x\text{的素因子}$$</p>
+<p>$$\therefore\varphi(x\times p_i) = x \times p_i \times \prod\limits_{j = 1}^{k}(1-\frac{1}{p_j}) = p_i \times (x \times \prod\limits_{j = 1} ^ k(1 - \frac{1}{p_j}))= \varphi(x) \times p_i$$</p>
+</li>
+</ol>
+<h4 id="参考代码-3"><a href="#参考代码-3" class="headerlink" title="参考代码"></a>参考代码</h4><figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    <span class="hljs-keyword">if</span>(!v[i]) p[++tot] = i, phi[i] = i - <span class="hljs-number">1</span>;</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; i * p[j] &lt;= n; j++) &#123;</span><br><span class="line">        v[i * p[j]] = <span class="hljs-number">1</span>;</span><br><span class="line">        <span class="hljs-keyword">if</span>(i % p[j] == <span class="hljs-number">0</span>) &#123;</span><br><span class="line">            phi[i * p[j]] = p[j] * phi[i];</span><br><span class="line">            <span class="hljs-keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        phi[i * p[j]] = (p[j] - <span class="hljs-number">1</span>) * phi[i];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="线性筛-d-x"><a href="#线性筛-d-x" class="headerlink" title="线性筛 $d(x) $"></a>线性筛 $d(x) $</h3><h4 id="推导过程-2"><a href="#推导过程-2" class="headerlink" title="推导过程"></a>推导过程</h4><p>考虑维护每一个数的最小素因子的出现次数 <code>a[x]</code>。</p>
+<p>然后分类讨论：</p>
+<ol>
+<li><p>若 $x$ 为素数，则 $d(x) = 2, a(x) = 1$</p>
+<p>证明：每个素数仅有 $1$ 与自身两个因子，最小素因子的次数为 $1$。</p>
+</li>
+<li><p>若 $p_i\nmid x$，则：<br>$$<br>\begin{align}<br>d(p_i \times x) &amp;= d(p_i) \times d(x)= 2d(x) \<br> a(p_i \times x) &amp;= 1<br>\end{align}<br>$$<br>证明：</p>
+<p> &emsp;&emsp;由于 $d(x)$ 是积性函数，所以第一个式子显然成立。</p>
+<p>&emsp;&emsp; 由于线性筛从小至大枚举素因子，所以被枚举到的素因子一定是最小素因子，次数为 $1$，所以第二个式子成立。</p>
+</li>
+<li><p>若 $p_i \mid x $，则：<br>$$<br>\begin{align}<br>d(p_i\times x) &amp;= d(x) \times \frac{a(x) + 2}{a(x) + 1} \\ a(p_i \times x) &amp;= a(x) + 1<br>\end{align}<br>$$<br>证明： </p>
+<p>因为 $p_i \mid x$，所以 $p_i$ 是 $i$ 最小的素因子，所以 $i\times p_i$ 的最小素因子个数比 $i$ 的多 $1$。所以 $d(p_i\times x) = (1 + a_1 + 1) \times \prod\limits_{i = 2} ^ k (1 + a_i) = d(x) \times \frac{a(x) + 2}{a(x) + 1}$。</p>
+</li>
+</ol>
+<h4 id="参考代码-4"><a href="#参考代码-4" class="headerlink" title="参考代码"></a>参考代码</h4><figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">d[<span class="hljs-number">1</span>] = <span class="hljs-number">1</span>;</span><br><span class="line"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    <span class="hljs-keyword">if</span>(!v[i]) p[++tot] = i, d[i] = <span class="hljs-number">2</span>, a[i] = <span class="hljs-number">1</span>;</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; i * p[j] &lt;= n; j++) &#123;</span><br><span class="line">        v[i * p[j]] = <span class="hljs-number">1</span>;</span><br><span class="line">        <span class="hljs-keyword">if</span>(i % p[j] == <span class="hljs-number">0</span>) &#123;</span><br><span class="line">            d[i * p[j]] = d[i] * (a[i] + <span class="hljs-number">2</span>) / (a[i] + <span class="hljs-number">1</span>);</span><br><span class="line">            a[i * p[j]] = a[i] + <span class="hljs-number">1</span>;</span><br><span class="line">            <span class="hljs-keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        d[i * p[j]] = <span class="hljs-number">2</span> * d[i];</span><br><span class="line">        a[i * p[j]] = <span class="hljs-number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="线性筛-sigma-x"><a href="#线性筛-sigma-x" class="headerlink" title="线性筛 $\sigma(x)$"></a>线性筛 $\sigma(x)$</h3><h4 id="推导过程-3"><a href="#推导过程-3" class="headerlink" title="推导过程"></a>推导过程</h4><p>类似于 $d(x)$ ，考虑维护每一个数的最小素因子的幂的和 <code>a[x]</code>。</p>
+<p>然后分类讨论：</p>
+<ol>
+<li><p>若 $x$ 为素数，则 $\sigma(x) = x + 1, a(x) = x$</p>
+<p>证明：</p>
+<p>&emsp;&emsp;因为 $x$ 为素数，所以 $x$ 仅有 $x$ 和 $1$ 两个素因子，所以 $d(x) = x + 1$，最小的素因子为 $x$，次数为 $1$，所以 $a(x) = x ^ 1= x$ 。</p>
+</li>
+<li><p>若 $p_i \nmid x$，则：<br>$$<br>\begin{align}<br>\sigma(p_i\times x) &amp;= \sigma(p_i)\times \sigma(x)=(p_i + 1)\times \sigma(x) \\ a(p_i\times x) &amp;= p_i<br>\end{align}<br>$$<br>证明：与 $d(x)$ 相似。</p>
+</li>
+<li><p>若 $p_i\mid x$，则：<br>$$<br>\begin{align}<br>\sigma(p_i\times x) &amp;= \sigma(x)\times\frac{a(x)\times p_i^2-1}{a(x)\times p_i-1} \\ a(p_i\times x) &amp;= a(x)\times p_i<br>\end{align}<br>$$<br>证明：与 $d(x)$ 相似。</p>
+</li>
+</ol>
+<h4 id="参考代码-5"><a href="#参考代码-5" class="headerlink" title="参考代码"></a>参考代码</h4><figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">sigma[<span class="hljs-number">1</span>] = <span class="hljs-number">1</span>;</span><br><span class="line"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    <span class="hljs-keyword">if</span>(!v[i]) p[++tot] = i, sigma[i] = i + <span class="hljs-number">1</span>, a[i] = i;</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; i * p[j] &lt;= n; j++) &#123;</span><br><span class="line">        v[i * p[j]] = <span class="hljs-number">1</span>;</span><br><span class="line">        <span class="hljs-keyword">if</span>(i % p[j] == <span class="hljs-number">0</span>) &#123;</span><br><span class="line">            sigma[i * p[j]] = sigma[i] * (a[i] * p[j] * p[j] - <span class="hljs-number">1</span>) / (a[i] * p[j] - <span class="hljs-number">1</span>);</span><br><span class="line">            a[i * p[j]] = a[i] * p[j];</span><br><span class="line">            <span class="hljs-keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        sigma[i * p[j]] = (p[j] + <span class="hljs-number">1</span>) * sigma[i];</span><br><span class="line">        a[i * p[j]] = p[j];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="一般的积性函数"><a href="#一般的积性函数" class="headerlink" title="一般的积性函数"></a>一般的积性函数</h3><p>类比上面的几个积性函数的线性筛推导过程，我们来总结一般积性函数的线性筛的推导。</p>
+<h4 id="推导过程-4"><a href="#推导过程-4" class="headerlink" title="推导过程"></a>推导过程</h4><p>观察上面的过程，我们发现，对于每一个积性函数，推导无外乎是<strong>分类讨论</strong>，并且更一般的，分的类也是一样的。</p>
+<p>于是我们可以对一个积性函数分类，讨论自变量为素数时，与当前素数互素时和不与当前素数互素时的函数值。若条件不足，也可以维护一个附加信息。于是我们可以将其抽象为一个伪代码。</p>
+<h4 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h4><figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    <span class="hljs-keyword">if</span>(!v[i]) p[++tot] = i, f[i] = 素数定义;</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; i * p[j] &lt;= n; j++) &#123;</span><br><span class="line">        v[i * p[j]] = <span class="hljs-number">1</span>;</span><br><span class="line">        <span class="hljs-keyword">if</span>(i % p[j] == <span class="hljs-number">0</span>) &#123;</span><br><span class="line">        	f[i * p[j]] = p[j]整除i情况的定义;</span><br><span class="line">            <span class="hljs-keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        f[i * p[j]] = f[i] * f[p[j]] <span class="hljs-comment">// 积性函数；</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="反演"><a href="#反演" class="headerlink" title="反演"></a>反演</h1><h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><h3 id="数论分块"><a href="#数论分块" class="headerlink" title="数论分块"></a>数论分块</h3><h4 id="一类问题"><a href="#一类问题" class="headerlink" title="一类问题"></a>一类问题</h4><p>对于形如 $\sum\limits_{i = 1}^{n}\lfloor\frac{n}{i}\rfloor$ 的问题，我们的常规做法是直接循环，时间复杂度是 $O(n)$ 的，有没有更高效的方法呢？</p>
+<p>我们来看一看 $n = 10$ 的时候 $\lfloor\frac{n}{i}\rfloor$ 有什么性质：</p>
+<table>
+<thead>
+<tr>
+<th align="center">$i$</th>
+<th align="center">1</th>
+<th align="center">2</th>
+<th align="center">3</th>
+<th align="center">4</th>
+<th align="center">5</th>
+<th align="center">6</th>
+<th align="center">7</th>
+<th align="center">8</th>
+<th align="center">9</th>
+<th align="center">10</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">$\lfloor\frac{n}{i}\rfloor$</td>
+<td align="center">10</td>
+<td align="center">5</td>
+<td align="center">3</td>
+<td align="center">2</td>
+<td align="center">2</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+</tbody></table>
+<p>可以发现，在 $i$ 连续的情况下，$\lfloor\frac{n}{i}\rfloor$ 的取值也是连续的，而且随着 $i$ 的递增， $\lfloor\frac{n}{i}\rfloor$ 递减，这启发我们按照 $\lfloor\frac{n}{i}\rfloor$ 的值来处理 $\sum\limits_{i = 1}^n\lfloor\frac{n}{i}\rfloor$ ，我们只需要找出每个取值相同段的左右端点，就可以直接考虑整段对答案的贡献。</p>
+<p>对于区间的左端点，显然可以通过上一个区间的右端点 $ + 1$ 得到。对于区间的右端点，我们考虑用 $n$ 除以区间值，即 $\lfloor\frac{n}{\lfloor\frac{n}{l}\rfloor}\rfloor$，这个便是取到 $\lfloor\frac{n}{i}\rfloor$ 的情况下 $i$ 的最大值。</p>
+<p>算法的时间复杂度是 $O(\sqrt n)$ 。</p>
+<h4 id="四个典例"><a href="#四个典例" class="headerlink" title="四个典例"></a>四个典例</h4><h5 id="sum-limits-i-1-n-lfloor-frac-n-i-rfloor"><a href="#sum-limits-i-1-n-lfloor-frac-n-i-rfloor" class="headerlink" title="$\sum\limits_{i = 1} ^n \lfloor\frac{n}{i}\rfloor$"></a>$\sum\limits_{i = 1} ^n \lfloor\frac{n}{i}\rfloor$</h5><h6 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a><strong>解决方法</strong></h6><p>按照刚才的讲解直接做即可。</p>
+<h6 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a><strong>代码实现</strong></h6><figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> l = <span class="hljs-number">1</span>, r; l &lt;= n; l = r + <span class="hljs-number">1</span>) &#123;</span><br><span class="line">    <span class="hljs-keyword">int</span> a = n / l;</span><br><span class="line">    r = n / a;</span><br><span class="line">    ans += a * (r - l + <span class="hljs-number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="sum-limits-i-1-n-lfloor-frac-n-i-rfloor-times-i"><a href="#sum-limits-i-1-n-lfloor-frac-n-i-rfloor-times-i" class="headerlink" title="$\sum\limits_{i = 1} ^ n  \lfloor\frac{n}{i}\rfloor\times i$"></a>$\sum\limits_{i = 1} ^ n  \lfloor\frac{n}{i}\rfloor\times i$</h5><h6 id="解决方法-1"><a href="#解决方法-1" class="headerlink" title="解决方法"></a><strong>解决方法</strong></h6><p>对于取值相同的段，我们可以将 $\lfloor\frac{n}{i}\rfloor$ 看作常数，然后乘法分配律将后面的式子合并，其实就变成了等差数列求和。</p>
+<h6 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a><strong>代码实现</strong></h6><figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> l = <span class="hljs-number">1</span>, r; l &lt;= n; l = r + <span class="hljs-number">1</span>) &#123;</span><br><span class="line">    <span class="hljs-keyword">int</span> a = n / l;</span><br><span class="line">    r = n / a;</span><br><span class="line">    ans += a * (l + r) * (r - l + <span class="hljs-number">1</span>) / <span class="hljs-number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="sum-limits-i-1-n-lfloor-frac-n-i-rfloor-2"><a href="#sum-limits-i-1-n-lfloor-frac-n-i-rfloor-2" class="headerlink" title="$\sum\limits_{i = 1} ^ n (\lfloor\frac{n}{i}\rfloor) ^ 2$"></a>$\sum\limits_{i = 1} ^ n (\lfloor\frac{n}{i}\rfloor) ^ 2$</h5><h5 id="解决方法-2"><a href="#解决方法-2" class="headerlink" title="解决方法"></a><strong>解决方法</strong></h5><p>对于取值相同的一段，取值的平方也是相同的，所以在加的时候直接加上平方就行了。</p>
+<h6 id="代码实现-2"><a href="#代码实现-2" class="headerlink" title="代码实现"></a><strong>代码实现</strong></h6><figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> l = <span class="hljs-number">1</span>, r; l &lt;= n; l = r + <span class="hljs-number">1</span>) &#123;</span><br><span class="line">    <span class="hljs-keyword">int</span> a = n / l;</span><br><span class="line">    r = n / a;</span><br><span class="line">    ans += a * a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="sum-limits-i-1-n-lfloor-frac-n-i-rfloor-lfloor-frac-m-i-rfloor"><a href="#sum-limits-i-1-n-lfloor-frac-n-i-rfloor-lfloor-frac-m-i-rfloor" class="headerlink" title="$\sum\limits_{i = 1} ^ n \lfloor \frac{n}{i}\rfloor\lfloor \frac{m}{i}\rfloor$"></a>$\sum\limits_{i = 1} ^ n \lfloor \frac{n}{i}\rfloor\lfloor \frac{m}{i}\rfloor$</h5><h6 id="解决方法-3"><a href="#解决方法-3" class="headerlink" title="解决方法"></a><strong>解决方法</strong></h6><p>对于多个上界的，我们要保证算法的正确性，因此每次贡献的仅能是所有相同取值段的并，这个直接将 $r$ 取 $\min$ 就行了。</p>
+<p>对于 $n$ 来说，一共有 $\sqrt n$ 个取值不同的段，那么就有 $n$ 个转折点。对于 $m$ 同理。所以一共就有 $\sqrt n + \sqrt m $ 个取值不同的段。</p>
+<p>即总复杂度为 $O(\sqrt n +\sqrt m)$。</p>
+<h6 id="代码实现-3"><a href="#代码实现-3" class="headerlink" title="代码实现"></a><strong>代码实现</strong></h6><figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> l = <span class="hljs-number">1</span>, r; l &lt;= n; l = r + <span class="hljs-number">1</span>) &#123;</span><br><span class="line">    <span class="hljs-keyword">int</span> a1 = n / l, a2 = m / l;</span><br><span class="line">    <span class="hljs-keyword">int</span> r1 = n / a1, r2 = m / a2;</span><br><span class="line">    r = min(r1, r2);</span><br><span class="line">    ans += (r - l + <span class="hljs-number">1</span>) * (a1 * a2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="级数反演"><a href="#级数反演" class="headerlink" title="级数反演"></a>级数反演</h2><p>试想一种情况，我们得到了函数 $f(x),g(x)$ ，并且知道 $f(x) = h(g(x))$，那么我们通过 $f(x)$ 推出 $g(x)$ 的方式，便是反演。</p>
+<h3 id="莫比乌斯反演"><a href="#莫比乌斯反演" class="headerlink" title="莫比乌斯反演"></a>莫比乌斯反演</h3><h4 id="定理与推导"><a href="#定理与推导" class="headerlink" title="定理与推导"></a>定理与推导</h4><p>定理（莫比乌斯反演定理）：</p>
+<p>&emsp;&emsp;对于两个定义在自然数集合上的函数 $f(x), F(x)$，若 $F(x) = \sum\limits_{d|n} f(x)$，那么: $$f(x) = \sum\limits_{d|n} \mu(d)F(\frac{n}{d})$$。</p>
+<p>证明：</p>
+<p>&emsp;&emsp;我所了解的有两种证明方法，这里只给出第一种。<br>$$<br>\begin{align}<br>F(x) &amp;= \sum\limits_{d | n} f(x) \\ F &amp;= f * I \\ F * \mu &amp;= f * I * \mu \\ F * \mu &amp;= f * (I * \mu) \\ F  *\mu &amp;= f * \epsilon \\ F * \mu &amp;= f \\ f(x) &amp;= \sum\limits_{d | n} \mu(d)F(\frac{n}{d})<br>\end{align}<br>$$</p>
+<h4 id="另一个式子"><a href="#另一个式子" class="headerlink" title="另一个式子"></a>另一个式子</h4><p>若 $F(n) = \sum\limits_{n\mid d} f(d)$，那么 $f(n) = \sum\limits_{n\mid d} \mu(\frac{d}{n})F(d)$。</p>
+<p><strong>注意：这个式子成立的条件是：$\lim\limits_{n\rightarrow\infty}f(n) = 0$</strong></p>
+<p>这个不好证 <del>(其实是我不会)</del>，记住就行，解题很常用。</p>
+<h4 id="小技巧"><a href="#小技巧" class="headerlink" title="小技巧"></a>小技巧</h4><p>与 $[\gcd(i, j) = 1]$ 有关式子的处理。</p>
+<h5 id="推导过程-5"><a href="#推导过程-5" class="headerlink" title="推导过程"></a><strong>推导过程</strong></h5><p>利用狄利克雷卷积。<br>$$<br>\begin{align}<br>[\gcd(i, j) = 1] &amp;= \epsilon(\gcd(i, j)) \\ &amp;= (\mu * I)(\gcd(i, j))\\ &amp;= \sum\limits_{d|\gcd(i, j)} \mu(d)<br>\end{align}<br>$$</p>
+<h5 id="处理一般问题"><a href="#处理一般问题" class="headerlink" title="处理一般问题"></a><strong>处理一般问题</strong></h5><p>例如 $\sum\limits_{i = 1} ^n \sum\limits_{j = 1} ^ m [\gcd(i, j) = k]$</p>
+<p>设 $g = \min(n, m)$。</p>
+<p>我们来推式子：<br>$$<br>\begin{align}<br>\sum\limits_{i = 1} ^ n\sum\limits_{j = 1} ^ m[\gcd(i,j) = k] &amp;= \sum\limits_{i = 1}^{\lfloor\frac{n}{k}\rfloor}\sum\limits_{j = 1}^{\lfloor\frac{m}{k}\rfloor}[\gcd(i, j) = 1] \\ &amp;= \sum\limits_{i = 1}^{\lfloor\frac{n}{k}\rfloor}\sum\limits_{j = 1}^{\lfloor\frac{m}{k}\rfloor}\sum\limits_{d|\gcd(i, j)}\mu(d) \\ &amp;=\sum\limits_{i = 1}^{\lfloor\frac{n}{k}\rfloor}\sum\limits_{j = 1}^{\lfloor\frac{m}{k}\rfloor}\sum\limits_{d | i\text{ and } d | j} \mu(d) \\ &amp;= \sum\limits_{d = 1}^{\lfloor\frac{g}{k}\rfloor}\mu(d)\sum\limits_{d|i}^{\lfloor\frac{n}{k}\rfloor}\sum\limits_{d|j}^{\lfloor\frac{m}{k}\rfloor}1 \\ &amp;= \sum\limits_{d = 1} ^ {\lfloor\frac{g}{k}\rfloor}\lfloor\frac{n}{dk}\rfloor\lfloor\frac{m}{dk}\rfloor\mu(d)<br>\end{align}<br>$$<br>配合数论分块，可以 $O(\sqrt n)$ 解决。</p>
+<h5 id="用莫比乌斯反演解决"><a href="#用莫比乌斯反演解决" class="headerlink" title="用莫比乌斯反演解决"></a><strong>用莫比乌斯反演解决</strong></h5><p>设：<br>$$<br>\begin{align}<br>g &amp;= \min(n, m) \\ f(k) &amp;= \sum\limits_{i = 1} ^ n\sum\limits_{j = 1} ^ m[\gcd(i, j) = k] \\ F(x) &amp;= \sum\limits_{x|k}f(k) \\ &amp;= \lfloor\frac{n}{x}\rfloor\lfloor\frac{m}{x}\rfloor<br>\end{align}<br>$$</p>
+<p>直接用第二个式子反演：<br>$$<br>\begin{align}<br>f(x) &amp;= \sum\limits_{x|d}\mu(\frac{d}{x})F(d) \\ &amp;=\sum\limits_{x|d}\mu(\frac{d}{x})\lfloor\frac{n}{d}\rfloor\lfloor\frac{m}{d}\rfloor \\ &amp;= \sum\limits_{d = 1}^{\lfloor\frac{g}{k}\rfloor}\lfloor\frac{n}{dx}\rfloor\lfloor\frac{m}{dx}\rfloor\mu(d)<br>\end{align}<br>$$<br>得到的结果是一样的，但是推导过程简 $({n\acute an)}$ 单 $(d\check{o}ng)$ 多了2333。</p>
+<h3 id="二项式反演"><a href="#二项式反演" class="headerlink" title="二项式反演"></a>二项式反演</h3><h4 id="定理与推导-1"><a href="#定理与推导-1" class="headerlink" title="定理与推导"></a>定理与推导</h4><p>定理：</p>
+<p>&emsp;&emsp;若 $F(n) = \sum\limits_{k = p}^n\dbinom{n}{k}f(k)$，那么 $f(n) = \sum\limits_{k = p}^n(-1)^{n - k}\dbinom{n}{k}F(k)$。</p>
+<p>证明：<br>&emsp;&emsp;本质上是容斥原理。这里讲代数证明方法。</p>
+<p>&emsp;&emsp;引理 $1$：<br>$$<br>\begin{align}<br>\sum\limits_{k = s} ^ n\sum\limits_{i = s} ^ ka_{k, i} = \sum\limits_{i = s} ^ n\sum\limits_{k = i} ^ na_{k,i}<br>\end{align}<br>$$<br>&emsp;&emsp;证明：</p>
+<p>&emsp;&emsp;&emsp;&emsp;画个坐标系把这两个区域标记出来，挺显然的。</p>
+<p>&emsp;&emsp;引理 $2$：<br>$$<br>\sum\limits_{k = m} ^ n(-1) ^ {n - k}\dbinom{n}{k}\dbinom{k}{m} = [n = m]<br>$$<br>&emsp;&emsp;证明：<br>&emsp;&emsp;&emsp;&emsp;当 $n = m$ 时，显然成立。</p>
+<p>&emsp;&emsp;&emsp;&emsp;当 $n \neq m$ 时， $n &gt; m$，此时有：<br>$$<br>\begin{align}<br>\sum\limits_{k = m} ^ n(-1) ^ {n - k}\dbinom{n}{k}\dbinom{k}{m} &amp;= \sum\limits_{k = m} ^ n(-1) ^ {n - k}\dbinom{n}{m}\dbinom{n - m}{k - m} \\ &amp;= \dbinom{n}{m}\sum\limits_{k = m} ^ n (-1) ^ {n - m - (k - m)}\dbinom{n - m}{k - m} \\ &amp;=\dbinom{n}{m} \sum\limits_{i = 0} ^ {n - m} (-1)^{n - m - i}\dbinom{n - m}{i} \\ &amp;=  \dbinom{n}{m}\times 0 \\ &amp;= 0<br>\end{align}<br>$$<br>&emsp;&emsp;将定理左式代入右式<br>$$<br>\begin{align}<br>\sum\limits_{k = p}^n(-1)^{n - k}\dbinom{n}{k}F(k) &amp;= \sum\limits_{k = p}^n(-1)^{n - k}\dbinom{n}{k}\sum\limits_{i = p}^k\dbinom{k}{i}f(i) \\ &amp;=\sum\limits_{k = p} ^ n\sum\limits_{i = p}^k(-1)^{n - k}\dbinom{n}{k}\dbinom{k}{i}f(i)<br>\end{align}<br>$$<br>&emsp;&emsp;由引理 $1$：<br>$$<br>\begin{align}<br>\sum\limits_{k = p} ^ {n}\sum\limits_{i = p}^ k(-1) ^ {n - k}\dbinom{n}{k}\dbinom{k}{i}f(i) &amp;= \sum\limits_{i = p} ^ n[\sum\limits_{k = i} ^ n(-1)^{n - k}\dbinom{n}{k}\dbinom{k}{i}]f(i)<br>\end{align}<br>$$<br>&emsp;&emsp;由引理 $2$：<br>$$<br>\sum\limits_{i = p} ^ n[\sum\limits_{k = i} ^ n(-1)^{n - k}\dbinom{n}{k}\dbinom{k}{i}]f(i) = f(n)<br>$$<br>&emsp;&emsp;所以：<br>$$<br>\sum\limits_{k = p}^n(-1) ^ {n - k}\dbinom{n}{k}F(k) = f(n)<br>$$</p>
+<h4 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h4><p>通过推导你就能察觉到，其实二项式反演属于更偏向于组合数学的内容。</p>
+<p>那么它的应用也更偏向于计数问题。</p>
+<h5 id="至多与恰好的转换"><a href="#至多与恰好的转换" class="headerlink" title="至多与恰好的转换"></a><strong>至多与恰好的转换</strong></h5><p>比如说，如果让你求 $A$ 中有多少个元素恰好满足限制 $B$，当恰好的方案数不太好求，但是至多的方案数较为好求时，我们可以通过二项式反演进行至多与恰好的转换。</p>
+<p>设 $f(x)$ 为恰好的方案数，而 $g(x)$ 为至多的方案数。</p>
+<p>我们将其联系起来：</p>
+<p>$$g(n) = \sum\limits_{i = 0} ^ n \dbinom{n}{i}f(i)$$</p>
+<p>然后二项式反演：</p>
+<p>$$f(n) = \sum\limits_{i = 0} ^ n(-1) ^ {n - i} \dbinom{n}{i}g(i)$$</p>
+<p>完成转换。</p>
+<h5 id="至少与恰好的转换"><a href="#至少与恰好的转换" class="headerlink" title="至少与恰好的转换"></a><strong>至少与恰好的转换</strong></h5><p>相似地，有些时候至少的情况会更加好求。</p>
+<p>我们依然设 $f(x)$ 为恰好的方案数，而 $g(x)$ 为至少的方案数。</p>
+<p>进行联系：</p>
+<p>$$g(k) = \sum\limits_{i = k} ^ n \dbinom{i}{k}f(i)$$</p>
+<p>然后二项式反演：</p>
+<p>$$f(n) = \sum\limits_{i = k} ^ n (-1) ^ {i - k} \dbinom{i}{k}g(i)$$</p>
+<p><strong>需要注意的是，两种情况的联系式并不一样。</strong></p>
+<p>感性愉悦理解一下吧2333。</p>
+<h1 id="感谢"><a href="#感谢" class="headerlink" title="感谢"></a>感谢</h1><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>[1]: <a href="https://www.cnblogs.com/henry-1202/p/10246196.html" target="_blank" rel="noopener">(henry_y) 欧拉函数的几个性质及证明</a></p>
+<p>[2]: <a href="https://www.cnblogs.com/zhoushuyu/p/8275530.html" target="_blank" rel="noopener">(租酥雨) 积性函数与线性筛</a></p>
+<p>[3]: <a href="https://www.cnblogs.com/zhoushuyu/p/8275530.html" target="_blank" rel="noopener">(peng-ym) 积性函数与线性筛</a></p>
+<p>[4]: <a href="https://blog.masterliu.net/algorithm/sieve/" target="_blank" rel="noopener">(Alfred) 数论线性筛总结</a></p>
+<p>[5]: <a href="https://www.luogu.org/blog/An-Amazing-Blog/mu-bi-wu-si-fan-yan-ji-ge-ji-miao-di-dong-xi" target="_blank" rel="noopener">(An_Account) 莫比乌斯反演-让我们从基础开始</a></p>
+<p>[6]: <a href="https://www.luogu.org/blog/lx-2003/mobius-inversion" target="_blank" rel="noopener">(_rqy) 铃悬的数学小讲堂——狄利克雷卷积与莫比乌斯反演</a></p>
+<p>[7]: <a href="https://oi-wiki.org/math/mobius/" target="_blank" rel="noopener">(24OI) OI-Wiki 莫比乌斯反演</a></p>
+<p>[8]: <a href="https://blog.csdn.net/hhaannyyii/article/details/79335883" target="_blank" rel="noopener">(Hany01) 莫比乌斯函数、二项式、斯特林数以及它们的反演</a></p>
+<p>[9]: <a href="https://www.luogu.org/blog/siyuan/solution-p3327" target="_blank" rel="noopener">(Siyuan) 题解 P3327 [SDOI2015]约数个数和</a></p>
+<p>[10]: <a href="http://vfleaking.blog.uoj.ac/blog/87#/3" target="_blank" rel="noopener">(Vfleaking) 炫酷反演魔术</a></p>
+<p>[11]: <a href="https://www.cnblogs.com/ww3113306/p/10114679.html" target="_blank" rel="noopener">(ww3113306)二项式反演理解与证明</a></p>
+<p>[12]: <a href="https://blog.csdn.net/sizeof_you/article/details/86365003" target="_blank" rel="noopener">(sjszkadYYG) 二项式反演 学习笔记</a></p>
+<p>感谢上述文章的作者，排名不分先后。</p>
+<p>感谢 vuq 的 dalao 们热心地回答问题。</p>
+<p>感谢 peng-ym 帮助我找了一篇写的很好的博客。</p>
+<p>感谢审稿人 mrsrz 帮助我问了一个问题，并提出了很多宝贵的意见。</p>
+<p>感谢 ucw 帮我对拍文中代码。</p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/容斥/">容斥</a>, <a class="has-link-grey -link" href="/tags/数论/">数论</a>, <a class="has-link-grey -link" href="/tags/狄利克雷卷积/">狄利克雷卷积</a>, <a class="has-link-grey -link" href="/tags/线性筛/">线性筛</a>, <a class="has-link-grey -link" href="/tags/莫比乌斯反演/">莫比乌斯反演</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/09/04/Luogu-P1896-SCOI2005-互不侵犯-解题报告/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">Luogu P1896 [SCOI2005]互不侵犯 解题报告</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/08/29/WGSZ水题公开赛-题解/">
+                <span class="level-item">WGSZ水题公开赛 赛后总结及题解</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                        <figure class="image is-128x128 has-mb-6">
+                            <img class="is-rounded" src="/images/round.jpg" alt="Minakami Yuki">
+                        </figure>
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        Minakami Yuki
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Which Dreamed it
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>最果ての空</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        88
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        5
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        86
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/Minagami" target="_blank">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Github" href="https://github.com/Minagami">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+<!--<div class="card widget" id="toc">-->
+<div class="card widget column-left is-sticky" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#积性函数">
+        <span class="has-mr-6">1</span>
+        <span>积性函数</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#狄利克雷卷积">
+        <span class="has-mr-6">1.1</span>
+        <span>狄利克雷卷积</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#定义">
+        <span class="has-mr-6">1.1.1</span>
+        <span>定义</span>
+        </a></li><li>
+        <a class="is-flex" href="#性质">
+        <span class="has-mr-6">1.1.2</span>
+        <span>性质</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#常见积性函数">
+        <span class="has-mr-6">1.2</span>
+        <span>常见积性函数</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#完全积性函数">
+        <span class="has-mr-6">1.2.1</span>
+        <span>完全积性函数</span>
+        </a></li><li>
+        <a class="is-flex" href="#非完全积性函数">
+        <span class="has-mr-6">1.2.2</span>
+        <span>非完全积性函数</span>
+        </a></li><li>
+        <a class="is-flex" href="#与狄利克雷卷积的相互转化">
+        <span class="has-mr-6">1.2.3</span>
+        <span>与狄利克雷卷积的相互转化</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#计算">
+        <span class="has-mr-6">1.3</span>
+        <span>计算</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#筛法">
+        <span class="has-mr-6">2</span>
+        <span>筛法</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#素数筛法">
+        <span class="has-mr-6">2.1</span>
+        <span>素数筛法</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#Eratosthenes-筛法">
+        <span class="has-mr-6">2.1.1</span>
+        <span>Eratosthenes 筛法</span>
+        </a></li><li>
+        <a class="is-flex" href="#Euler-筛">
+        <span class="has-mr-6">2.1.2</span>
+        <span>Euler 筛</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#推广-Euler-筛">
+        <span class="has-mr-6">2.2</span>
+        <span>推广 Euler 筛</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#线性筛-mu-x">
+        <span class="has-mr-6">2.2.1</span>
+        <span>线性筛 $\mu(x)$</span>
+        </a></li><li>
+        <a class="is-flex" href="#线性筛-varphi-x">
+        <span class="has-mr-6">2.2.2</span>
+        <span>线性筛 $\varphi(x)$</span>
+        </a></li><li>
+        <a class="is-flex" href="#线性筛-d-x">
+        <span class="has-mr-6">2.2.3</span>
+        <span>线性筛 $d(x) $</span>
+        </a></li><li>
+        <a class="is-flex" href="#线性筛-sigma-x">
+        <span class="has-mr-6">2.2.4</span>
+        <span>线性筛 $\sigma(x)$</span>
+        </a></li><li>
+        <a class="is-flex" href="#一般的积性函数">
+        <span class="has-mr-6">2.2.5</span>
+        <span>一般的积性函数</span>
+        </a></li></ul></li></ul></li><li>
+        <a class="is-flex" href="#反演">
+        <span class="has-mr-6">3</span>
+        <span>反演</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#前置知识">
+        <span class="has-mr-6">3.1</span>
+        <span>前置知识</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#数论分块">
+        <span class="has-mr-6">3.1.1</span>
+        <span>数论分块</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#级数反演">
+        <span class="has-mr-6">3.2</span>
+        <span>级数反演</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#莫比乌斯反演">
+        <span class="has-mr-6">3.2.1</span>
+        <span>莫比乌斯反演</span>
+        </a></li><li>
+        <a class="is-flex" href="#二项式反演">
+        <span class="has-mr-6">3.2.2</span>
+        <span>二项式反演</span>
+        </a></li></ul></li></ul></li><li>
+        <a class="is-flex" href="#感谢">
+        <span class="has-mr-6">4</span>
+        <span>感谢</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#参考资料">
+        <span class="has-mr-6">4.1</span>
+        <span>参考资料</span>
+        </a></li></ul></li></ul>
+        </div>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="https://i.loli.net/2019/10/10/y9zYaVHLsNt1Cek.png" alt="数论函数与反演" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 Minakami Yuki&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+
+    <!--背景线条-->
+    <!--<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-1" count="99" src="dist/canvas-nest.js"></script>-->
+    <!--<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-1" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

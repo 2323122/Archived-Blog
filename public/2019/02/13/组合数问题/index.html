@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 3.9.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>Luogu P2822 组合数问题 解题报告 - Yuki&#39;s Blog</title>
+
+
+
+
+
+
+
+
+<link rel="icon" href="/images/round.jpg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/tomorrow.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<!--<body class="is-2-column">-->
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="https://i.loli.net/2019/10/10/y9zYaVHLsNt1Cek.png" alt="Luogu P2822 组合数问题 解题报告" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/notes">笔记</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-02-13T02:14:12.000Z">2019-02-13</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/解题报告/">解题报告</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    6 分钟 读完 (大约 901 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                Luogu P2822 组合数问题 解题报告
+            
+        </h1>
+        <div class="content">
+            <blockquote>
+<p>暴力能拿90（雾</p>
+</blockquote>
+<a id="more"></a>
+
+<p><img src="https://i.loli.net/2019/02/13/5c637f8a0d9b4.jpg" alt></p>
+<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>组合数 ${C_n^m}$表示的是从${n}$ 个物品中选出${m}$个物品的方案数。举个例子，从 ${(1,2,3)}$三个物品中选择两个物品可以有 ${(1,2),(1,3),(2,3)}$这三种选择方法。根据组合数的定义，我们可以给出计算组合数${C_n^m}$的一般公式：</p>
+<p>$${C_n^m=\frac{n!}{m!(n-m)!}}$$</p>
+<p>其中${n!=\prod\limits_{i=1}^ni}$；特别地，定义${0!=1}$。</p>
+<p>小葱想知道如果给定${n,m}$和${k}$，对于所有的${0\leq i\leq n,0\leq j\leq \min \left ( i, m \right )}$有多少对 (i,j)(<em>i</em>,<em>j</em>) 满足${C_i^j}$是${k}$的倍数。</p>
+<h2 id="输入输出格式"><a href="#输入输出格式" class="headerlink" title="输入输出格式"></a>输入输出格式</h2><h3 id="输入格式："><a href="#输入格式：" class="headerlink" title="输入格式："></a>输入格式：</h3><p>第一行有两个整数${t,k}$，其中代${t}$表该测试点总共有多少组测试数据，${k}$的意义见问题描述。</p>
+<p>接下来${t}$行每行两个整数${n,m}$，其中${ n,m}$的意义见问题描述。</p>
+<h3 id="输出格式："><a href="#输出格式：" class="headerlink" title="输出格式："></a>输出格式：</h3><p>共$t$行，每行一个整数代表所有的$0\leq i\leq n,0\leq j\leq \min \left ( i, m \right )$中有多少对$(i,j)$满足$C_i^j$是$k$的倍数。</p>
+<h2 id="输入输出样例"><a href="#输入输出样例" class="headerlink" title="输入输出样例"></a>输入输出样例</h2><p>输入样例#1：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 2</span><br><span class="line">3 3</span><br></pre></td></tr></table></figure>
+
+<p>输出样例#1：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1</span><br></pre></td></tr></table></figure>
+
+<p>输入样例#2：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2 5</span><br><span class="line">4 5</span><br><span class="line">6 7</span><br></pre></td></tr></table></figure>
+
+<p>输出样例#2：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0</span><br><span class="line">7</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">7</span><br></pre></td></tr></table></figure>
+
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>【样例1说明】</p>
+<p>在所有可能的情况中，只有$C_2^1 = 2$是2的倍数。</p>
+<p>【子任务】</p>
+<p><img src="https://cdn.luogu.org/upload/pic/3457.png" alt></p>
+<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><h2 id="30分做法"><a href="#30分做法" class="headerlink" title="30分做法"></a>30分做法</h2><p>照着题目打组合数公式。</p>
+<p>优化的话，可以将阶乘打表，<del>或者写INT_128将$C_{0\le i\le 2000}^{0\le j \le i}$打表</del></p>
+<p>很无脑，没写代码。</p>
+<h2 id="50分做法"><a href="#50分做法" class="headerlink" title="50分做法"></a>50分做法</h2><p>打标算，多组数据输出不换行。</p>
+<p>就像这样<img src="https://i.loli.net/2019/02/13/5c63845df123d.png" alt></p>
+<h2 id="70分做法"><a href="#70分做法" class="headerlink" title="70分做法"></a>70分做法</h2><p>发现需求出$C_{0\le i\le n}^{0\le j\le \min(i,m)}$  </p>
+<p>考虑组合数递推：<br>$$ C^m_n=C^{m-1}_{n-1}+C^{m-1}_n$$</p>
+<p>可${O(mn)}$预处理。</p>
+<p>但需要注意<strong>初始化</strong>，即递推起点：<br>$${C_0^0=C_1^0=C_1^1=1}$$</p>
+<h3 id="实现："><a href="#实现：" class="headerlink" title="实现："></a>实现：</h3><figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">build</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">    c[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>]=c[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>]=c[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>]=<span class="hljs-number">1</span>;</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i=<span class="hljs-number">2</span>;i&lt;=<span class="hljs-number">2000</span>;i++)&#123;</span><br><span class="line">        c[i][<span class="hljs-number">0</span>]=<span class="hljs-number">1</span>;</span><br><span class="line">        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> j=<span class="hljs-number">1</span>;j&lt;=i;j++)&#123;</span><br><span class="line">            c[i][j]=(c[i<span class="hljs-number">-1</span>][j<span class="hljs-number">-1</span>]+c[i<span class="hljs-number">-1</span>][j]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="90分做法"><a href="#90分做法" class="headerlink" title="90分做法"></a>90分做法</h2><p>观察到<strong>多组数据模数一致</strong>，可以在预处理时取模。</p>
+<h3 id="实现：-1"><a href="#实现：-1" class="headerlink" title="实现："></a>实现：</h3><figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">build</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">    c[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>]=c[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>]=c[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>]=<span class="hljs-number">1</span>;</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i=<span class="hljs-number">2</span>;i&lt;=<span class="hljs-number">2000</span>;i++)&#123;</span><br><span class="line">        c[i][<span class="hljs-number">0</span>]=<span class="hljs-number">1</span>;</span><br><span class="line">        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> j=<span class="hljs-number">1</span>;j&lt;=i;j++)&#123;</span><br><span class="line">            c[i][j]=(c[i<span class="hljs-number">-1</span>][j<span class="hljs-number">-1</span>]+c[i<span class="hljs-number">-1</span>][j])%k;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="100分做法"><a href="#100分做法" class="headerlink" title="100分做法"></a>100分做法</h2><p>观察到模数一致，考虑实现${O(1)}$查询：<br>用<strong>前缀和</strong>维护一个答案数组<code>ans[n][m]</code>，在预处理组合数时进行维护。</p>
+<p>注意<strong>容斥</strong>：</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ans[i][j]=ans[i<span class="hljs-number">-1</span>][j]+ans[i][j<span class="hljs-number">-1</span>]-ans[i<span class="hljs-number">-1</span>][j<span class="hljs-number">-1</span>];</span><br></pre></td></tr></table></figure>
+
+<p>注意对于当前数据的<strong>更新</strong>：</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">if</span>(!c[i][j]) ans[i][j]++;</span><br></pre></td></tr></table></figure>
+
+<p>注意答案<strong>传递</strong>：（想不明白可以画一个杨辉三角手玩）</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ans[i][i+<span class="hljs-number">1</span>]=ans[i][i];</span><br></pre></td></tr></table></figure>
+
+<p>对于100分的做法，需要注意到$Sample;2$：<br>在$Sample; Input; 2$中，出现了$m&gt;n$的<strong>违法情况</strong>，对于这类数据，在答案输出时特判，输出<code>ans[n][n]</code></p>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> ll long long</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> ll <span class="hljs-title">min</span><span class="hljs-params">(ll a,ll b)</span></span>&#123;<span class="hljs-keyword">return</span> a&lt;b?a:b;&#125;</span><br><span class="line"><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> maxn = <span class="hljs-number">2010</span>;</span><br><span class="line">ll t,n,m,k,c[maxn][maxn],ans[maxn][maxn];</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">build</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">    c[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>]=c[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>]=c[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>]=<span class="hljs-number">1</span>;</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i=<span class="hljs-number">2</span>;i&lt;=<span class="hljs-number">2000</span>;i++)&#123;</span><br><span class="line">        c[i][<span class="hljs-number">0</span>]=<span class="hljs-number">1</span>;</span><br><span class="line">        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> j=<span class="hljs-number">1</span>;j&lt;=i;j++)&#123;</span><br><span class="line">            c[i][j]=(c[i<span class="hljs-number">-1</span>][j<span class="hljs-number">-1</span>]+c[i<span class="hljs-number">-1</span>][j])%k;</span><br><span class="line">            ans[i][j]=ans[i<span class="hljs-number">-1</span>][j]+ans[i][j<span class="hljs-number">-1</span>]-ans[i<span class="hljs-number">-1</span>][j<span class="hljs-number">-1</span>];</span><br><span class="line">            <span class="hljs-keyword">if</span>(!c[i][j]) ans[i][j]++;</span><br><span class="line">        &#125;</span><br><span class="line">        ans[i][i+<span class="hljs-number">1</span>]=ans[i][i];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;	</span><br><span class="line">    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%lld%lld"</span>,&amp;t,&amp;k);</span><br><span class="line">    build();</span><br><span class="line">    <span class="hljs-keyword">while</span>(t--)&#123;</span><br><span class="line">        <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%lld%lld"</span>,&amp;n,&amp;m);</span><br><span class="line">        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%lld\n"</span>,m&gt;n?ans[n][n]:ans[n][m]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><p>这题坑不少，谈一谈作者实现时的问题：</p>
+<ol>
+<li>对于$m=0$的数据，快读有锅，应换用<strong>标准输入输出</strong>；</li>
+<li>多组数据题，输出时<strong>一定要换行</strong>！<code>puts(&quot;&quot;);</code>；</li>
+<li><strong>容斥</strong>和<strong>答案继承</strong>都是坑；</li>
+<li>若非标算，在多组数据处理前应初始化<code>ans</code>；</li>
+<li>目前没想到离线做法。</li>
+</ol>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/组合数学/">组合数学</a>, <a class="has-link-grey -link" href="/tags/组合数递推/">组合数递推</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/02/13/表达式树及三序表达/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">表达式树及三序表达 学习报告</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/02/12/SuperGCD/">
+                <span class="level-item">SDOI2009 SuperGCD解题报告(瞎搞)</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                        <figure class="image is-128x128 has-mb-6">
+                            <img class="is-rounded" src="/images/round.jpg" alt="Minakami Yuki">
+                        </figure>
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        Minakami Yuki
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Which Dreamed it
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>最果ての空</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        88
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        5
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        86
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/Minagami" target="_blank">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Github" href="https://github.com/Minagami">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+<!--<div class="card widget" id="toc">-->
+<div class="card widget column-left is-sticky" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#题目">
+        <span class="has-mr-6">1</span>
+        <span>题目</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#题目描述">
+        <span class="has-mr-6">1.1</span>
+        <span>题目描述</span>
+        </a></li><li>
+        <a class="is-flex" href="#输入输出格式">
+        <span class="has-mr-6">1.2</span>
+        <span>输入输出格式</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#输入格式：">
+        <span class="has-mr-6">1.2.1</span>
+        <span>输入格式：</span>
+        </a></li><li>
+        <a class="is-flex" href="#输出格式：">
+        <span class="has-mr-6">1.2.2</span>
+        <span>输出格式：</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#输入输出样例">
+        <span class="has-mr-6">1.3</span>
+        <span>输入输出样例</span>
+        </a></li><li>
+        <a class="is-flex" href="#说明">
+        <span class="has-mr-6">1.4</span>
+        <span>说明</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#分析">
+        <span class="has-mr-6">2</span>
+        <span>分析</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#30分做法">
+        <span class="has-mr-6">2.1</span>
+        <span>30分做法</span>
+        </a></li><li>
+        <a class="is-flex" href="#50分做法">
+        <span class="has-mr-6">2.2</span>
+        <span>50分做法</span>
+        </a></li><li>
+        <a class="is-flex" href="#70分做法">
+        <span class="has-mr-6">2.3</span>
+        <span>70分做法</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#实现：">
+        <span class="has-mr-6">2.3.1</span>
+        <span>实现：</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#90分做法">
+        <span class="has-mr-6">2.4</span>
+        <span>90分做法</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#实现：-1">
+        <span class="has-mr-6">2.4.1</span>
+        <span>实现：</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#100分做法">
+        <span class="has-mr-6">2.5</span>
+        <span>100分做法</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#代码">
+        <span class="has-mr-6">3</span>
+        <span>代码</span>
+        </a></li><li>
+        <a class="is-flex" href="#注意事项">
+        <span class="has-mr-6">4</span>
+        <span>注意事项</span>
+        </a></li></ul>
+        </div>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="https://i.loli.net/2019/10/10/y9zYaVHLsNt1Cek.png" alt="Luogu P2822 组合数问题 解题报告" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 Minakami Yuki&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+
+    <!--背景线条-->
+    <!--<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-1" count="99" src="dist/canvas-nest.js"></script>-->
+    <!--<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-1" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

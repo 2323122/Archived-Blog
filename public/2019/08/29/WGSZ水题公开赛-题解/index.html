@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 3.9.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>WGSZ水题公开赛 赛后总结及题解 - Yuki&#39;s Blog</title>
+
+
+
+
+
+
+
+
+<link rel="icon" href="/images/round.jpg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/tomorrow.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<!--<body class="is-2-column">-->
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="https://i.loli.net/2019/10/10/y9zYaVHLsNt1Cek.png" alt="WGSZ水题公开赛 赛后总结及题解" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/notes">笔记</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="https://i.loli.net/2019/08/29/2KOL9IbTvxgMsdU.png" alt="WGSZ水题公开赛 赛后总结及题解">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-08-29T07:44:54.000Z">2019-08-29</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/解题报告/">解题报告</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    19 分钟 读完 (大约 2906 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                WGSZ水题公开赛 赛后总结及题解
+            
+        </h1>
+        <div class="content">
+            <p>这里是 Yuki。</p>
+<a id="more"></a>
+
+<p><a href="https://guoj.icu/contest/15" target="_blank" rel="noopener">比赛链接</a></p>
+<h1 id="赛后总结"><a href="#赛后总结" class="headerlink" title="赛后总结"></a>赛后总结</h1><p>首先感谢出题人和各位前来参赛的神仙，以及我们最可爱的站长 $\color{black}Q\color{red}uank$</p>
+<p>由于 WGSZ 的同学第一次办比赛，出了很多锅，这里我代表所有人向大家道歉，Quank也因此加 大 力 度设置奖项，并加入了有趣的随机roll奖环节23333</p>
+<p>然后也恭喜<img src="https://i.loli.net/2019/08/29/ELpYcNHgklwSRfi.png" alt="ranklist.png">三位同学进入前三，并得到了各自的奖励<del>（rk3好像没有奖励）</del>，然后中奖的欧皇同学是 $\color{black}s\color{red}hadow$，恭喜各位。</p>
+<p>然后呢GuOJ是一个 <strong>0 收益</strong> OJ，所有的奖品都是Quank和出题人自费买的，运营费用也是Quank一个人承担的，Quank建设这个OJ是为了大家能够更好地学习OI，所以请大家多多滋磁 GuOJ，以后也会有很多类似的福利活动的qwq。</p>
+<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><h2 id="A"><a href="#A" class="headerlink" title="A"></a>A</h2><p><strong>出题人：你看我菜吗</strong></p>
+<p>额，其实这题仔细想还是很水的。</p>
+<p>我们首先给出了一个关于<strong>草的优先级</strong>的$n$的矩阵，可以得出两两草之间的比较关系。那<br>么如何解出每个草的优先级呢，其实解法有很多种，我讲其中三种。</p>
+<h3 id="算法一"><a href="#算法一" class="headerlink" title="算法一"></a>算法一</h3><p>对于每一个<code>&lt;</code> <code>&gt;</code>由小的向大的连一条的边，并且将较大者入度加 $1$，对于<code>=</code>，我<br>们则可以两两互相连边，然后跑一遍<strong>拓扑</strong>就好啦。</p>
+<h3 id="算法二"><a href="#算法二" class="headerlink" title="算法二"></a>算法二</h3><p>我们可以考虑<strong>差分约束</strong>，跑<strong>最长路</strong>。</p>
+<h3 id="算法三"><a href="#算法三" class="headerlink" title="算法三"></a>算法三</h3><p>我们可以排序一遍，两两以判断条件为<code>&lt;</code>排序。然后线性跑一遍，处理出来每个草<br>的优先级就好啦。</p>
+<p>然后我们来割草。<br>这就是一个裸的<strong>状压dp</strong>哇，我们用 $f[i][j]$ 代表着当前状态为 $j$，到达 $i$ 点所需要的最短距离。<br>那么我们每次枚举一个在状态里面的点，枚举一个不在状态里面的点，用<code>lowbit</code>求一下当前走一步是割掉第几个优先级的草，转移一下就好啦。<br>这样的复杂度差不多是 $O(n\times2^n)$的，因为$m$最大也就18，甚至都没有跑满。</p>
+<h2 id="B"><a href="#B" class="headerlink" title="B"></a>B</h2><p><strong>出题人：Melantha、Minagami Yuki、Anoxiacxy</strong></p>
+<h3 id="扯点别的"><a href="#扯点别的" class="headerlink" title="扯点别的"></a>扯点别的</h3><p>刚刚看到这道题的时候，你可能会想：出题人怎么这么中二啊。看完题目背景（也可能直接跳过）了以后，你可能会好奇为什么这道题的英文名叫 $reach$。为了这道题冥思苦想了很久（这是一道板子题啊喂），也因此学习了$Special;Judge$ 的写法，在此感谢 $\color{grey}Yuki$ 和 $\color{black}A\color{red}noxiacxy$ 两位大佬，他们几乎占了这道题的一半分量。本人内心戏较多勿怪。</p>
+<h3 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h3><p>先对背景进行解释，题目名字 $reach$ 其实就是致远星的英文名，然后题目中提到的那些其实都是<code>《光晕》</code>里面存在的。<code>Winter_Contingency</code>意为“寒冬告急”，就是人类被星盟发现时候的警报信息。</p>
+<p>是的我就是这么中二，本小蒟蒻语文不是很好，在题目中可能没有描述清楚，在此解释一下题意：</p>
+<p>求一个字符串，使它满足所有条件。条件分为两种：①在某处必须为 <code>XX</code> 或 <code>XX</code>（任务类型） ②在某处为 <code>XX</code> 或在某处为 <code>XX</code>（司令部要求）。你可能已经发现了，虽然这两种条件看上去好像是一种条件，但实际上第一种任务是用来当作<code>2-SAT</code>的是/非来看的。</p>
+<p>是的，<code>2-SAT</code>，这个方法并不是很常见，但是的确是一个很好的方法。类似于<code>spfa</code>对于差分约束的意义，<code>tarjan</code> 对于<code>2-SAT</code>也是如此。<code>2-SAT</code> 并不是一种数据结构，也不是什么高级东西，它是一种建图的方法，通过巧妙的建边将一个<code>NP</code>完全问题的弱化版转化成能用tarjan 来解决，如果正在看这段话的你还没有学到的话可以去了解一下。</p>
+<p>此处不赘述2-SAT 的原理和推断过程，只是给出最终的建边方法，想要了解的可以去<code>luogu</code>上看一看<a href="https://www.luogu.org/problem/P4782" target="_blank" rel="noopener"><strong>P4782</strong>【模板】2-SAT 问题</a>。</p>
+<h2 id="C"><a href="#C" class="headerlink" title="C"></a>C</h2><p><strong>出题人：Why__rink</strong></p>
+<h3 id="问题转化"><a href="#问题转化" class="headerlink" title="问题转化"></a>问题转化</h3><p>假设连续正整数的起始为 $a$，完全平方数为 $t^2$，则易得以下关系：<br>$n^2 + (2a - 1)n = 2\times t^2$（有等差数列求和公式化得）<br>利用上式反表示 $a$：<br>$a = \frac{(\frac{2\times t^2} {n} - (n - 1))}{2}$<br>考虑到 $a$ 和 $t$ 为正整数，则问题转化为，$n$ 取何值时，存在正整数 $t$ 使得：<br>$\frac{2\times t^2} {n} - ( n - 1 )$为正偶数<br>自然进一步转换就是：<br>$\frac{2t^2} {n}$ 与 $( n - 1 )$ 同奇偶性，且 $\frac{2\times t^2} {n} &gt;  n - 1 $</p>
+<h3 id="奇偶讨论"><a href="#奇偶讨论" class="headerlink" title="奇偶讨论"></a>奇偶讨论</h3><p>既然都涉及奇偶性了，那我不妨讨论讨论n的奇偶性呗，先来看一下 $n$ 是奇数会咋样。</p>
+<h4 id="n-为奇数"><a href="#n-为奇数" class="headerlink" title="$n$ 为奇数"></a>$n$ 为奇数</h4><p>此时 $n-1$ 为偶数，因此需要 $\frac{2\times t^2} {n}$ 为大于 $n-1$ 的偶数，取 $t$ 为 $n$ 则显然满足上式。</p>
+<h4 id="n-为偶数"><a href="#n-为偶数" class="headerlink" title="$n$ 为偶数"></a>$n$ 为偶数</h4><p>此时 $n-1$ 为奇数。设 $n$ = $2\times k$ ，则有 $2\times \frac{t^2} {n}$ = $\frac{t^2} {k}$，以及$n - 1 = 2\times k - 1$。因此 $\frac{t^2}{k}$ 必为大于 $2k - 1$ 的奇数。<br>首先要保证 $\frac{t^2}{k}$为整数，由此我们可以推出 $t^2$ 中 $2$ 的幂次大于等于 $k$ 中 $2$ 的幂次。<br>因为 $t$ 中不论 $2$ 的幂次为奇数还是偶数，$t^2$ 中 $2$ 的幂次一定为偶数，因此 $k$ 中 $2$ 的幂次与 $t^2$ 中 $2$ 的幂次相同，才可为奇数。<br>因此 $k$ 中 $2$ 的幂次必为偶数，且易证此时存在 $t$ 使得 $\frac{t^2}{k}$ 为大于 $2k - 1$ 的奇数。继而可知那种 $2$ 的幂次为奇数。<br>结论<br>综上：<br>$n$ 的取值范围为所有 $2$ 的幂次为 $0$ 或者为<strong>正奇数</strong>的正整数。<br>接着，我们就知道所有的偶数 $n$ 都可表示为 $(2^k)\times (2\times q-1)$,其中 $k$ 为奇数，$q$ 为任意正整数。</p>
+<h2 id="D"><a href="#D" class="headerlink" title="D"></a>D</h2><p><strong>出题人：ViXpop</strong></p>
+<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>典型的<strong>求割点</strong>加 $bfs$ 最短路问题，<del>水的一批，数据也弱，就是一个模板题</del>。</p>
+<p>首先用 $tarjan$ 求出所有的割点，再从起点开始 $bfs$ 遍历整个迷宫，记录一下所有点到起点的最短距离，开一维还是二维都可以，当然最优秀的肯定还是一维。</p>
+<p>遍历完整个迷宫之后，如果有任何一个割点没有被遍历到，很显然是无法完成任务的，否则就可以。</p>
+<p>思路很简单，本题主要比较考验代码能力，当然哪怕你代码能力不是非常优秀也能 $AC$ 此题。</p>
+<p>当然如果没看出来这是一个求割点问题，可以暴力扫一遍所有点，判断如果去掉这个点能否让当前连通图被分成两个连通图，这样做的话复杂度爆炸，不过依然可以拿到 $40$ 分左右的优秀成绩（<del>Yuki：被dl赛制卡掉了233333</del>）。</p>
+<p>对于最后两个链的情况，很显然除了两个端点外全部都是割点，bfs 遍历也很简单，基本上是送分点。</p>
+<p>本人觉得应该大众分 $60$ 分$_{(\text{Yuki偷笑})}$，$AC$ 的选手应该也不在少数。</p>
+<h2 id="E"><a href="#E" class="headerlink" title="E"></a>E</h2><p><strong>出题人：kanekik</strong></p>
+<h3 id="出-题-人-的-谢-罪"><a href="#出-题-人-的-谢-罪" class="headerlink" title="出 题 人 的 谢 罪"></a>出 题 人 的 谢 罪</h3><p>在这里，出题人要先背锅。原本 $O(n\log n)$ 可以有八十分部分分，但是因为。。在赛制设置时，手贱设置成了 $acm$ 赛制。。。导致许多神仙未拿到分，很抱歉。并且权值未给范围，让许多神仙疑惑，真的抱歉。。。</p>
+<h3 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h3><p>这道题的原型是<a href="https://www.luogu.org/problem/P4331" target="_blank" rel="noopener">[BOI2007]Sequence</a>，只不过将其放在树上。</p>
+<p>这道题目其实是一个<strong>贪心</strong>，我们先考虑<strong>一条链</strong>的情况：</p>
+<p>显然，每一次操作会减少一个数，增加的费用时合并两个数中的最大值。</p>
+<p>此时，我们需要运用分治的思想。将区间拆分成小区间来看待，对于一个区间，不难想到，最大的数至少需要统计两次答案，并且最大的数被统计两次，为最优情况（左右两边都有数时）。而最小的数，一定不会被统计入答案。</p>
+<p>So，最大的数应该被尽可能少的合并，一个数的左右两边的比它小，那么它肯定至少要<br>合并两次，对于它左右两边的所有数，按照分治的思想，分成 $2$ 个子区间，依次递推，同时<br>贪心，每个长度大于等于 $3$ 的子区间的较大数最优只对答案贡献 $2$ 次。<br>因此，可以 $O(n)$ 解决，$ans += \max(a[i],a[i+1])$ ;<br>而放在树上，本质并未改变：<br>因为只是最大值的的统计次数由两次（两边有数）或一次（边界）转换为与其相连节点数。<br>实在不好理解可以依照 $std$ 模拟。<br>$80$ 分的算法是将节点按权值由小到大排一遍序，然后依次处理，是可行的，但是因为出题<br>人数据较为毒瘤，会卡住最后两个点。。</p>
+<h2 id="F"><a href="#F" class="headerlink" title="F"></a>F</h2><p><strong>出题人：随_便</strong></p>
+<h3 id="Solution-1"><a href="#Solution-1" class="headerlink" title="Solution"></a>Solution</h3><p>首先，求出长度第K和长度第K-1的字符串的最长公共子串。因为数据范围较小，直接n方DP，并在转移时记录最长公共字串在较长串中最先出现的位置。 </p>
+<p>同时，建一条由长度第K连向长度第K-1的字符串的边，边上记录所消耗的代价和最长公共字串所包含的字母类型（状压）。 </p>
+<p>最后，将所有长度最字符串小的入队，用队内字串更新所有它连向的字符串（状压DP），若某一字符串已知所有字母类型，则将其入队。</p>
+<h2 id="G"><a href="#G" class="headerlink" title="G"></a>G</h2><p><strong>出题人：weiyifan</strong></p>
+<h3 id="Solution-2"><a href="#Solution-2" class="headerlink" title="Solution"></a>Solution</h3><p>题目保证了这棵树会从根节点向四周延伸，且有解，则叶子节点一定会出现在最外围。</p>
+<p>xlb 会从每一棵子树中选择，叶子节点自己就是一棵子树，所以一定会选到。</p>
+<p>可证明从中间节点中无论怎么选都不如从叶子节点中选优，就读边时记下只有一条无向边相连的点，读坐标时将这些点记下来。</p>
+<p>因为要面积最大，就维护一个凸包，最后算出周长。</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/08/29/数论函数与反演/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">数论函数与反演</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/08/28/CF1207E-XOR-Guessing-解题报告/">
+                <span class="level-item">CF1207E XOR Guessing 解题报告</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                        <figure class="image is-128x128 has-mb-6">
+                            <img class="is-rounded" src="/images/round.jpg" alt="Minakami Yuki">
+                        </figure>
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        Minakami Yuki
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Which Dreamed it
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>最果ての空</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        88
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        5
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        86
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/Minagami" target="_blank">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Github" href="https://github.com/Minagami">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+<!--<div class="card widget" id="toc">-->
+<div class="card widget column-left is-sticky" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#赛后总结">
+        <span class="has-mr-6">1</span>
+        <span>赛后总结</span>
+        </a></li><li>
+        <a class="is-flex" href="#题解">
+        <span class="has-mr-6">2</span>
+        <span>题解</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#A">
+        <span class="has-mr-6">2.1</span>
+        <span>A</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#算法一">
+        <span class="has-mr-6">2.1.1</span>
+        <span>算法一</span>
+        </a></li><li>
+        <a class="is-flex" href="#算法二">
+        <span class="has-mr-6">2.1.2</span>
+        <span>算法二</span>
+        </a></li><li>
+        <a class="is-flex" href="#算法三">
+        <span class="has-mr-6">2.1.3</span>
+        <span>算法三</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#B">
+        <span class="has-mr-6">2.2</span>
+        <span>B</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#扯点别的">
+        <span class="has-mr-6">2.2.1</span>
+        <span>扯点别的</span>
+        </a></li><li>
+        <a class="is-flex" href="#正文">
+        <span class="has-mr-6">2.2.2</span>
+        <span>正文</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#C">
+        <span class="has-mr-6">2.3</span>
+        <span>C</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#问题转化">
+        <span class="has-mr-6">2.3.1</span>
+        <span>问题转化</span>
+        </a></li><li>
+        <a class="is-flex" href="#奇偶讨论">
+        <span class="has-mr-6">2.3.2</span>
+        <span>奇偶讨论</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#D">
+        <span class="has-mr-6">2.4</span>
+        <span>D</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#Solution">
+        <span class="has-mr-6">2.4.1</span>
+        <span>Solution</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#E">
+        <span class="has-mr-6">2.5</span>
+        <span>E</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#出-题-人-的-谢-罪">
+        <span class="has-mr-6">2.5.1</span>
+        <span>出 题 人 的 谢 罪</span>
+        </a></li><li>
+        <a class="is-flex" href="#题解-1">
+        <span class="has-mr-6">2.5.2</span>
+        <span>题解</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#F">
+        <span class="has-mr-6">2.6</span>
+        <span>F</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#Solution-1">
+        <span class="has-mr-6">2.6.1</span>
+        <span>Solution</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#G">
+        <span class="has-mr-6">2.7</span>
+        <span>G</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#Solution-2">
+        <span class="has-mr-6">2.7.1</span>
+        <span>Solution</span>
+        </a></li></ul></li></ul></li></ul>
+        </div>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="https://i.loli.net/2019/10/10/y9zYaVHLsNt1Cek.png" alt="WGSZ水题公开赛 赛后总结及题解" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 Minakami Yuki&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+
+    <!--背景线条-->
+    <!--<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-1" count="99" src="dist/canvas-nest.js"></script>-->
+    <!--<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-1" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

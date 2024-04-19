@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 3.9.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>模拟退火 学习报告 - Yuki&#39;s Blog</title>
+
+
+
+
+
+
+
+
+<link rel="icon" href="/images/round.jpg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/tomorrow.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<!--<body class="is-2-column">-->
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="https://i.loli.net/2019/10/10/y9zYaVHLsNt1Cek.png" alt="模拟退火 学习报告" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/notes">笔记</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="https://i.loli.net/2019/09/25/SBiu926LoYlbN4f.jpg" alt="模拟退火 学习报告">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-09-25T00:07:14.000Z">2019-09-25</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/学习报告/">学习报告</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    15 分钟 读完 (大约 2247 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                模拟退火 学习报告
+            
+        </h1>
+        <div class="content">
+            <blockquote>
+<p>  没有什么事是退火解决不了的，如果解决不了，就多退几次。</p>
+</blockquote>
+<a id="more"></a>
+
+<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><blockquote>
+<p>   <strong>模拟退火</strong>是一种通用<a href="https://zh.wikipedia.org/wiki/概率演算法" target="_blank" rel="noopener">概率算法</a>，常用来在一定时间内寻找在一个很大<a href="https://zh.wikipedia.org/w/index.php?title=搜尋空間&action=edit&redlink=1" target="_blank" rel="noopener">搜寻空间</a>中的近似<a href="https://zh.wikipedia.org/w/index.php?title=最優解&action=edit&redlink=1" target="_blank" rel="noopener">最优解</a>。模拟退火是 S. Kirkpatrick, C. D. Gelatt 和 M. P. Vecchi 在1983年所发明。而 V. Černý 在 1985 年也独立发明此<a href="https://zh.wikipedia.org/wiki/演算法" target="_blank" rel="noopener">算法</a>。</p>
+<p>  模拟退火来自<a href="https://zh.wikipedia.org/wiki/冶金學" target="_blank" rel="noopener">冶金学</a>的专有名词<a href="https://zh.wikipedia.org/wiki/退火" target="_blank" rel="noopener">退火</a>。退火是将材料加热后再经特定速率冷却，目的是增大<a href="https://zh.wikipedia.org/wiki/晶體" target="_blank" rel="noopener">晶粒</a>的体积，并且减少晶格中的缺陷。材料中的原子原来会停留在使<a href="https://zh.wikipedia.org/wiki/內能" target="_blank" rel="noopener">内能</a>有局部最小值的位置，加热使能量变大，原子会离开原来位置，而随机在其他位置中移动。退火冷却时速度较慢，使得原子有较多可能可以找到内能比原先更低的位置。</p>
+<p>  模拟退火的原理也和金属退火的原理近似：我们将热力学的理论套用到统计学上，将搜寻空间内每一点想像成空气内的分子；分子的能量，就是它本身的动能；而搜寻空间内的每一点，也像空气分子一样带有“能量”，以表示该点对命题的合适程度。算法先以搜寻空间内一个任意点作起始：每一步先选择一个“邻居”，然后再计算从现有位置到达“邻居”的概率。</p>
+<p>  可以证明，模拟退火算法所得解<a href="https://zh.wikipedia.org/wiki/依概率收敛" target="_blank" rel="noopener">依概率收敛</a>到全局最优解。</p>
+<p>  来源：Wikipedia</p>
+</blockquote>
+<p>通俗点讲，该算法就是通过模拟 “退火、降温” 的过程，来实现向某个极值点逼近的同时，有概率跳到另一个极值点。从而不会被某个非最优解的极值点限制。</p>
+<h1 id="算法过程"><a href="#算法过程" class="headerlink" title="算法过程"></a>算法过程</h1><p>随机扰动<strong>条件</strong>，然后计算出一个新的答案。若该答案<strong>更优</strong>，则<strong>接受并更新</strong>。否则<strong>以一定的概率接受</strong>。</p>
+<p>首先，我们钦定 $T_0$ 为<strong>初始温度</strong>，$T_k$ 为<strong>终止温度</strong>，设<strong>当前温度</strong>为 $T$。退火开始前，$T$ 应当等于 $T_0$。<br>每次操作都会使 $T$ 以降温系数 $k$ <strong>减小</strong>，即 $T\times k \rightarrow T$，当 $T \leq T_k$ 时终止算法。显然，$k\in (0, 1)$。</p>
+<p>设新答案为 $now$，原答案为 $ans$。<br>定义变化量为 $\Delta(delta)$，$x$ 为一个随机数，经过科学计算，上文中提到的接受概率应当为 $e^{\frac{\Delta}{T\times x}}$。</p>
+<p>假定我们求的是某<strong>最小</strong>值，那么当 $\Delta &lt; 0$ 时，就应当接受该解，更新答案。 若 $\Delta &gt; 0$ ，我们就将 $e^{\frac{\Delta}{T}}$ 与 $\frac{\mathrm{rand()}}{\mathrm{RAND_MAX}}$（即随机一个<strong>概率</strong>） 作比较。若前者较大，则保留方案，<strong>但不更新答案</strong>。否则回退到扰乱前的方案。</p>
+<p>退火开始前，原答案 $ans$ 应为未经扰动的方案的解。</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Hill_Climbing_with_Simulated_Annealing.gif" alt="过程图解（图源：Wikipedia）"></p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SA</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">    ans = solve();</span><br><span class="line">    <span class="hljs-keyword">while</span>(T &gt; eps) &#123;</span><br><span class="line">    	<span class="hljs-comment">// 扰动</span></span><br><span class="line">    	<span class="hljs-keyword">double</span> now = solve();</span><br><span class="line">    	<span class="hljs-keyword">double</span> delta = now - ans;</span><br><span class="line">    	<span class="hljs-keyword">if</span>(delta &lt; <span class="hljs-number">0</span>) now = ans;</span><br><span class="line">    	<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(<span class="hljs-built_in">exp</span>(-delta / T) * RAND_MAX &lt; rand()) <span class="hljs-comment">// 还原</span></span><br><span class="line">    	T = T * k;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="参数调整"><a href="#参数调整" class="headerlink" title="参数调整"></a>参数调整</h1><p>考虑一次退火中 <code>solve()</code> 函数的运行次数，即为 <code>while()</code> 循环的次数。</p>
+<p>不难算出为 $\log_k(\frac{T_0}{T_k})$，这里的 $k\in(0, 1)$，所以这个函数在定义域上单调递减。</p>
+<p>根据对数函数相关知识，$T_0, T_k$ 对运行次数影响并<strong>不大</strong>，所以对运行时间的影响也不大。而 $k$ 的变化引起运行时间的变化较为<strong>显著</strong>。</p>
+<p>除了这些参数，我们还可以控制的是退火的<strong>次数</strong>。每次退火都以上次得到的最优解为初始解，会大大增加退火<strong>精确性</strong>。</p>
+<p><del>除此之外还能调 <code>srand()</code> 的参数。</del></p>
+<p>所以，在<strong>运行时间较短</strong>时，可以适当<strong>调高</strong>一些参数以保证<strong>准确性</strong>。这里介绍一个黑科技：卡时。<br><code>C++</code> 有一个函数 <code>clock()</code> 会返回当前程序的<strong>运行时间</strong>，所以我们可以把这个函数返回的时间与规定时限的比较作为条件以在规定的时限多运行几次 <code>SA()</code> 保证精确度。<del>我一直觉得小数据点没必要多跑几次，直到某考试…</del></p>
+<p>为了防止程序 TLE，最<strong>保险</strong>的判断时限应该是数据点时限的 $1\over 2$。这样程序就不会因为第二次退火<strong>超时</strong>。</p>
+<p>写法：</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">Time</span><span class="hljs-params">()</span> </span>&#123;<span class="hljs-keyword">return</span> (<span class="hljs-keyword">double</span>) clock() / TIME_PER_SEC;&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">    <span class="hljs-comment">// 读入</span></span><br><span class="line">    <span class="hljs-keyword">while</span>(Time() &lt;= LIMIT / <span class="hljs-number">2</span>) SA();</span><br><span class="line">    <span class="hljs-comment">// 输出</span></span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="扰乱方法"><a href="#扰乱方法" class="headerlink" title="扰乱方法"></a>扰乱方法</h1><p>对于<strong>函数</strong>型问题，直接把将自变量加上随机值就行了。需要注意的是，<code>rand()</code>返回值是正数，所以我们需要手写一个<code>rdm()</code>。</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">rdm</span><span class="hljs-params">()</span> </span>&#123;<span class="hljs-keyword">return</span> rand() * <span class="hljs-number">2</span> - RAND_MAX;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>例题：<a href="https://www.luogu.org/problem/P1337" target="_blank" rel="noopener">P1337 [JSOI2004]平衡点 / 吊打XXX</a><br>参考代码：</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cctype&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">int</span> <span class="hljs-title">read</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">char</span> ch = getchar(); <span class="hljs-keyword">int</span> r = <span class="hljs-number">0</span>, w = <span class="hljs-number">1</span>;</span><br><span class="line">    <span class="hljs-keyword">while</span>(!<span class="hljs-built_in">isdigit</span>(ch)) &#123;<span class="hljs-keyword">if</span>(ch == <span class="hljs-string">'-'</span>) w = <span class="hljs-number">-1</span>; ch = getchar();&#125;</span><br><span class="line">    <span class="hljs-keyword">while</span>(<span class="hljs-built_in">isdigit</span>(ch)) &#123;r = r * <span class="hljs-number">10</span> + ch - <span class="hljs-string">'0'</span>, ch = getchar();&#125;</span><br><span class="line">    <span class="hljs-keyword">return</span> r * w;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">1010</span>;</span><br><span class="line"><span class="hljs-keyword">const</span> <span class="hljs-keyword">double</span> eps = <span class="hljs-number">1e-15</span>;</span><br><span class="line"><span class="hljs-keyword">const</span> <span class="hljs-keyword">double</span> k = <span class="hljs-number">0.999</span>;</span><br><span class="line"></span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">data</span> &#123;</span></span><br><span class="line">    <span class="hljs-keyword">double</span> x, y, m;</span><br><span class="line">&#125; a[N];</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">int</span> n;</span><br><span class="line"><span class="hljs-keyword">double</span> ansx, ansy;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">dis</span><span class="hljs-params">(<span class="hljs-keyword">double</span> x1, <span class="hljs-keyword">double</span> y1, <span class="hljs-keyword">double</span> x2, <span class="hljs-keyword">double</span> y2)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-built_in">sqrt</span>((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">res</span><span class="hljs-params">(<span class="hljs-keyword">double</span> x, <span class="hljs-keyword">double</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">double</span> ans = <span class="hljs-number">0</span>;</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) ans += dis(x, y, a[i].x, a[i].y) * a[i].m;</span><br><span class="line">    <span class="hljs-keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">rdm</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> (rand() * <span class="hljs-number">2</span> - RAND_MAX);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SA</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">double</span> T = <span class="hljs-number">200</span>;</span><br><span class="line">    <span class="hljs-keyword">while</span>(T &gt; eps) &#123;</span><br><span class="line">        <span class="hljs-keyword">double</span> nowx = ansx + rdm() * T;</span><br><span class="line">        <span class="hljs-keyword">double</span> nowy = ansy + rdm() * T;</span><br><span class="line">        <span class="hljs-keyword">double</span> delta = res(nowx, nowy) - res(ansx, ansy);</span><br><span class="line">        <span class="hljs-keyword">if</span>(delta &lt; <span class="hljs-number">0</span>) ansx = nowx, ansy = nowy;</span><br><span class="line">        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(<span class="hljs-built_in">exp</span>(-delta / T) * RAND_MAX &gt; rand()) ansx = nowx, ansy = nowy;</span><br><span class="line">        T *= k;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">    n = read();</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%lf%lf%lf"</span>, &amp;a[i].x, &amp;a[i].y, &amp;a[i].m);</span><br><span class="line">        ansx += a[i].x, ansy += a[i].y;</span><br><span class="line">    &#125;</span><br><span class="line">    ansx /= n, ansy /= n;</span><br><span class="line">    SA();</span><br><span class="line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%.3lf %.3lf\n"</span>, ansx, ansy);</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于<strong>序列</strong>上的问题，直接交换两个位置就行了。</p>
+<p>例题：<a href="https://www.luogu.org/problem/P2210" target="_blank" rel="noopener">P2210 Haywire</a><br>参考代码：</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cctype&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;ctime&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">int</span> <span class="hljs-title">read</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">char</span> ch = getchar(); <span class="hljs-keyword">int</span> r = <span class="hljs-number">0</span>, w = <span class="hljs-number">1</span>;</span><br><span class="line">    <span class="hljs-keyword">while</span>(!<span class="hljs-built_in">isdigit</span>(ch)) &#123;<span class="hljs-keyword">if</span>(ch == <span class="hljs-string">'-'</span>) w = <span class="hljs-number">-1</span>; ch = getchar();&#125;</span><br><span class="line">    <span class="hljs-keyword">while</span>(<span class="hljs-built_in">isdigit</span>(ch)) &#123;r = r * <span class="hljs-number">10</span> + ch - <span class="hljs-string">'0'</span>, ch = getchar();&#125;</span><br><span class="line">    <span class="hljs-keyword">return</span> r * w;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">rdm</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> rand() * <span class="hljs-number">2</span> - RAND_MAX;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">13</span>;</span><br><span class="line"><span class="hljs-keyword">const</span> <span class="hljs-keyword">double</span> k = <span class="hljs-number">0.999</span>;</span><br><span class="line"><span class="hljs-keyword">const</span> <span class="hljs-keyword">double</span> eps = <span class="hljs-number">1e-15</span>;</span><br><span class="line"></span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">INFO</span> &#123;</span></span><br><span class="line">    <span class="hljs-keyword">int</span> a, b, c;</span><br><span class="line">&#125; a[N];</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">int</span> n, pos[N];</span><br><span class="line"><span class="hljs-keyword">double</span> ans = <span class="hljs-number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">calc</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">int</span> res = <span class="hljs-number">0</span>;</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        res += <span class="hljs-built_in">abs</span>(pos[i] - pos[a[i].a]);</span><br><span class="line">        res += <span class="hljs-built_in">abs</span>(pos[i] - pos[a[i].b]);</span><br><span class="line">        res += <span class="hljs-built_in">abs</span>(pos[i] - pos[a[i].c]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SA</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">double</span> T = <span class="hljs-number">10000</span>;</span><br><span class="line">    <span class="hljs-keyword">while</span>(T &gt; eps) &#123;</span><br><span class="line">        <span class="hljs-keyword">int</span> x, y;</span><br><span class="line">        <span class="hljs-keyword">do</span> &#123;</span><br><span class="line">            x = rand() % n + <span class="hljs-number">1</span>;</span><br><span class="line">            y = rand() % n + <span class="hljs-number">1</span>;</span><br><span class="line">        &#125; <span class="hljs-keyword">while</span>(x == y);</span><br><span class="line">        <span class="hljs-built_in">std</span>::swap(pos[x], pos[y]);</span><br><span class="line">        <span class="hljs-keyword">double</span> now = calc();</span><br><span class="line">        <span class="hljs-keyword">double</span> delta = now - ans;</span><br><span class="line">        <span class="hljs-keyword">if</span>(delta &lt; <span class="hljs-number">0</span>) ans = now;</span><br><span class="line">        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(<span class="hljs-built_in">exp</span>(-delta / T) * RAND_MAX &gt; rand()) ans = now;</span><br><span class="line">        <span class="hljs-keyword">else</span> <span class="hljs-built_in">std</span>::swap(pos[x], pos[y]);</span><br><span class="line">        T *= k;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">    srand(time(<span class="hljs-literal">NULL</span>));</span><br><span class="line">    n = read();</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) a[i].a = read(), a[i].b = read(), a[i].c = read(), pos[i] = i;</span><br><span class="line">    ans = (<span class="hljs-keyword">double</span>)calc();</span><br><span class="line">    SA();</span><br><span class="line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%.0lf\n"</span>, ans / <span class="hljs-number">2</span>);</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="答案计算方法"><a href="#答案计算方法" class="headerlink" title="答案计算方法"></a>答案计算方法</h1><p>其实当前方案的答案不一定得是暴力计算，与其他算法结合可以有效减小码量和时间复杂度。</p>
+<p>例题：<a href="https://www.luogu.org/problem/P2503" target="_blank" rel="noopener">P2503 [HAOI2006]均分数据</a></p>
+<p>解析：<br>&emsp;&emsp;考虑模拟退火算出最小值，而当前答案的计算，则是一个很基础的线性DP:<br>&emsp;&emsp;将 $n$ 个数划分成 $m$ 组，使每组元素和的均方差最小。<br>&emsp;&emsp;剩下的按照模拟退火正常做就行了。</p>
+<p>参考代码：</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cctype&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;ctime&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">const</span> <span class="hljs-keyword">double</span> eps = <span class="hljs-number">1e-3</span>;</span><br><span class="line"><span class="hljs-keyword">const</span> <span class="hljs-keyword">double</span> k = <span class="hljs-number">0.99</span>;</span><br><span class="line"><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">21</span>;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">int</span> <span class="hljs-title">read</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">char</span> ch = getchar(); <span class="hljs-keyword">int</span> r = <span class="hljs-number">0</span>, w = <span class="hljs-number">1</span>;</span><br><span class="line">    <span class="hljs-keyword">while</span>(!<span class="hljs-built_in">isdigit</span>(ch)) &#123;<span class="hljs-keyword">if</span>(ch == <span class="hljs-string">'-'</span>) w = <span class="hljs-number">-1</span>; ch = getchar();&#125;</span><br><span class="line">    <span class="hljs-keyword">while</span>(<span class="hljs-built_in">isdigit</span>(ch)) &#123;r = r * <span class="hljs-number">10</span> + ch - <span class="hljs-string">'0'</span>, ch = getchar();&#125;</span><br><span class="line">    <span class="hljs-keyword">return</span> r * w;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">double</span> a[N], s[N];</span><br><span class="line"><span class="hljs-keyword">double</span> f[N][N];</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">int</span> n, m;</span><br><span class="line"><span class="hljs-keyword">double</span> ans, ave;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">dp</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) s[i] = s[i - <span class="hljs-number">1</span>] + a[i];</span><br><span class="line">    <span class="hljs-built_in">memset</span>(f, <span class="hljs-number">127</span>, <span class="hljs-keyword">sizeof</span> f);</span><br><span class="line">    f[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++)</span><br><span class="line">        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= i; j++)</span><br><span class="line">            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> k = <span class="hljs-number">0</span>; k &lt;= i - <span class="hljs-number">1</span>; k++)</span><br><span class="line">                f[i][j] = <span class="hljs-built_in">std</span>::min(f[i][j], f[k][j - <span class="hljs-number">1</span>] + (s[i] - s[k] - ave) * (s[i] - s[k] - ave));</span><br><span class="line">    ans = <span class="hljs-built_in">std</span>::min(ans, f[n][m]);</span><br><span class="line">    <span class="hljs-keyword">return</span> f[n][m];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">SA</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">double</span> T = <span class="hljs-number">10000</span>;</span><br><span class="line">    <span class="hljs-keyword">while</span>(T &gt; eps) &#123;</span><br><span class="line">        <span class="hljs-keyword">int</span> x = <span class="hljs-number">0</span>, y = <span class="hljs-number">0</span>;</span><br><span class="line">        <span class="hljs-keyword">while</span>(x == y) &#123;</span><br><span class="line">            x = rand() % n + <span class="hljs-number">1</span>;</span><br><span class="line">            y = rand() % n + <span class="hljs-number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-built_in">std</span>::swap(a[x], a[y]);</span><br><span class="line">        <span class="hljs-keyword">double</span> now = dp();</span><br><span class="line">        <span class="hljs-keyword">double</span> delta = now - ans;</span><br><span class="line">        <span class="hljs-keyword">if</span>(delta &lt; <span class="hljs-number">0</span>) ans = now;</span><br><span class="line">        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(<span class="hljs-built_in">exp</span>(-delta / T) * RAND_MAX &lt; rand()) <span class="hljs-built_in">std</span>::swap(a[x], a[y]);</span><br><span class="line">        T *= k;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">Time</span><span class="hljs-params">()</span> </span>&#123;<span class="hljs-keyword">return</span> (<span class="hljs-keyword">double</span>)clock() / CLOCKS_PER_SEC;&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">    srand(time(<span class="hljs-literal">NULL</span>));</span><br><span class="line">    n = read(), m = read();</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%lf"</span>, a + i);</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) ave += a[i] / m;</span><br><span class="line">    ans = dp();</span><br><span class="line">    <span class="hljs-keyword">while</span>(Time() &lt; <span class="hljs-number">0.75</span>) SA();</span><br><span class="line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%.2lf\n"</span>, <span class="hljs-built_in">sqrt</span>(ans / m));</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/模拟退火/">模拟退火</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/09/26/动态DP-学习报告/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">动态DP 学习报告</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/09/24/Luogu-P2503-HAOI2006-均分数据-解题报告/">
+                <span class="level-item">Luogu P2503 [HAOI2006]均分数据 解题报告</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                        <figure class="image is-128x128 has-mb-6">
+                            <img class="is-rounded" src="/images/round.jpg" alt="Minakami Yuki">
+                        </figure>
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        Minakami Yuki
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Which Dreamed it
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>最果ての空</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        88
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        5
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        86
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/Minagami" target="_blank">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Github" href="https://github.com/Minagami">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+<!--<div class="card widget" id="toc">-->
+<div class="card widget column-left is-sticky" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#简介">
+        <span class="has-mr-6">1</span>
+        <span>简介</span>
+        </a></li><li>
+        <a class="is-flex" href="#算法过程">
+        <span class="has-mr-6">2</span>
+        <span>算法过程</span>
+        </a></li><li>
+        <a class="is-flex" href="#参数调整">
+        <span class="has-mr-6">3</span>
+        <span>参数调整</span>
+        </a></li><li>
+        <a class="is-flex" href="#扰乱方法">
+        <span class="has-mr-6">4</span>
+        <span>扰乱方法</span>
+        </a></li><li>
+        <a class="is-flex" href="#答案计算方法">
+        <span class="has-mr-6">5</span>
+        <span>答案计算方法</span>
+        </a></li></ul>
+        </div>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="https://i.loli.net/2019/10/10/y9zYaVHLsNt1Cek.png" alt="模拟退火 学习报告" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 Minakami Yuki&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+
+    <!--背景线条-->
+    <!--<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-1" count="99" src="dist/canvas-nest.js"></script>-->
+    <!--<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-1" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

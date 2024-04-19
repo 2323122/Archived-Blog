@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 3.9.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>扩展欧几里得 学习报告 - Yuki&#39;s Blog</title>
+
+
+
+
+
+
+
+
+<link rel="icon" href="/images/round.jpg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/tomorrow.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<!--<body class="is-2-column">-->
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="https://i.loli.net/2019/10/10/y9zYaVHLsNt1Cek.png" alt="扩展欧几里得 学习报告" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/notes">笔记</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-02-10T11:54:15.000Z">2019-02-10</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/学习报告/">学习报告</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    6 分钟 读完 (大约 880 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                扩展欧几里得 学习报告
+            
+        </h1>
+        <div class="content">
+            <h1 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h1><h2 id="取模运算"><a href="#取模运算" class="headerlink" title="取模运算"></a>取模运算</h2><p>数${a}$对数${b}$取模，等价于数${a}$减去数${a}$除以数${b}$向下取整的商乘上数${b}$的差（好绕啊）。</p>
+<a id="more"></a>
+
+<p>其实就是下面这个式子：<br>$${a(mod;b){\Longleftrightarrow}a-{\left\lfloor\dfrac{a}{b}\right\rfloor}\times b}$$<br>很好理解。</p>
+<h2 id="最大公约数"><a href="#最大公约数" class="headerlink" title="最大公约数"></a>最大公约数</h2><p>数${a}$,${b}$的最大公约数指同时能够整除${a}$,${b}$的最大的正整数。记为 _gcd(a,b)_。</p>
+<h1 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h1><h2 id="欧几里得定理"><a href="#欧几里得定理" class="headerlink" title="欧几里得定理"></a>欧几里得定理</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>又称<strong>辗转相除法</strong>，原理是这个式子：<br>$${gcd(a,b)=gcd(b,a(mod ; b))}$$<br>可以看出这个式子能够递归求解，递归边界为：<br>$${b=0}$$</p>
+<h3 id="证明"><a href="#证明" class="headerlink" title="证明"></a>证明</h3><p>${\forall a,b 且a&gt;b}$</p>
+<p>若${b\mid a}$ ，显然有${gcd(a,b)=b}$.</p>
+<p>考虑${b\nmid a}$：</p>
+<p>不妨设${a=bk+c}$，显然有$a\equiv c\pmod{b}$.</p>
+<p>设${d\mid a}$且${d\mid b}$，则${c=a-bk\frac{c}{d}=\frac{a}{d}-\frac{b}{d}k}$</p>
+<p>故${d\mid c}$.</p>
+<p>故${\forall c\mid a}$且${c\mid b}$，${c\mid a(mod; b)}$.</p>
+<p>反过来，设${d\mid b}$ ${d\mid a(mod; b)}$，同样有${\frac{a;mod;b}{d}=\frac{a}{d}-\frac{b}{d}k\frac{a;mod;b}{d}+\frac{b}{d}k=\frac{a}{d}}$.</p>
+<p>故${d\mid a}$.</p>
+<p>故${gcd(a,b)=gcd(b,a(mod;b))}$.</p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">gcd</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a,<span class="hljs-keyword">int</span> b)</span></span>&#123;<span class="hljs-keyword">return</span> b?gcd(b,a%b):a;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>很简单，一行就够了。</p>
+<h1 id="扩展欧几里得"><a href="#扩展欧几里得" class="headerlink" title="扩展欧几里得"></a>扩展欧几里得</h1><h2 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h2><p>解方程${ax+by=gcd(a,b)}$</p>
+<h2 id="推导"><a href="#推导" class="headerlink" title="推导"></a>推导</h2><p>设${ax_1+by_1=gcd(a,b)}$.                    ······①</p>
+<p>${bx_2+a(mod; b)y_2=gcd(b,a(mod; b))}$        ······②</p>
+<p>由<strong>欧几里得定理</strong>：<br>${gcd(a,b)=gcd(b,a(mod; b))}$                ······③</p>
+<p>由②③：</p>
+<p>${bx_2+a(mod; b)y_2=gcd(a,b)}$                ······④</p>
+<p>由①④：</p>
+<p>${ax_1+by_1=bx_2+a(mod;b)y_2}$            ······⑤</p>
+<p>由取模运算等价形式得：</p>
+<p>${a(mod; b)=a-{\left\lfloor\dfrac{a}{b}\right\rfloor}\times b}$                    ······⑥</p>
+<p>由⑤⑥：</p>
+<p>${ax_1+by_1=bx_2+({a-{\left\lfloor\dfrac{a}{b}\right\rfloor}\times b})y_2}$          ······⑦</p>
+<p>由⑦移项得：</p>
+<p>${ax_1+by_1=ay_2+b(x_2-{\left\lfloor\dfrac{a}{b}\right\rfloor}y_2)}$         ······⑧</p>
+<p>可得方程的一组<strong>可行解</strong>为：</p>
+<p>$\begin{cases}{x_1=y_2}\y_1=x_2-{\left\lfloor\dfrac{a}{b}\right\rfloor}y_2\end{cases}$                        ······⑨</p>
+<p>由⑨得：<br>${\forall x_n,y_n\ne0}$，${\begin{cases}x_n=y_{n+1}\y_n=x_{n+1}-{\left\lfloor\dfrac{a}{b}\right\rfloor}y_{n+1}\end{cases}}$      ······⑩</p>
+<p>即每一个${x,y}$都可由上一层推出.</p>
+<p>递归边界为：${b=0}$，此时，x=1，y=0.</p>
+<h2 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">exgcd</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a,<span class="hljs-keyword">int</span> b,<span class="hljs-keyword">int</span>&amp; x,<span class="hljs-keyword">int</span> &amp;y)</span></span>&#123;</span><br><span class="line">    <span class="hljs-keyword">if</span>(!b)&#123;x=<span class="hljs-number">1</span>,y=<span class="hljs-number">0</span>;<span class="hljs-keyword">return</span>;&#125;</span><br><span class="line">    <span class="hljs-keyword">int</span> g=exgcd(b,a%b,y,x);y-=a/b*x;</span><br><span class="line">    <span class="hljs-keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="典例"><a href="#典例" class="headerlink" title="典例"></a>典例</h2><h3 id="题目链接：NOIP2012-同余方程"><a href="#题目链接：NOIP2012-同余方程" class="headerlink" title="题目链接：NOIP2012 同余方程"></a>题目链接：<a href="https://www.luogu.org/problemnew/show/P1082" target="_blank" rel="noopener">NOIP2012 同余方程</a></h3><h3 id="推导过程"><a href="#推导过程" class="headerlink" title="推导过程"></a>推导过程</h3><p>不妨将题目中的${ax\equiv 1\pmod{b}}$转化为${ax+by=1}$.</p>
+<p>若要求${x}$的最小正整数解，很显然，${y}$为负数.</p>
+<p>由<strong>裴蜀定理</strong>：${ax+by=1}$有解，当且仅当${a,b}$互素.</p>
+<p>那么，${gcd(a,b)=1}$.</p>
+<p>求出了${gcd(a,b)}$，就可以运用exgcd来求解.</p>
+<p>需要注意的是，${exgcd}$求出的只是一组<strong>可行解</strong>，需对解出的${x}$进行调整使其成为最小正整数解.</p>
+<p>如何调整？</p>
+<p>仅需对x进行增减b的倍数的操作，使其<strong>恰大于0</strong>.</p>
+<p>该操作可以简化为取模运算。</p>
+<p>正确性可以这样理解：</p>
+<p>因为${a,b}$互素，所以对于${x}$，对其增减任意倍数的${b}$，都能保证${b\mid (1-ax)}$.</p>
+<h3 id="代码实现-2"><a href="#代码实现-2" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> a,b,x,y;</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">exgcd</span><span class="hljs-params">(<span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> a,<span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> b,<span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span>&amp; x,<span class="hljs-keyword">long</span> <span class="hljs-keyword">long</span> &amp;y)</span></span>&#123;</span><br><span class="line">    <span class="hljs-keyword">if</span>(!b)&#123;x=<span class="hljs-number">1</span>,y=<span class="hljs-number">0</span>;<span class="hljs-keyword">return</span>;&#125;</span><br><span class="line">    exgcd(b,a%b,y,x);y-=a/b*x;</span><br><span class="line">    <span class="hljs-keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%lld %lld"</span>,&amp;a,&amp;b);</span><br><span class="line">    exgcd(a,b,x,y);</span><br><span class="line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d"</span>,(x+b)%b);</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/exgcd/">exgcd</a>, <a class="has-link-grey -link" href="/tags/数论/">数论</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/02/11/最小生成树-学习报告/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">最小生成树 学习报告</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/02/01/2019寒假成都摸鱼记/">
+                <span class="level-item">2019寒假成都摸鱼记</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                        <figure class="image is-128x128 has-mb-6">
+                            <img class="is-rounded" src="/images/round.jpg" alt="Minakami Yuki">
+                        </figure>
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        Minakami Yuki
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Which Dreamed it
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>最果ての空</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        88
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        5
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        86
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/Minagami" target="_blank">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Github" href="https://github.com/Minagami">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+<!--<div class="card widget" id="toc">-->
+<div class="card widget column-left is-sticky" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#预备知识">
+        <span class="has-mr-6">1</span>
+        <span>预备知识</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#取模运算">
+        <span class="has-mr-6">1.1</span>
+        <span>取模运算</span>
+        </a></li><li>
+        <a class="is-flex" href="#最大公约数">
+        <span class="has-mr-6">1.2</span>
+        <span>最大公约数</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#引子">
+        <span class="has-mr-6">2</span>
+        <span>引子</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#欧几里得定理">
+        <span class="has-mr-6">2.1</span>
+        <span>欧几里得定理</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#原理">
+        <span class="has-mr-6">2.1.1</span>
+        <span>原理</span>
+        </a></li><li>
+        <a class="is-flex" href="#证明">
+        <span class="has-mr-6">2.1.2</span>
+        <span>证明</span>
+        </a></li><li>
+        <a class="is-flex" href="#代码实现">
+        <span class="has-mr-6">2.1.3</span>
+        <span>代码实现</span>
+        </a></li></ul></li></ul></li><li>
+        <a class="is-flex" href="#扩展欧几里得">
+        <span class="has-mr-6">3</span>
+        <span>扩展欧几里得</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#用途">
+        <span class="has-mr-6">3.1</span>
+        <span>用途</span>
+        </a></li><li>
+        <a class="is-flex" href="#推导">
+        <span class="has-mr-6">3.2</span>
+        <span>推导</span>
+        </a></li><li>
+        <a class="is-flex" href="#代码实现-1">
+        <span class="has-mr-6">3.3</span>
+        <span>代码实现</span>
+        </a></li><li>
+        <a class="is-flex" href="#典例">
+        <span class="has-mr-6">3.4</span>
+        <span>典例</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#题目链接：NOIP2012-同余方程">
+        <span class="has-mr-6">3.4.1</span>
+        <span>题目链接：NOIP2012 同余方程</span>
+        </a></li><li>
+        <a class="is-flex" href="#推导过程">
+        <span class="has-mr-6">3.4.2</span>
+        <span>推导过程</span>
+        </a></li><li>
+        <a class="is-flex" href="#代码实现-2">
+        <span class="has-mr-6">3.4.3</span>
+        <span>代码实现</span>
+        </a></li></ul></li></ul></li></ul>
+        </div>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="https://i.loli.net/2019/10/10/y9zYaVHLsNt1Cek.png" alt="扩展欧几里得 学习报告" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 Minakami Yuki&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+
+    <!--背景线条-->
+    <!--<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-1" count="99" src="dist/canvas-nest.js"></script>-->
+    <!--<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-1" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

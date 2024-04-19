@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 3.9.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>树上问题杂谈 - Yuki&#39;s Blog</title>
+
+
+
+
+
+
+
+
+<link rel="icon" href="/images/round.jpg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/tomorrow.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<!--<body class="is-2-column">-->
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="https://i.loli.net/2019/10/10/y9zYaVHLsNt1Cek.png" alt="树上问题杂谈" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/notes">笔记</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-06-06T08:04:55.000Z">2019-06-06</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/学习报告/">学习报告</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    9 分钟 读完 (大约 1319 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                树上问题杂谈
+            
+        </h1>
+        <div class="content">
+            <p>本文将持续更新。</p>
+<a id="more"></a>
+
+<h1 id="基环树找环的优秀做法"><a href="#基环树找环的优秀做法" class="headerlink" title="基环树找环的优秀做法"></a>基环树找环的优秀做法</h1><h2 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h2><p>鉴于<strong>基环树</strong>上的连通块<strong>能且仅能</strong>是环，我们固然可以使用<code>Tarjan</code>找出树上所有的<strong>强连通分量</strong>，但是<code>Tarjan</code>是$O(N + M)$的，而基环树上只有一个环，我们很容易发现，<code>Tarjan</code>复杂度偏高。下面介绍一种比较优秀的做法。</p>
+<p>类似于<strong>匈牙利算法</strong>，我们使用一个返回值为<code>bool</code>值的<code>dfs</code>函数，在找到环的时候直接返回，这样可以剪去<strong>大量的遍历时间</strong>。但由于只有基环树符合这种仅有一个环的类型，这种做法也只仅限于<strong>基环树</strong>。</p>
+<p>实现过程中通过类似于<code>EK</code> 算法的<strong>双向存边特性</strong>，使用<code>pre[]</code>数组维护了<strong>经过的边</strong>。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    v[x] = <span class="hljs-number">1</span>;</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i = head[x]; i; i = nxt[i]) &#123;</span><br><span class="line">        <span class="hljs-keyword">int</span> y = ver[i];</span><br><span class="line">        <span class="hljs-keyword">if</span>((i ^ <span class="hljs-number">1</span>) == pre[x]) <span class="hljs-keyword">continue</span>;</span><br><span class="line">        pre[y] = i;</span><br><span class="line">        <span class="hljs-keyword">if</span>(v[y]) &#123;</span><br><span class="line">            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Circle: %d "</span>, y);</span><br><span class="line">            <span class="hljs-keyword">int</span> now = x;</span><br><span class="line">            <span class="hljs-keyword">while</span>(now != y) &#123;</span><br><span class="line">                <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d "</span>, now);</span><br><span class="line">                now = ver[pre[now] ^ <span class="hljs-number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">if</span>(dfs(y)) <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="树的直径的几种求法"><a href="#树的直径的几种求法" class="headerlink" title="树的直径的几种求法"></a>树的直径的几种求法</h1><h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="两次搜索"><a href="#两次搜索" class="headerlink" title="两次搜索"></a>两次搜索</h3><h4 id="思想-1"><a href="#思想-1" class="headerlink" title="思想"></a>思想</h4><p>可以通过<strong>任意节点</strong>搜索，找出距离它<strong>最远</strong>的点，再以<strong>该节点</strong>为源点，找出与它距离<strong>最远</strong>的点，两次搜索找出的点即为<strong>直径的两端</strong>，前者到后者的<strong>距离</strong>即为树的<strong>直径</strong>。</p>
+<p>正确性可以通过<strong>微扰法</strong>证明，我们尝试更改第一次搜索路径中的一个节点，使它到另一端的距离不再是最长的。</p>
+<p>根据树的特性，两点间有且仅有一条<strong>简单路径</strong>，那么我们换成其它任何一个点时，它到直径另一个端点的距离总是<strong>较小的</strong>。这样一来，我们第一次找出的点就一定是直径的一个端点。</p>
+<p>第二次搜索的证明相似。</p>
+<h4 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h4><p>只提供<code>bfs</code>的代码</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">int</span> <span class="hljs-title">bfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span> s)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) d[i] = <span class="hljs-number">0xcfcfcfcf</span>, pre[i] = v[i] = <span class="hljs-number">0</span>;</span><br><span class="line">    <span class="hljs-keyword">int</span> ans = <span class="hljs-number">0</span>;</span><br><span class="line">    d[s] = <span class="hljs-number">0</span>;</span><br><span class="line">    <span class="hljs-built_in">queue</span> &lt;<span class="hljs-keyword">int</span>&gt; q;</span><br><span class="line">    q.push(s);</span><br><span class="line">    <span class="hljs-keyword">while</span>(!q.empty()) &#123;</span><br><span class="line">        <span class="hljs-keyword">int</span> x = q.front();</span><br><span class="line">        q.pop();</span><br><span class="line">        v[x] = <span class="hljs-number">1</span>;</span><br><span class="line">        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i = head[x]; i; i = nxt[i]) &#123;</span><br><span class="line">            <span class="hljs-keyword">int</span> y = ver[i], z = edge[i];</span><br><span class="line">            <span class="hljs-keyword">if</span>(v[y]) <span class="hljs-keyword">continue</span>;</span><br><span class="line">            d[y] = d[x] + z;</span><br><span class="line">            pre[y] = i;</span><br><span class="line">            q.push(y);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) <span class="hljs-keyword">if</span>(d[ans] &lt; d[i]) ans = i;</span><br><span class="line">    <span class="hljs-keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>主函数中：</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">int</span> l = bfs(<span class="hljs-number">1</span>);</span><br><span class="line"><span class="hljs-keyword">int</span> r = bfs(l);</span><br></pre></td></tr></table></figure>
+
+<h3 id="树上dp"><a href="#树上dp" class="headerlink" title="树上dp"></a>树上dp</h3><h4 id="思想-2"><a href="#思想-2" class="headerlink" title="思想"></a>思想</h4><p>设计状态：<br><code>D[x]</code>表示<strong>以x为根的子树中的节点到x的最远距离</strong></p>
+<p>不难设计出<strong>转移方程</strong>：</p>
+<p>$D[x] =\max\limits_{i\in son_x}{D[i] + edge(i, x)}$</p>
+<p>递归转移，过程中求解就好了。</p>
+<h4 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h4><figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">dp</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    v[x] = <span class="hljs-number">1</span>;</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i = head[x]; i; i = nxt[i]) &#123;</span><br><span class="line">        <span class="hljs-keyword">int</span> y = ver[i], z = edge[i];</span><br><span class="line">        <span class="hljs-keyword">if</span>(v[y]) <span class="hljs-keyword">continue</span>;</span><br><span class="line">        dp(y);</span><br><span class="line">        l2 = max(l2, d[y] + d[x] + z);</span><br><span class="line">        d[x] = max(d[x], d[y] + z);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>主函数中：</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp(<span class="hljs-number">1</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="优缺点分析"><a href="#优缺点分析" class="headerlink" title="优缺点分析"></a>优缺点分析</h2><p><strong>两次搜索</strong>不适用于带<strong>负权边</strong>的树，但可以求出直径上具体的点。</p>
+<p>而<strong>树上dp</strong>相反。</p>
+<p>可以通过做这道题<a href="https://www.luogu.org/problemnew/show/P3629" target="_blank" rel="noopener"><strong>P3629</strong> [APIO2010]巡逻</a>来获得更深刻的理解。</p>
+<p>这是<a href="https://zgjjj.github.io/2019/06/06/Luogu-P3629-APIO2010-%E5%B7%A1%E9%80%BB-%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/" target="_blank" rel="noopener">题解</a></p>
+<h1 id="树哈希"><a href="#树哈希" class="headerlink" title="树哈希"></a>树哈希</h1><h2 id="思想-3"><a href="#思想-3" class="headerlink" title="思想"></a>思想</h2><p>递归计算一颗树的Hash值。</p>
+<p>需要注意题目中定义的<strong>同构</strong>的具体要求。</p>
+<p>同时注意一下<strong>哈希冲突</strong>。</p>
+<p>对复杂度无严格要求的情况下可以使用<code>map&lt;&gt;</code>有效避免哈希冲突。</p>
+<h2 id="例题及代码"><a href="#例题及代码" class="headerlink" title="例题及代码"></a>例题及代码</h2><p><a href="https://www.luogu.org/problemnew/show/P5043" target="_blank" rel="noopener"><strong>P5043</strong> 【模板】树同构</a></p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> ll unsigned long long</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">100</span>;</span><br><span class="line"><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> M = N;</span><br><span class="line"><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> base = <span class="hljs-number">13331</span>;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">int</span> head[N], nxt[M], ver[M], cnt;</span><br><span class="line"><span class="hljs-keyword">int</span> n, m;</span><br><span class="line">ll H[N][N];</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    ver[++cnt] = y, nxt[cnt] = head[x], head[x] = cnt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function">ll <span class="hljs-title">Hash</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> fa)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-built_in">vector</span> &lt;ll&gt; h;</span><br><span class="line">    ll res = N;</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i = head[x]; i; i = nxt[i]) &#123;</span><br><span class="line">        <span class="hljs-keyword">int</span> y = ver[i];</span><br><span class="line">        <span class="hljs-keyword">if</span>(y == fa) <span class="hljs-keyword">continue</span>;</span><br><span class="line">        h.push_back(Hash(y, x));</span><br><span class="line">    &#125;</span><br><span class="line">    sort(h.begin(), h.end());</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; h.size(); i++) &#123;</span><br><span class="line">        res *= base;</span><br><span class="line">        res += h[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">return</span> res * base + N + <span class="hljs-number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">    ios::sync_with_stdio(<span class="hljs-number">0</span>);</span><br><span class="line">    <span class="hljs-built_in">cin</span> &gt;&gt; m;</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= m; i++) &#123;</span><br><span class="line">        cnt = <span class="hljs-number">0</span>;</span><br><span class="line">        <span class="hljs-built_in">memset</span>(head, <span class="hljs-number">0</span>, <span class="hljs-keyword">sizeof</span>(head));</span><br><span class="line">        <span class="hljs-built_in">memset</span>(nxt, <span class="hljs-number">0</span>, <span class="hljs-keyword">sizeof</span>(nxt));</span><br><span class="line">        <span class="hljs-built_in">cin</span> &gt;&gt; n;</span><br><span class="line">        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= n; j++) &#123;</span><br><span class="line">            <span class="hljs-keyword">int</span> x;</span><br><span class="line">            <span class="hljs-built_in">cin</span> &gt;&gt; x;</span><br><span class="line">            <span class="hljs-keyword">if</span>(x != <span class="hljs-number">0</span>) add(j, x), add(x, j);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= n; j++) &#123;</span><br><span class="line">            H[i][j] = Hash(j, <span class="hljs-number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        sort(H[i] + <span class="hljs-number">1</span>, H[i] + n + <span class="hljs-number">1</span>);</span><br><span class="line">        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>, k = <span class="hljs-number">0</span>; j &lt;= i; j++) &#123;</span><br><span class="line">            <span class="hljs-keyword">while</span>(k &lt;= n) <span class="hljs-keyword">if</span>(H[i][++k] != H[j][k]) <span class="hljs-keyword">break</span>;</span><br><span class="line">            <span class="hljs-keyword">if</span>(k &gt; n) &#123;<span class="hljs-built_in">cout</span> &lt;&lt; j &lt;&lt; <span class="hljs-built_in">endl</span>; <span class="hljs-keyword">break</span>;&#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;</span><br></pre></td></tr></table></figure>
+
+<h1 id="树上倍增"><a href="#树上倍增" class="headerlink" title="树上倍增"></a>树上倍增</h1><h2 id="求LCA"><a href="#求LCA" class="headerlink" title="求LCA"></a>求LCA</h2><h3 id="思想-4"><a href="#思想-4" class="headerlink" title="思想"></a>思想</h3><p>倍增出$2^n$辈节点边号，通过双节点向上倍增查询。</p>
+<p><strong>二进制划分</strong>的思想：任何正整数都可以通过二的幂相加凑出。</p>
+<h3 id="代码-3"><a href="#代码-3" class="headerlink" title="代码"></a>代码</h3><p>预处理<code>lg[]</code>：</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">init</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        lg[i] = lg[i - <span class="hljs-number">1</span>] + (<span class="hljs-number">1</span> &lt;&lt; lg[i - <span class="hljs-number">1</span>] == i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>预处理距离：</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> fa)</span> </span>&#123;</span><br><span class="line">    d[x] = d[fa] + <span class="hljs-number">1</span>;</span><br><span class="line">    f[x][<span class="hljs-number">0</span>] = fa;</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; (<span class="hljs-number">1</span> &lt;&lt; i)  &lt;= d[x]; i++) &#123;</span><br><span class="line">        f[x][i] = f[f[x][i - <span class="hljs-number">1</span>]][i - <span class="hljs-number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i = head[x]; i; i = nxt[i]) &#123;</span><br><span class="line">        <span class="hljs-keyword">int</span> y = ver[i];</span><br><span class="line">        <span class="hljs-keyword">if</span>(y == fa) <span class="hljs-keyword">continue</span>;</span><br><span class="line">        dfs(y, x);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>查询LCA</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">int</span> <span class="hljs-title">lca</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">if</span>(d[y] &gt; d[x]) swap(x, y);</span><br><span class="line">    <span class="hljs-keyword">while</span>(d[x] &gt; d[y]) &#123;</span><br><span class="line">        x = f[x][lg[d[x] - d[y]] - <span class="hljs-number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">if</span>(x == y) <span class="hljs-keyword">return</span> x;</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i = lg[d[x]]; i &gt;= <span class="hljs-number">0</span>; i--) &#123;</span><br><span class="line">        <span class="hljs-keyword">if</span>(f[x][i] != f[y][i]) &#123;</span><br><span class="line">            x = f[x][i], y = f[y][i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">return</span> f[x][<span class="hljs-number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>$To;Be;Continued…$</p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/树上问题/">树上问题</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/06/07/UVA1482-Playing-With-Stones-解题报告/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">UVA1482 Playing With Stones 解题报告</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/06/06/Luogu-P3629-APIO2010-巡逻-解题报告/">
+                <span class="level-item">Luogu P3629 [APIO2010]巡逻 解题报告</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                        <figure class="image is-128x128 has-mb-6">
+                            <img class="is-rounded" src="/images/round.jpg" alt="Minakami Yuki">
+                        </figure>
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        Minakami Yuki
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Which Dreamed it
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>最果ての空</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        88
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        5
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        86
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/Minagami" target="_blank">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Github" href="https://github.com/Minagami">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+<!--<div class="card widget" id="toc">-->
+<div class="card widget column-left is-sticky" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#基环树找环的优秀做法">
+        <span class="has-mr-6">1</span>
+        <span>基环树找环的优秀做法</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#思想">
+        <span class="has-mr-6">1.1</span>
+        <span>思想</span>
+        </a></li><li>
+        <a class="is-flex" href="#代码">
+        <span class="has-mr-6">1.2</span>
+        <span>代码</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#树的直径的几种求法">
+        <span class="has-mr-6">2</span>
+        <span>树的直径的几种求法</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#方法">
+        <span class="has-mr-6">2.1</span>
+        <span>方法</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#两次搜索">
+        <span class="has-mr-6">2.1.1</span>
+        <span>两次搜索</span>
+        </a></li><li>
+        <a class="is-flex" href="#树上dp">
+        <span class="has-mr-6">2.1.2</span>
+        <span>树上dp</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#优缺点分析">
+        <span class="has-mr-6">2.2</span>
+        <span>优缺点分析</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#树哈希">
+        <span class="has-mr-6">3</span>
+        <span>树哈希</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#思想-3">
+        <span class="has-mr-6">3.1</span>
+        <span>思想</span>
+        </a></li><li>
+        <a class="is-flex" href="#例题及代码">
+        <span class="has-mr-6">3.2</span>
+        <span>例题及代码</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#树上倍增">
+        <span class="has-mr-6">4</span>
+        <span>树上倍增</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#求LCA">
+        <span class="has-mr-6">4.1</span>
+        <span>求LCA</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#思想-4">
+        <span class="has-mr-6">4.1.1</span>
+        <span>思想</span>
+        </a></li><li>
+        <a class="is-flex" href="#代码-3">
+        <span class="has-mr-6">4.1.2</span>
+        <span>代码</span>
+        </a></li></ul></li></ul></li></ul>
+        </div>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="https://i.loli.net/2019/10/10/y9zYaVHLsNt1Cek.png" alt="树上问题杂谈" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 Minakami Yuki&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+
+    <!--背景线条-->
+    <!--<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-1" count="99" src="dist/canvas-nest.js"></script>-->
+    <!--<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-1" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

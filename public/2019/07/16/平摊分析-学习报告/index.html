@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 3.9.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>平摊分析 学习报告 - Yuki&#39;s Blog</title>
+
+
+
+
+
+
+
+
+<link rel="icon" href="/images/round.jpg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/tomorrow.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<!--<body class="is-2-column">-->
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="https://i.loli.net/2019/10/10/y9zYaVHLsNt1Cek.png" alt="平摊分析 学习报告" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/notes">笔记</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-07-16T06:25:45.000Z">2019-07-16</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/学习报告/">学习报告</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    7 分钟 读完 (大约 1106 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                平摊分析 学习报告
+            
+        </h1>
+        <div class="content">
+            <h1 id="前言？"><a href="#前言？" class="headerlink" title="前言？"></a><del>前言？</del></h1><p><img src="https://i.loli.net/2019/07/16/5d2d809f4909830780.png" alt></p>
+<p><img src="https://i.loli.net/2019/07/16/5d2d80ba10ac722018.png" alt></p>
+<p><img src="https://i.loli.net/2019/07/16/5d2d80c913c3a98149.png" alt></p>
+<p><img src="https://i.loli.net/2019/07/16/5d2d80d64baa048100.png" alt></p>
+<p><img src="https://i.loli.net/2019/07/16/5d2d80e2b7cf868820.png" alt></p>
+<p>在b站上看MIT的课学了这个玩意…</p>
+<p>本来以为平摊分析与势能分析是两个玩意，看完之后发现自己太naive了。</p>
+<a id="more"></a>
+
+<h1 id="问题引入"><a href="#问题引入" class="headerlink" title="问题引入"></a>问题引入</h1><blockquote>
+<p>Hash表应该开多大？</p>
+</blockquote>
+<ul>
+<li>从<strong>时间</strong>上考虑</li>
+</ul>
+<p>一般来说，Hash表开的越<strong>大</strong>，查找时间就越<strong>短</strong>，当一个Hash表足够大的时候，它就成了一个<strong>直接映射表</strong>，查找时间<strong>最差</strong>为$O(1)$</p>
+<ul>
+<li>从<strong>空间</strong>上考虑</li>
+</ul>
+<p>我们希望它尽可能的<strong>小</strong>，这样就不会<strong>浪费空间</strong>。</p>
+<p>综合考虑上述两点，我们得到一个<strong>折中值</strong>：</p>
+<p>对于<strong>n个元素</strong>，Hash表的大小的最好的折中值为$\Theta(n)$</p>
+<blockquote>
+<p>但是，如果我们不知道将要加入的元素个数呢？</p>
+</blockquote>
+<p>这个问题的解是<strong>动态表（Dynamic Tables）</strong></p>
+<p>当一个普通的Hash表<strong>溢出（Overflow）</strong>时，就增大空间。</p>
+<p>（有点<code>vector</code>的感觉）</p>
+<blockquote>
+<p>增大空间的方法？</p>
+</blockquote>
+<ul>
+<li>分配一个<strong>更大的表</strong>（<code>malloc()</code>），然后将元素从旧表迁移到新表，然后释放旧表的空间。（似乎非常的慢。）</li>
+</ul>
+<p>假设有一个大小为1的空的Hash表。</p>
+<p>这里我们<strong>不考虑Hash的过程</strong>，来直接模拟<strong>溢出及分配</strong>的过程：</p>
+<table>
+<thead>
+<tr>
+<th align="center">Operation</th>
+<th align="center">Table Size</th>
+<th align="center">Elements</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Insert(1)</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">Insert(2)</td>
+<td align="center">2</td>
+<td align="center">1 2</td>
+</tr>
+<tr>
+<td align="center">Insert(3)</td>
+<td align="center"><strong>4</strong></td>
+<td align="center">1 2 3</td>
+</tr>
+<tr>
+<td align="center">Insert(4)</td>
+<td align="center">4</td>
+<td align="center">1 2 3 4</td>
+</tr>
+</tbody></table>
+<p>可以发现，表的扩张是<strong>倍增</strong>实现的</p>
+<p>对此方法做分析：</p>
+<blockquote>
+<p>有一个序列，包括n次插入运算，求最坏情况下，一次插入的代价？</p>
+</blockquote>
+<p>对于任何元素，最差的情况是在<strong>插入时，表会溢出</strong>，这时需要将旧表中的<strong>每一项</strong>都复制到新表中，所以在<strong>最差情况</strong>下，一次插入的代价为$\Theta(n)$</p>
+<p>所以最差情况下，$n$次插入的总代价=$n \times \Theta(n) = \Theta(n ^ 2)$</p>
+<p>你没发现上一句话没东西加粗嘛？</p>
+<p>因为它假了。</p>
+<p>稍加观察可以发现，并不是每个元素在插入时<strong>都处在最差情况</strong>，实际上，最差情况下，n次插入的<strong>总代价</strong>依然是</p>
+<p>$\Theta(n)$</p>
+<p>简略证明：<br>设第i次插入的代价为$c_i$</p>
+<p>由于扩张是倍增实现的，所以在插入第二的整数幂加一个整数时，表会发生扩张，此时插入的代价为$\Theta ( n ) $</p>
+<p>$$\therefore  c_i = \begin{cases} i &amp; \log_2(x - 1) \in \mathbb N \ \ 1 &amp; Otherwise\end{cases}$$</p>
+<p>对每一项分析代价，列出如下表格：</p>
+<table>
+<thead>
+<tr>
+<th align="center">项数</th>
+<th align="center">1</th>
+<th align="center">2</th>
+<th align="center">3</th>
+<th align="center">4</th>
+<th align="center">5</th>
+<th align="center">6</th>
+<th align="center">7</th>
+<th align="center">8</th>
+<th align="center">9</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>表的大小</strong></td>
+<td align="center">1</td>
+<td align="center">2</td>
+<td align="center">4</td>
+<td align="center">4</td>
+<td align="center">8</td>
+<td align="center">8</td>
+<td align="center">8</td>
+<td align="center">8</td>
+<td align="center">16</td>
+</tr>
+<tr>
+<td align="center"><strong>插入代价</strong></td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center"><strong>扩张代价</strong></td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">2</td>
+<td align="center">0</td>
+<td align="center">4</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">8</td>
+</tr>
+</tbody></table>
+<p>观察表的规律，对代价求和得：</p>
+<p>​    总代价</p>
+<p>$=\sum\limits_{i = 1} ^ n c_i$</p>
+<p>$= n + \sum\limits_{j = 0} ^{\lfloor\log_2(n - 1)\rfloor} 2 ^ j$</p>
+<p>第二项是一个几何级数，上界由最大值决定，所以我们得到：</p>
+<p>$$\sum\limits_{j = 0}^{\lfloor\log_2(n - 1)\rfloor} 2^j\le 2n$$</p>
+<p>所以$n + \sum\limits^{\lfloor\log_2(n - 1)\rfloor} _ {j = 0} \le 3n = \Theta(n)$</p>
+<p>所以<strong>总代价</strong>为$\Theta(n )$</p>
+<p>所以每次插入的平均代价为$\frac{\Theta(n)}{n} = \Theta(1)$</p>
+<p>这就是对Hash表插入操作的<strong>平摊分析</strong></p>
+<h1 id="平摊分析"><a href="#平摊分析" class="headerlink" title="平摊分析"></a>平摊分析</h1><h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><p>由上面的例子我们很容易发现平摊分析的一个特性：<br>尽管一个操作序列中，<strong>部分操作</strong>的代价可能<strong>比较大</strong>，但是对它的平摊分析表示这个操作序列中<strong>每个操作</strong>的<strong>平均代价</strong>很<strong>小</strong>。</p>
+<p>这是<strong>最差情况</strong>下的平均表现，<strong>不涉及概率</strong>。</p>
+<h2 id="意义"><a href="#意义" class="headerlink" title="意义"></a>意义</h2><p>平摊分析给出了<strong>最坏情况下的整个操作序列的代价上界</strong>。</p>
+<h2 id="三种方法"><a href="#三种方法" class="headerlink" title="三种方法"></a>三种方法</h2><ul>
+<li>聚集分析</li>
+</ul>
+<p>正如<strong>上面的例子</strong>展现的方法。基本上是分析<strong>整个操作序列</strong>的花费时间，并不能轻易钦定某一个操作的时间复杂度。（例题是特殊情况）</p>
+<ul>
+<li>记账方法</li>
+<li>势能分析</li>
+</ul>
+<p>下面两者更加精确，它们为<strong>每一个操作</strong>分配了<strong>特定的</strong>平摊代价。</p>
+<h1 id="回顾例题"><a href="#回顾例题" class="headerlink" title="回顾例题"></a>回顾例题</h1><p>我们现在<del>闲的蛋疼</del>用后两种方法来分析分析。</p>
+<h2 id="记账方法"><a href="#记账方法" class="headerlink" title="记账方法"></a>记账方法</h2><p>还没看完咕咕咕咕咕…</p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/数据结构/">数据结构</a>, <a class="has-link-grey -link" href="/tags/时间复杂度分析/">时间复杂度分析</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/07/17/Luogu-P2146-NOI2015-软件包管理器-解题报告/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">Luogu P2146 [NOI2015]软件包管理器 解题报告</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/07/15/LCT-学习报告/">
+                <span class="level-item">LCT 学习报告</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                        <figure class="image is-128x128 has-mb-6">
+                            <img class="is-rounded" src="/images/round.jpg" alt="Minakami Yuki">
+                        </figure>
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        Minakami Yuki
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Which Dreamed it
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>最果ての空</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        88
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        5
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        86
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/Minagami" target="_blank">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Github" href="https://github.com/Minagami">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+<!--<div class="card widget" id="toc">-->
+<div class="card widget column-left is-sticky" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#前言？">
+        <span class="has-mr-6">1</span>
+        <span>前言？</span>
+        </a></li><li>
+        <a class="is-flex" href="#问题引入">
+        <span class="has-mr-6">2</span>
+        <span>问题引入</span>
+        </a></li><li>
+        <a class="is-flex" href="#平摊分析">
+        <span class="has-mr-6">3</span>
+        <span>平摊分析</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#特性">
+        <span class="has-mr-6">3.1</span>
+        <span>特性</span>
+        </a></li><li>
+        <a class="is-flex" href="#意义">
+        <span class="has-mr-6">3.2</span>
+        <span>意义</span>
+        </a></li><li>
+        <a class="is-flex" href="#三种方法">
+        <span class="has-mr-6">3.3</span>
+        <span>三种方法</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#回顾例题">
+        <span class="has-mr-6">4</span>
+        <span>回顾例题</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#记账方法">
+        <span class="has-mr-6">4.1</span>
+        <span>记账方法</span>
+        </a></li></ul></li></ul>
+        </div>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="https://i.loli.net/2019/10/10/y9zYaVHLsNt1Cek.png" alt="平摊分析 学习报告" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 Minakami Yuki&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+
+    <!--背景线条-->
+    <!--<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-1" count="99" src="dist/canvas-nest.js"></script>-->
+    <!--<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-1" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

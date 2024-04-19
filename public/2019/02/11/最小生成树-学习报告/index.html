@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 3.9.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>最小生成树 学习报告 - Yuki&#39;s Blog</title>
+
+
+
+
+
+
+
+
+<link rel="icon" href="/images/round.jpg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/tomorrow.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<!--<body class="is-2-column">-->
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="https://i.loli.net/2019/10/10/y9zYaVHLsNt1Cek.png" alt="最小生成树 学习报告" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/notes">笔记</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-02-11T10:46:48.000Z">2019-02-11</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/学习报告/">学习报告</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    7 分钟 读完 (大约 986 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                最小生成树 学习报告
+            
+        </h1>
+        <div class="content">
+            <h1 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h1><h2 id="生成树"><a href="#生成树" class="headerlink" title="生成树"></a>生成树</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>给定一张无向图${G{(V,E)}}$中，${(u,v)}$代表连接顶点${u,v}$的边，${w(u,v)}$代表此边的<strong>权重</strong>，我们称它的一个<strong>无环</strong>子集${G’(V,E’)}$ <strong>（注意这里的${V}$与母集的${V}$一致）</strong> 为图${G}$的一个生成树。</p>
+<a id="more"></a>
+
+<h3 id="求法"><a href="#求法" class="headerlink" title="求法"></a>求法</h3><p>一张图的生成树可以通过任意顶点<strong>dfs</strong>寻得。</p>
+<p>这里是代码：</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> maxn 10010</span></span><br><span class="line"><span class="hljs-keyword">int</span> <span class="hljs-built_in">map</span>[maxn][maxn];<span class="hljs-keyword">bool</span> vis[maxn];</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">int</span> n,m,u,v,w;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    vis[x]=<span class="hljs-number">1</span>;</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i=<span class="hljs-number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span>(x==i) <span class="hljs-keyword">continue</span>;</span><br><span class="line">        <span class="hljs-keyword">if</span>(!vis[i]&amp;&amp;<span class="hljs-built_in">map</span>[i][x])&#123;</span><br><span class="line">            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d -&gt; %d : %d\n"</span>,x,i,<span class="hljs-built_in">map</span>[x][i]);</span><br><span class="line">            dfs(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i=<span class="hljs-number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">        <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%d%d%d"</span>,&amp;u,&amp;v,&amp;w);</span><br><span class="line">        <span class="hljs-built_in">map</span>[u][v]=w;</span><br><span class="line">        <span class="hljs-built_in">map</span>[v][u]=w;</span><br><span class="line">    &#125;</span><br><span class="line">    dfs(<span class="hljs-number">1</span>);</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="注意："><a href="#注意：" class="headerlink" title="注意："></a><strong>注意</strong>：</h3><p>如果给定的图中存在一个环${C(V,E’)}$，即包含所有的顶点，那么此图的dfs生成树将会<strong>退化</strong>为<strong>链</strong>。</p>
+<h4 id="典例："><a href="#典例：" class="headerlink" title="典例："></a>典例：<img src="https://i.loli.net/2019/02/11/5c616e8093a23.png" alt></h4><p>如果我们对此图求dfs生成树</p>
+<p>将会得到如下结果：<br><img src="https://i.loli.net/2019/02/11/5c616eb76c076.png" alt></p>
+<h3 id="另-自己在考场上发现的（除了我都知道的）知识："><a href="#另-自己在考场上发现的（除了我都知道的）知识：" class="headerlink" title="另:自己在考场上发现的（除了我都知道的）知识："></a><strong>另:</strong>自己在考场上发现的<del>（除了我都知道的）</del>知识：</h3><p>对于树${T(V,E)},\forall P \in V$作为其根节点，都将得到一颗树${T’}$。</p>
+<h2 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h2><h3 id="又称"><a href="#又称" class="headerlink" title="又称"></a>又称</h3><p><strong>用于多种不相交集合的数据结构</strong></p>
+<h3 id="支持操作"><a href="#支持操作" class="headerlink" title="支持操作"></a>支持操作</h3><p>能够支持对于<strong>树</strong>的两种操作：</p>
+<ol>
+<li>查询一棵树的<strong>根节点</strong>；</li>
+<li><strong>合并</strong>两棵树；</li>
+</ol>
+<h3 id="朴素代码"><a href="#朴素代码" class="headerlink" title="朴素代码"></a>朴素代码</h3><figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> maxn 10010</span></span><br><span class="line"><span class="hljs-keyword">int</span> fa[maxn];<span class="hljs-comment">//维护父节点</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">init</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span></span>&#123;<span class="hljs-keyword">while</span>(n--)fa[n]=n;&#125;</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">find</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span></span>&#123;<span class="hljs-keyword">return</span> fa[x]==x?x:find(fa[x]);&#125;<span class="hljs-comment">//递归实现查询</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">merge</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x,<span class="hljs-keyword">int</span> y)</span></span>&#123;</span><br><span class="line">    <span class="hljs-keyword">int</span> xx=find(x);<span class="hljs-keyword">int</span> yy=find(y);</span><br><span class="line">    fa[xx]=yy;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><p>有<strong>路径压缩</strong>与<strong>按秩合并</strong>两种方法，这($zu\grave{o}$)里($zh\check{e}$)只($zh\check{i}$)讲($hu\grave{i}$)按秩合并：<br>思想：用<code>size[i]</code>维护以${i}$为根节点的子树的大小，在合并时将小子树合并到大子树上。</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> maxn 10010</span></span><br><span class="line"><span class="hljs-keyword">int</span> fa[maxn],size[maxn];</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">init</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span></span>&#123;<span class="hljs-keyword">while</span>(n--) fa[n]=n,size[n]=<span class="hljs-number">1</span>;&#125;</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">find</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span></span>&#123;<span class="hljs-keyword">return</span> fa[x]==x?x:find(fa[x]);&#125;</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">merge</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x,<span class="hljs-keyword">int</span> y)</span></span>&#123;</span><br><span class="line">    <span class="hljs-keyword">int</span> xx=find(x);<span class="hljs-keyword">int</span> yy=find(y);</span><br><span class="line">    <span class="hljs-keyword">if</span>(size[xx]&gt;size[yy]) <span class="hljs-built_in">std</span>::swap(xx,yy);</span><br><span class="line">    fa[xx]=yy;size[yy]+=size[xx];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="最小生成树"><a href="#最小生成树" class="headerlink" title="最小生成树"></a>最小生成树</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>MST（最小生成树），即为给定图的所有生成树中路径权值和最小的一个生成树。</p>
+<p>求解有<code>Prim</code>和<code>Kruskal</code>两种算法。</p>
+<p>下面将讲解<code>Kruskal</code>算法</p>
+<h2 id="克鲁斯卡尔算法"><a href="#克鲁斯卡尔算法" class="headerlink" title="克鲁斯卡尔算法"></a>克鲁斯卡尔算法</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>先将给定图的边按<strong>权值</strong>从小到大排序，然后利用<strong>并查集</strong>的思想，依次将权值最小的边的<strong>两个端点</strong>合并，保证了<strong>最小</strong>原则。在合并时，注意检查两颗子树是否隶属同一根节点，否则跳过，保证了<strong>无环</strong>原则。</p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> maxn 10010</span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> maxm 20010</span></span><br><span class="line"><span class="hljs-keyword">using</span> <span class="hljs-built_in">std</span>::sort;</span><br><span class="line"><span class="hljs-keyword">int</span> fa[maxn];</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">init</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span></span>&#123;<span class="hljs-keyword">while</span>(n--)fa[n]=n;&#125;</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">find</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span></span>&#123;<span class="hljs-keyword">return</span> fa[x]==x?x:find(fa[x]);&#125;</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">merge</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x,<span class="hljs-keyword">int</span> y)</span></span>&#123;</span><br><span class="line">    <span class="hljs-keyword">int</span> xx=find(x);<span class="hljs-keyword">int</span> yy=find(y);</span><br><span class="line">    <span class="hljs-keyword">if</span>(xx==yy) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;</span><br><span class="line">    fa[xx]=yy; <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">node</span>&#123;</span></span><br><span class="line">    <span class="hljs-keyword">int</span> x,y,w;</span><br><span class="line">&#125;a[maxm];</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">cmp</span><span class="hljs-params">(node a,node b)</span></span>&#123;<span class="hljs-keyword">return</span> a.w&lt;b.w;&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">    <span class="hljs-keyword">int</span> n,m,ans=<span class="hljs-number">0</span>,cnt=<span class="hljs-number">0</span>;</span><br><span class="line">    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">    init(n);</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i=<span class="hljs-number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">        <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%d%d%d"</span>,&amp;a[i].x,&amp;a[i].y,&amp;a[i].w);</span><br><span class="line">    &#125;</span><br><span class="line">    sort(a,a+m,cmp);</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i=<span class="hljs-number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span>(merge(a[i].x,a[i].y))&#123;</span><br><span class="line">            ans+=a[i].w;</span><br><span class="line">            cnt++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">if</span>(cnt==n<span class="hljs-number">-1</span>)&#123;</span><br><span class="line">            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d"</span>,ans);</span><br><span class="line">            <span class="hljs-keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="注意到一个性质"><a href="#注意到一个性质" class="headerlink" title="注意到一个性质"></a>注意到一个性质</h3><p>边按权值从小到大排序，每次仅取出最小边，可以考虑用<strong>堆</strong>来维护<del>（虽然被julao痛批但我一定要写上）</del></p>
+<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> maxn 10010</span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> maxm 20010</span></span><br><span class="line"><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">node</span>&#123;</span></span><br><span class="line">    <span class="hljs-keyword">int</span> x,y,w;</span><br><span class="line">    <span class="hljs-keyword">bool</span> <span class="hljs-keyword">operator</span> &lt; (<span class="hljs-keyword">const</span> node a)<span class="hljs-keyword">const</span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> a.w&lt;w;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">priority_queue&lt;node&gt; q;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">int</span> fa[maxn];</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">init</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span></span>&#123;<span class="hljs-keyword">while</span>(n--) fa[n]=n;&#125;</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">find</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span></span>&#123;<span class="hljs-keyword">return</span> fa[x]==x?x:find(fa[x]);&#125;</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">merge</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x,<span class="hljs-keyword">int</span> y)</span></span>&#123;</span><br><span class="line">    <span class="hljs-keyword">int</span> xx=find(x);<span class="hljs-keyword">int</span> yy=find(y);</span><br><span class="line">    <span class="hljs-keyword">if</span>(xx==yy) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;</span><br><span class="line">    fa[xx]=yy; <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">    <span class="hljs-keyword">int</span> n,m,ans=<span class="hljs-number">0</span>,cnt=<span class="hljs-number">0</span>;</span><br><span class="line">    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">    init(n);</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i=<span class="hljs-number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">        node tmp;</span><br><span class="line">        <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%d%d%d"</span>,&amp;tmp.x,&amp;tmp.y,&amp;tmp.w);</span><br><span class="line">        q.push(tmp);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i=<span class="hljs-number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">        node tmp=q.top();</span><br><span class="line">        q.pop();</span><br><span class="line">        <span class="hljs-keyword">if</span>(merge(tmp.x,tmp.y))&#123;</span><br><span class="line">            ans+=tmp.w;</span><br><span class="line">            cnt++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">if</span>(cnt==n<span class="hljs-number">-1</span>)&#123;</span><br><span class="line">            <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d"</span>,ans);</span><br><span class="line">            <span class="hljs-keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（这里的堆并没有起到优化的作用，相反常数比sort大一些，仅供<del>喜欢</del>堆的选手使用）</p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/Kruskal/">Kruskal</a>, <a class="has-link-grey -link" href="/tags/MST/">MST</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/02/12/SuperGCD/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">SDOI2009 SuperGCD解题报告(瞎搞)</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/02/10/扩展欧几里得算法/">
+                <span class="level-item">扩展欧几里得 学习报告</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                        <figure class="image is-128x128 has-mb-6">
+                            <img class="is-rounded" src="/images/round.jpg" alt="Minakami Yuki">
+                        </figure>
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        Minakami Yuki
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Which Dreamed it
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>最果ての空</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        88
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        5
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        86
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/Minagami" target="_blank">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Github" href="https://github.com/Minagami">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+<!--<div class="card widget" id="toc">-->
+<div class="card widget column-left is-sticky" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#预备知识">
+        <span class="has-mr-6">1</span>
+        <span>预备知识</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#生成树">
+        <span class="has-mr-6">1.1</span>
+        <span>生成树</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#概念">
+        <span class="has-mr-6">1.1.1</span>
+        <span>概念</span>
+        </a></li><li>
+        <a class="is-flex" href="#求法">
+        <span class="has-mr-6">1.1.2</span>
+        <span>求法</span>
+        </a></li><li>
+        <a class="is-flex" href="#注意：">
+        <span class="has-mr-6">1.1.3</span>
+        <span>注意：</span>
+        </a></li><li>
+        <a class="is-flex" href="#另-自己在考场上发现的（除了我都知道的）知识：">
+        <span class="has-mr-6">1.1.4</span>
+        <span>另:自己在考场上发现的（除了我都知道的）知识：</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#并查集">
+        <span class="has-mr-6">1.2</span>
+        <span>并查集</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#又称">
+        <span class="has-mr-6">1.2.1</span>
+        <span>又称</span>
+        </a></li><li>
+        <a class="is-flex" href="#支持操作">
+        <span class="has-mr-6">1.2.2</span>
+        <span>支持操作</span>
+        </a></li><li>
+        <a class="is-flex" href="#朴素代码">
+        <span class="has-mr-6">1.2.3</span>
+        <span>朴素代码</span>
+        </a></li><li>
+        <a class="is-flex" href="#优化">
+        <span class="has-mr-6">1.2.4</span>
+        <span>优化</span>
+        </a></li><li>
+        <a class="is-flex" href="#代码">
+        <span class="has-mr-6">1.2.5</span>
+        <span>代码</span>
+        </a></li></ul></li></ul></li><li>
+        <a class="is-flex" href="#最小生成树">
+        <span class="has-mr-6">2</span>
+        <span>最小生成树</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#简介">
+        <span class="has-mr-6">2.1</span>
+        <span>简介</span>
+        </a></li><li>
+        <a class="is-flex" href="#克鲁斯卡尔算法">
+        <span class="has-mr-6">2.2</span>
+        <span>克鲁斯卡尔算法</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#介绍">
+        <span class="has-mr-6">2.2.1</span>
+        <span>介绍</span>
+        </a></li><li>
+        <a class="is-flex" href="#代码实现">
+        <span class="has-mr-6">2.2.2</span>
+        <span>代码实现</span>
+        </a></li><li>
+        <a class="is-flex" href="#注意到一个性质">
+        <span class="has-mr-6">2.2.3</span>
+        <span>注意到一个性质</span>
+        </a></li><li>
+        <a class="is-flex" href="#代码-1">
+        <span class="has-mr-6">2.2.4</span>
+        <span>代码</span>
+        </a></li></ul></li></ul></li></ul>
+        </div>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="https://i.loli.net/2019/10/10/y9zYaVHLsNt1Cek.png" alt="最小生成树 学习报告" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 Minakami Yuki&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+
+    <!--背景线条-->
+    <!--<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-1" count="99" src="dist/canvas-nest.js"></script>-->
+    <!--<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-1" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

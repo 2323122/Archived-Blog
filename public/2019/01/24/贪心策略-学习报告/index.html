@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 3.9.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>贪心策略 学习报告 - Yuki&#39;s Blog</title>
+
+
+
+
+
+
+
+
+<link rel="icon" href="/images/round.jpg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/tomorrow.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<!--<body class="is-2-column">-->
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="https://i.loli.net/2019/10/10/y9zYaVHLsNt1Cek.png" alt="贪心策略 学习报告" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/notes">笔记</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-01-24T04:01:07.000Z">2019-01-24</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/学习报告/">学习报告</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    7 分钟 读完 (大约 1042 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                贪心策略 学习报告
+            
+        </h1>
+        <div class="content">
+            <blockquote>
+<p>大胆贪心，<del>（不用）</del>小心证明。<br>——阮行止</p>
+</blockquote>
+<a id="more"></a>
+
+<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>贪心算法，本质上来讲不是一种算法，而是一种策略。其基本思路是在题解满足<strong>局部最优解</strong>将导致<strong>全局最优解</strong>时，每一次<strong>决策</strong>考虑且仅考虑当前最优解。</p>
+<h2 id="举个例子"><a href="#举个例子" class="headerlink" title="举个例子"></a>举个例子</h2><p>就拿天朝RMB面额的设计来讲，仅举<strong>元</strong>这一单位，分别有<strong>1元，5元，10元，50元，100元</strong>五种面额。<br><strong>为什么要这样设计呢？</strong><br>在日常的生活中，我们买东西时就会发现，对于<strong>任意一个价格的商品</strong>，我们在购买时，要想花费最少张数的RMB，只需<strong>永远花费当前小于等于商品面额的货币</strong>。这就是一种贪心策略。</p>
+<h2 id="例子的证明"><a href="#例子的证明" class="headerlink" title="例子的证明"></a>例子的证明</h2><p><del>我太菜了不会证</del>。</p>
+<h1 id="使用条件"><a href="#使用条件" class="headerlink" title="使用条件"></a>使用条件</h1><h2 id="题意方面"><a href="#题意方面" class="headerlink" title="题意方面"></a>题意方面</h2><p>在<strong>定义</strong>中就提到过，要想使用贪心策略，<strong>一定</strong>要在题解满足<strong>局部最优解导致全局最优解</strong>。对于简单的贪心，<del>你看题面就知道这是个贪心</del>，而有技巧的贪心则需要自己的猜测<del>与证明</del>。</p>
+<h2 id="关于局部最优解"><a href="#关于局部最优解" class="headerlink" title="关于局部最优解"></a>关于局部最优解</h2><p>局部最优解，即在<strong>当前局面看来</strong>，<strong>不考虑后续状态</strong>的情况下，结果最优的解。即是当前问题的一个<strong>子问题</strong>的最优解。</p>
+<h2 id="贪心的证明"><a href="#贪心的证明" class="headerlink" title="贪心的证明"></a>贪心的证明</h2><p>贪心策略是需要证明的，至于严谨性就看个人对于答案的确信程度<del>和rp</del>。</p>
+<h3 id="常用的方法"><a href="#常用的方法" class="headerlink" title="常用的方法"></a>常用的方法</h3><h4 id="微扰法"><a href="#微扰法" class="headerlink" title="微扰法"></a>微扰法</h4><p>个人至今都不是很会的一种方法。<br>就是先假设一种贪心策略，再对该策略的局面做出<strong>所有</strong>可能的<strong>扰动</strong>（如交换相邻的两个元素），然后讨论扰动后的局面是否会造成<strong>更优的局面</strong>，若是，则原贪心策略被推翻；若对于所有的扰动局面，都有<strong>原贪心策略优于微扰后的策略</strong>，那么贪心成立。</p>
+<h4 id="解集分析法"><a href="#解集分析法" class="headerlink" title="解集分析法"></a>解集分析法</h4><p>先枚举出<strong>小规模</strong>内的局面，若对于该规模问题，所有的解均能由<strong>同一种贪心策略</strong>取得，那么考虑该策略，扩大问题规模<del>（有点像迭代加深搜索）</del>，将该策略取得的解与枚举的解对比，若成立，则策略<strong>极有可能</strong>成立。<br><strong>注意这里的极有可能</strong>，<del>有些毒瘤数据可能刚好违背该策略</del>，所以这是一种不严谨的方法。</p>
+<h4 id="数学方法"><a href="#数学方法" class="headerlink" title="数学方法"></a>数学方法</h4><p>我们先看个<strong>典例</strong>：</p>
+<h5 id="排队打水问题"><a href="#排队打水问题" class="headerlink" title="排队打水问题"></a>排队打水问题</h5><pre><code>有n个人排队到r个水龙头去打水，他们装满水桶的时间t1、t2………..tn为整数且各不相等，应如何安排他们的打水顺序才能使他们总共花费的时间最少？ </code></pre><p>好像前面两种方法都行不通了？<del>其实我没试过</del><br>我没来看一个<strong>黑科技</strong>：</p>
+<h5 id="排序不等式"><a href="#排序不等式" class="headerlink" title="排序不等式"></a><a href="https://baike.baidu.com/item/排序不等式/7775728?fr=aladdin" target="_blank" rel="noopener">排序不等式</a></h5><p>不等式的证明百科上讲的很清楚了，我就把结论挂在这吧：<br>$$\text{对于两个有序数组:$a_1\le a_2\le a_3\le …\le a_n$及$b_1\le b_2\le b_3\le …\le b_n$:}$$</p>
+<p>$$\sum\limits_{i=1}^na_ib_i\ge \sum\limits_{i=1}^na_ib_{j_i}\ge\sum\limits_{i=1}^na_ib_{n+1-i} $$</p>
+<p>$${通俗来讲，就是顺序和\ge 乱序和\ge 逆序和}$$</p>
+<p>那么，上面的例子就很好解决了吧？</p>
+<p>总是规划打水时间最短者先打，再计算总打水时间，就可以得到最优的打水时间。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>正如<code>阮行止</code>所说,<code>“太贪心了是要栽跟头的。”</code>，贪心策略固可解决一部分题，但是，如果时时刻刻想着贪心，<del>DP也写贪心</del>，终究是得不到高分的。做人也正是如此吧。</p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/学习报告/">学习报告</a>, <a class="has-link-grey -link" href="/tags/贪心/">贪心</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/01/24/海底高铁/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">Luogu P3406 海底高铁 解题报告</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/01/19/疯狂的采药/">
+                <span class="level-item">Luogu P1616 疯狂的采药 解题报告</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                        <figure class="image is-128x128 has-mb-6">
+                            <img class="is-rounded" src="/images/round.jpg" alt="Minakami Yuki">
+                        </figure>
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        Minakami Yuki
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Which Dreamed it
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>最果ての空</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        88
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        5
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        86
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/Minagami" target="_blank">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Github" href="https://github.com/Minagami">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+<!--<div class="card widget" id="toc">-->
+<div class="card widget column-left is-sticky" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#简介">
+        <span class="has-mr-6">1</span>
+        <span>简介</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#定义">
+        <span class="has-mr-6">1.1</span>
+        <span>定义</span>
+        </a></li><li>
+        <a class="is-flex" href="#举个例子">
+        <span class="has-mr-6">1.2</span>
+        <span>举个例子</span>
+        </a></li><li>
+        <a class="is-flex" href="#例子的证明">
+        <span class="has-mr-6">1.3</span>
+        <span>例子的证明</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#使用条件">
+        <span class="has-mr-6">2</span>
+        <span>使用条件</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#题意方面">
+        <span class="has-mr-6">2.1</span>
+        <span>题意方面</span>
+        </a></li><li>
+        <a class="is-flex" href="#关于局部最优解">
+        <span class="has-mr-6">2.2</span>
+        <span>关于局部最优解</span>
+        </a></li><li>
+        <a class="is-flex" href="#贪心的证明">
+        <span class="has-mr-6">2.3</span>
+        <span>贪心的证明</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#常用的方法">
+        <span class="has-mr-6">2.3.1</span>
+        <span>常用的方法</span>
+        </a></li></ul></li></ul></li><li>
+        <a class="is-flex" href="#总结">
+        <span class="has-mr-6">3</span>
+        <span>总结</span>
+        </a></li></ul>
+        </div>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="https://i.loli.net/2019/10/10/y9zYaVHLsNt1Cek.png" alt="贪心策略 学习报告" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 Minakami Yuki&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+
+    <!--背景线条-->
+    <!--<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-1" count="99" src="dist/canvas-nest.js"></script>-->
+    <!--<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-1" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

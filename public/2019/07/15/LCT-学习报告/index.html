@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 3.9.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>LCT 学习报告 - Yuki&#39;s Blog</title>
+
+
+
+
+
+
+
+
+<link rel="icon" href="/images/round.jpg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/tomorrow.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<!--<body class="is-2-column">-->
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="https://i.loli.net/2019/10/10/y9zYaVHLsNt1Cek.png" alt="LCT 学习报告" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/notes">笔记</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-07-15T08:27:57.000Z">2019-07-15</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/学习报告/">学习报告</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    29 分钟 读完 (大约 4313 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                LCT 学习报告
+            
+        </h1>
+        <div class="content">
+            <p><del>LCT是常数巨大的树剖</del></p>
+<a id="more"></a>
+
+<h1 id="问题引入"><a href="#问题引入" class="headerlink" title="问题引入"></a>问题引入</h1><p><del><a href="https://www.luogu.org/problemnew/show/P4383" target="_blank" rel="noopener">P4383 [八省联考2018]林克卡特树lct</a></del></p>
+<p>emmm，不是这个。</p>
+<p>给你一棵树，有点权。</p>
+<h2 id="Subtask-1"><a href="#Subtask-1" class="headerlink" title="Subtask 1"></a>Subtask 1</h2><blockquote>
+<p>询问x到y最短路径上的点权和。</p>
+</blockquote>
+<p>这个简单，前缀和就好了。</p>
+<h2 id="Subtask-2"><a href="#Subtask-2" class="headerlink" title="Subtask 2"></a>Subtask 2</h2><blockquote>
+<p>x到y最短路径上每个点点权加k</p>
+</blockquote>
+<p>树上差分！</p>
+<p>我还会树剖！</p>
+<h2 id="Subtask-3"><a href="#Subtask-3" class="headerlink" title="Subtask 3"></a>Subtask 3</h2><blockquote>
+<p>改变树的结构</p>
+</blockquote>
+<p>emmmm…</p>
+<p>由这个问题，我们提出了$LCT$。</p>
+<h1 id="定义、基本操作及原理"><a href="#定义、基本操作及原理" class="headerlink" title="定义、基本操作及原理"></a>定义、基本操作及原理</h1><p>我们先来回顾一下<strong>树剖</strong>。</p>
+<p>在树剖中，我们使用<strong>线段树</strong>来维护链上的信息，其实也可以使用$Splay$的，但是它常数太大了，<del>而且难写</del>，没有必要。</p>
+<p>考虑一下树剖的弊病：一旦一棵树确定了，它的重链也就确定了。</p>
+<p>所以对于动态问题，树剖就没什么办法了。</p>
+<p>这时需要用到$LCT$</p>
+<h2 id="一些定义"><a href="#一些定义" class="headerlink" title="一些定义"></a>一些定义</h2><p><strong>辅助树</strong>：以$Splay$作为辅助树，原树被划分成若干个$Splay$。</p>
+<p><strong>重儿子</strong>：重儿子与父亲节点同在一棵$Splay$中，<strong>一个节点最多</strong><br><strong>只能有一个重儿子</strong>。</p>
+<p>注意这里的重儿子的定义与树剖不同。</p>
+<p><strong>轻儿子</strong>：其他儿子。</p>
+<p><strong>重边</strong>：指向重儿子的边。</p>
+<p><strong>轻边</strong>：其他边。</p>
+<p><strong>重链</strong>：由重儿子连接构成的链。</p>
+<p><strong>轻链</strong>：其他链。</p>
+<p>比如这是一棵树：<br><img src="https://i.loli.net/2019/07/15/5d2c3ea7487d866400.png" alt></p>
+<p>我们规定其中的一些节点为重儿子：<br><img src="https://i.loli.net/2019/07/15/5d2c408d382d462450.png" alt></p>
+<p>红色的是重儿子，蓝色的是轻儿子。</p>
+<p>加粗的边为重边。</p>
+<p>然后把它扭一扭（？），把$Splay$划分出来：</p>
+<p><img src="https://i.loli.net/2019/07/15/5d2c4c448047b42931.png" alt></p>
+<p>这棵$LCT$中的$Splay$被<strong>红笔</strong>圈了出来，为了满足$Splay$的性质，每棵$Splay$都在旋转后由轻边重新连接。</p>
+<p>可以发现，对一棵$Splay$中序遍历，可以得到该$Splay$维护的重链自链顶向下访问的顺序。</p>
+<p>在每条重链在一棵$Splay$上的同时，每个<strong>轻儿子</strong>单独构成一棵$Splay$。</p>
+<p>同时，为了方便维护树的结构，我们将每棵$Splay$<strong>根</strong>的父亲节点设为该链<strong>链顶</strong>的父亲节点。</p>
+<p>对比原树，我们发现，在此操作的过程中，一些边被断开，一些边被连上。</p>
+<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><h3 id="访问（Access）"><a href="#访问（Access）" class="headerlink" title="访问（Access）"></a>访问（Access）</h3><h4 id="简介及原理"><a href="#简介及原理" class="headerlink" title="简介及原理"></a>简介及原理</h4><p>LCT的<strong>核心操作</strong>。</p>
+<p>顾名思义，访问就是从<strong>根节点</strong>出发，访问到某个节点。在访问的过程中，每个<strong>路径上的点</strong>都被设置为<strong>重儿子</strong>，即<strong>访问路径</strong>被设置为<strong>重链</strong>。</p>
+<p>由于每个节点<strong>仅能有一个</strong>重儿子，所以我们访问路上的节点时，需要<strong>断掉</strong>它与<strong>之前的重儿子</strong>的连边，并加入到$Splay$中。</p>
+<p>我们考虑自<strong>访问节点</strong>向<strong>根</strong>处理，对于访问到的每个节点，我们进行$Splay$操作，此时，其右子树即为原重链上需要断掉的一段。切断后，将节点右儿子设置为当前重儿子即可。</p>
+<p>在LCT中，<code>fa[x]</code>记录<strong>全局</strong>父节点信息，与所在$Splay$无关，但是<code>ch[x][i]</code>记录的则是当前$Splay$的信息，因此，<strong>轻儿子不会被记录</strong>，我们只需要更改每个节点的右儿子信息，不需要更新右儿子的父节点信息。</p>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">access</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> q = <span class="hljs-number">0</span>; p; p = tr[p].fa) &#123;</span><br><span class="line">        splay(p);</span><br><span class="line">        tr[p].ch[<span class="hljs-number">1</span>] = q;</span><br><span class="line">        upd(p);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="换根（MakeRoot）"><a href="#换根（MakeRoot）" class="headerlink" title="换根（MakeRoot）"></a>换根（MakeRoot）</h3><h4 id="简介及原理-1"><a href="#简介及原理-1" class="headerlink" title="简介及原理"></a>简介及原理</h4><p>可以将某个节点设置为原树的根。</p>
+<p>考虑如下性质：</p>
+<blockquote>
+<p>对一棵$Splay$中序遍历，可以得到该$Splay$维护的重链自链顶向下访问的顺序。</p>
+</blockquote>
+<p>在访问操作后，<strong>该节点至根</strong>的路径形成一条<strong>重链</strong>，我们将该节点$Splay$至根，此时，链顶节点即为原树的根，且该节点存在于链底，考虑$Splay$反转操作，即可将其转至链顶，即为原树根。</p>
+<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">makert</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    access(p);</span><br><span class="line">    splay(p);</span><br><span class="line">    reverse(p);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="找根（FindRoot）"><a href="#找根（FindRoot）" class="headerlink" title="找根（FindRoot）"></a>找根（FindRoot）</h3><h4 id="简介及原理-2"><a href="#简介及原理-2" class="headerlink" title="简介及原理"></a>简介及原理</h4><p>找到原树的树根。</p>
+<p>由于$LCT$可能维护了一个<strong>森林</strong>，所以有时候需要找到某个节点属于原森林中哪棵树。</p>
+<p>考虑访问，此时自原树根节点到该节点的路径构成了一条重链，将该点伸展至根，此时<strong>链底</strong>即为原树根。</p>
+<p>由于伸展操作，此时的$Splay$以<strong>深度</strong>为秩有序，所以<strong>最左的左儿子</strong>即为链底。</p>
+<h4 id="代码实现-2"><a href="#代码实现-2" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findrt</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    access(p);</span><br><span class="line">    splay(p);</span><br><span class="line">    <span class="hljs-keyword">while</span>(tr[p].ch[<span class="hljs-number">0</span>]) p = tr[p].ch[<span class="hljs-number">0</span>];</span><br><span class="line">    <span class="hljs-keyword">return</span> p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="分离树链（Split）"><a href="#分离树链（Split）" class="headerlink" title="分离树链（Split）"></a>分离树链（Split）</h3><h4 id="简介及原理-3"><a href="#简介及原理-3" class="headerlink" title="简介及原理"></a>简介及原理</h4><p><del>树链剖分</del></p>
+<p>将原树中两节点间的简单路径分离出来。</p>
+<p>考虑将两个节点间的简单路径构造为<strong>一条重链</strong>。</p>
+<p>不妨先将树根<strong>设置</strong>为一个节点，并<strong>访问</strong>另一个，这样两个节点就在<strong>同一条重链</strong>上了。</p>
+<p>此时再对访问的节点进行<strong>伸展</strong>操作，操作后的链表现为$Splay$的<strong>根及其左子树</strong>。</p>
+<h4 id="代码实现-3"><a href="#代码实现-3" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">split</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u, <span class="hljs-keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">    makert(u);</span><br><span class="line">    access(v);</span><br><span class="line">    splay(v);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="林克（Link）"><a href="#林克（Link）" class="headerlink" title="林克（Link）"></a>林克（Link）</h3><h4 id="简介及原理-4"><a href="#简介及原理-4" class="headerlink" title="简介及原理"></a>简介及原理</h4><p>连接两棵原树。</p>
+<p>考虑在根与链底之间连<strong>轻边</strong>，因此我们需要将一个节点设为根，然后连在另一个节点上就行了。</p>
+<h4 id="代码实现-4"><a href="#代码实现-4" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">link</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u, <span class="hljs-keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">    makert(u);</span><br><span class="line">    tr[u].fa = v;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="卡特（Cut）"><a href="#卡特（Cut）" class="headerlink" title="卡特（Cut）"></a>卡特（Cut）</h3><h4 id="简介及原理-5"><a href="#简介及原理-5" class="headerlink" title="简介及原理"></a>简介及原理</h4><p>切断原树。</p>
+<p>考虑断除两个节点之间的重边。</p>
+<p>先将边<strong>分离</strong>出来，然后<strong>切断父子关系</strong>即可。</p>
+<p>如果左儿子不是$u$或者左儿子有右儿子，那么表示不存在$(u, v)$这条边。</p>
+<h4 id="代码实现-5"><a href="#代码实现-5" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">cut</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u, <span class="hljs-keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">    split(u, v);</span><br><span class="line">    <span class="hljs-keyword">if</span>(tr[v].ch[<span class="hljs-number">0</span>] != u || tr[tr[v].ch[<span class="hljs-number">0</span>]].ch[<span class="hljs-number">1</span>]) <span class="hljs-keyword">return</span>;</span><br><span class="line">    tr[u].fa = tr[v].ch[<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="树（Tree）"><a href="#树（Tree）" class="headerlink" title="树（Tree）"></a>树（Tree）</h3><p><del>没有这个东西</del></p>
+<h3 id="单点修改（Modify）"><a href="#单点修改（Modify）" class="headerlink" title="单点修改（Modify）"></a>单点修改（Modify）</h3><h4 id="简介及原理-6"><a href="#简介及原理-6" class="headerlink" title="简介及原理"></a>简介及原理</h4><p>改变单点权值。</p>
+<p>为避免更新操作带来的大常数<del>（虽然本来常数就够大了）</del>，我们先将待修节点<strong>伸展至根</strong>，再进行修改。</p>
+<h4 id="代码实现-6"><a href="#代码实现-6" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">modify</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u, <span class="hljs-keyword">int</span> w)</span> </span>&#123;</span><br><span class="line">    access(u);</span><br><span class="line">    splay(u);</span><br><span class="line">    tr[u].val = w;</span><br><span class="line">    upd(u);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="判根（Isroot）"><a href="#判根（Isroot）" class="headerlink" title="判根（Isroot）"></a>判根（Isroot）</h3><h4 id="简介及原理-7"><a href="#简介及原理-7" class="headerlink" title="简介及原理"></a>简介及原理</h4><p>判断当前节点是否为一棵$Splay$的根。</p>
+<p>上文中提到了<code>ch[x][i]</code>与<code>fa[x]</code>的差异性，我们可以利用这个差异来检查某个节点与父亲的连边是否为重边。</p>
+<p>若不是重边，则<code>ch[fa[x]][0]  != x &amp;&amp; ch[fa[x]][1] != x</code></p>
+<p>代码很自然。</p>
+<h4 id="代码实现-7"><a href="#代码实现-7" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">isroot</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> tr[fa[x]].ch[<span class="hljs-number">0</span>] != x &amp;&amp; tr[fa[x]].ch[<span class="hljs-number">1</span>] != x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="旋转（Rotate）"><a href="#旋转（Rotate）" class="headerlink" title="旋转（Rotate）"></a>旋转（Rotate）</h3><h4 id="简介及原理-8"><a href="#简介及原理-8" class="headerlink" title="简介及原理"></a>简介及原理</h4><p>平衡树基操。</p>
+<p>不过判断$Splay$根的方式有所改变，旋转的方式也有所改变。</p>
+<p>主要是将判断爷爷节点是否存在改为判断父节点是否为根。</p>
+<p>区别不大。</p>
+<h4 id="代码实现-8"><a href="#代码实现-8" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">rotate</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">bool</span> t = !isleft(p);</span><br><span class="line">    <span class="hljs-keyword">int</span> fa = tr[p].fa, ffa = tr[fa].fa;</span><br><span class="line">    <span class="hljs-keyword">if</span>(!isroot(fa)) tr[ffa].ch[!isleft(fa)] = p; <span class="hljs-comment">// 这句一定要写在最前面</span></span><br><span class="line">    tr[fa].ch[t] = tr[p].ch[!t];</span><br><span class="line">    tr[p].ch[!t] = fa;</span><br><span class="line">    tr[tr[fa].ch[t]].fa = fa;</span><br><span class="line">    tr[p].fa = ffa;</span><br><span class="line">    tr[fa].fa = p;</span><br><span class="line">    upd(p), upd(fa); <span class="hljs-comment">// 这里的upd(p)可以省略，但是upd(fa)绝对不能省，不放心可以都写上</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="伸展（Splay）"><a href="#伸展（Splay）" class="headerlink" title="伸展（Splay）"></a>伸展（Splay）</h3><h4 id="简介及原理-9"><a href="#简介及原理-9" class="headerlink" title="简介及原理"></a>简介及原理</h4><p>$Splay$基操</p>
+<p>反转标记的存在会使LCT出锅，所以Splay前要将标记<strong>下放至</strong>待伸展节点。</p>
+<h4 id="代码实现-9"><a href="#代码实现-9" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//反转</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">reverse</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    swap(tr[p].ch[<span class="hljs-number">0</span>], tr[p].ch[<span class="hljs-number">1</span>]);</span><br><span class="line">    tr[p].rev ^= <span class="hljs-number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">//下放</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">pushdown</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">if</span>(tr[p].rev) &#123;</span><br><span class="line">        <span class="hljs-keyword">if</span>(tr[p].ch[<span class="hljs-number">0</span>]) reverse(tr[p].ch[<span class="hljs-number">0</span>]);</span><br><span class="line">        <span class="hljs-keyword">if</span>(tr[p].ch[<span class="hljs-number">1</span>]) reverse(tr[p].ch[<span class="hljs-number">1</span>]);</span><br><span class="line">        tr[p].rev ^= <span class="hljs-number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">//手写栈可换为STL，也可递归调用函数</span></span><br><span class="line"><span class="hljs-keyword">int</span> sta[MAXN], stop;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">//从根下放到p节点</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">pushto</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    stop = <span class="hljs-number">0</span>;</span><br><span class="line">    <span class="hljs-keyword">while</span>(!isroot(p)) &#123;</span><br><span class="line">        sta[stop++] = p;</span><br><span class="line">        p = tr[p].fa;</span><br><span class="line">    &#125;</span><br><span class="line">    sta[stop++] = p;</span><br><span class="line">    <span class="hljs-keyword">while</span>(stop) &#123;</span><br><span class="line">        pushdown(sta[--stop]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">//伸展</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">splay</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    pushto(p);</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> fa = tr[p].fa; !isroot(p); rotate(p), fa = tr[p].fa) &#123;</span><br><span class="line">        <span class="hljs-keyword">if</span>(!isroot(fa)) rotate(isleft(fa) == isleft(p) ? fa : p);</span><br><span class="line">    &#125;</span><br><span class="line">    upd(p);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h1><h2 id="直接运用"><a href="#直接运用" class="headerlink" title="直接运用"></a>直接运用</h2><h3 id="操作及原理"><a href="#操作及原理" class="headerlink" title="操作及原理"></a>操作及原理</h3><p>单点修改，动态加边、断边，保证结构是一棵树，查询两点间简单路径的信息。</p>
+<p>用LCT直接维护即可。</p>
+<h3 id="例题1"><a href="#例题1" class="headerlink" title="例题1"></a>例题1</h3><p><a href="https://www.luogu.org/problemnew/show/P3690" target="_blank" rel="noopener"><strong>P3690</strong> 【模板】Link Cut Tree （动态树）</a> </p>
+<p>维护两点间最短路径的异或和即可。</p>
+<p>比树剖板子题和蔼多了。</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cctype&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> LL long long</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">namespace</span> FastIO &#123;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">inline</span> LL <span class="hljs-title">read</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">char</span> ch = getchar(); LL r = <span class="hljs-number">0</span>, w = <span class="hljs-number">1</span>;</span><br><span class="line">        <span class="hljs-keyword">while</span>(!<span class="hljs-built_in">isdigit</span>(ch)) &#123;<span class="hljs-keyword">if</span>(ch == <span class="hljs-string">'-'</span>) w = <span class="hljs-number">-1</span>; ch = getchar();&#125;</span><br><span class="line">        <span class="hljs-keyword">while</span>(<span class="hljs-built_in">isdigit</span>(ch)) &#123;r = r * <span class="hljs-number">10</span> + ch - <span class="hljs-string">'0'</span>, ch = getchar();&#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> r * w;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">void</span> _write(LL x) &#123;</span><br><span class="line">        <span class="hljs-keyword">if</span>(x &lt; <span class="hljs-number">0</span>) <span class="hljs-built_in">putchar</span>(<span class="hljs-string">'-'</span>), x = -x;</span><br><span class="line">        <span class="hljs-keyword">if</span>(x &gt; <span class="hljs-number">9</span>) _write(x / <span class="hljs-number">10</span>);</span><br><span class="line">        <span class="hljs-built_in">putchar</span>(x % <span class="hljs-number">10</span> + <span class="hljs-string">'0'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">write</span><span class="hljs-params">(LL x)</span> </span>&#123;</span><br><span class="line">        _write(x);</span><br><span class="line">        <span class="hljs-built_in">puts</span>(<span class="hljs-string">""</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> FastIO;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt; <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">swap</span><span class="hljs-params">(T &amp;x, T &amp;y)</span> </span>&#123;T tmp = x; x = y, y = tmp;&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">300005</span>;</span><br><span class="line"></span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Node</span> &#123;</span></span><br><span class="line">    <span class="hljs-keyword">int</span> ch[<span class="hljs-number">2</span>], fa, val, xsum;</span><br><span class="line">    <span class="hljs-keyword">bool</span> rev;</span><br><span class="line">&#125; tr[N];</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">isleft</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> tr[tr[p].fa].ch[<span class="hljs-number">0</span>] == p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">isroot</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> tr[tr[p].fa].ch[<span class="hljs-number">0</span>] != p &amp;&amp; tr[tr[p].fa].ch[<span class="hljs-number">1</span>] != p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">upd</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    tr[p].xsum = tr[p].val ^ tr[tr[p].ch[<span class="hljs-number">0</span>]].xsum ^ tr[tr[p].ch[<span class="hljs-number">1</span>]].xsum;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">reverse</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    swap(tr[p].ch[<span class="hljs-number">0</span>], tr[p].ch[<span class="hljs-number">1</span>]);</span><br><span class="line">    tr[p].rev ^= <span class="hljs-number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">pushdown</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">if</span>(tr[p].rev) &#123;</span><br><span class="line">        <span class="hljs-keyword">if</span>(tr[p].ch[<span class="hljs-number">0</span>]) reverse(tr[p].ch[<span class="hljs-number">0</span>]);</span><br><span class="line">        <span class="hljs-keyword">if</span>(tr[p].ch[<span class="hljs-number">1</span>]) reverse(tr[p].ch[<span class="hljs-number">1</span>]);</span><br><span class="line">        tr[p].rev ^= <span class="hljs-number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">int</span> sta[N], stop;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">pushto</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    stop = <span class="hljs-number">0</span>;</span><br><span class="line">    <span class="hljs-keyword">while</span>(!isroot(p)) &#123;</span><br><span class="line">        sta[stop++] = p;</span><br><span class="line">        p = tr[p].fa;</span><br><span class="line">    &#125;</span><br><span class="line">    sta[stop++] = p;</span><br><span class="line">    <span class="hljs-keyword">while</span>(stop) &#123;</span><br><span class="line">        pushdown(sta[--stop]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">rotate</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">bool</span> t = !isleft(p); <span class="hljs-keyword">int</span> fa = tr[p].fa, ffa = tr[fa].fa;</span><br><span class="line">    tr[p].fa = ffa; <span class="hljs-keyword">if</span>(!isroot(fa)) tr[ffa].ch[!isleft(fa)] = p;</span><br><span class="line">    tr[fa].ch[t] = tr[p].ch[!t]; tr[tr[fa].ch[t]].fa = fa;</span><br><span class="line">    tr[p].ch[!t] = fa; tr[fa].fa = p;</span><br><span class="line">    upd(fa);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">splay</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    pushto(p);</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> fa = tr[p].fa; !isroot(p); rotate(p), fa = tr[p].fa) &#123;</span><br><span class="line">        <span class="hljs-keyword">if</span>(!isroot(fa)) rotate(isleft(fa) == isleft(p) ? fa : p);</span><br><span class="line">    &#125;</span><br><span class="line">    upd(p);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">access</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> q = <span class="hljs-number">0</span>; p; q = p, p = tr[p].fa) &#123;</span><br><span class="line">        splay(p);</span><br><span class="line">        tr[p].ch[<span class="hljs-number">1</span>] = q;</span><br><span class="line">        upd(p);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">makert</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    access(p);</span><br><span class="line">    splay(p);</span><br><span class="line">    reverse(p);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findrt</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    access(p);</span><br><span class="line">    splay(p);</span><br><span class="line">    <span class="hljs-keyword">while</span>(tr[p].ch[<span class="hljs-number">0</span>]) p = tr[p].ch[<span class="hljs-number">0</span>];</span><br><span class="line">    <span class="hljs-keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">split</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u, <span class="hljs-keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">    makert(u);</span><br><span class="line">    access(v);</span><br><span class="line">    splay(v);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">link</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u, <span class="hljs-keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">    makert(u);</span><br><span class="line">    tr[u].fa = v;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">cut</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u, <span class="hljs-keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">    split(u, v);</span><br><span class="line">    <span class="hljs-keyword">if</span>(tr[v].ch[<span class="hljs-number">0</span>] != u || tr[u].ch[<span class="hljs-number">1</span>]) <span class="hljs-keyword">return</span>;</span><br><span class="line">    tr[u].fa = tr[v].ch[<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">modify</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u, <span class="hljs-keyword">int</span> w)</span> </span>&#123;</span><br><span class="line">    access(u);</span><br><span class="line">    splay(u);</span><br><span class="line">    tr[u].val = w;</span><br><span class="line">    upd(u);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">int</span> n, m, op, x, y;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">    n = read(); m = read();</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        tr[i].val = tr[i].xsum = read();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">while</span>(m--) &#123;</span><br><span class="line">        op = read(); x = read(); y = read();</span><br><span class="line">        <span class="hljs-keyword">switch</span>(op) &#123;</span><br><span class="line">            <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>:</span><br><span class="line">                split(x, y);</span><br><span class="line">                write(tr[y].xsum);</span><br><span class="line">                <span class="hljs-keyword">break</span>;</span><br><span class="line">            <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:</span><br><span class="line">                link(x, y);</span><br><span class="line">                <span class="hljs-keyword">break</span>;</span><br><span class="line">            <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:</span><br><span class="line">                cut(x, y);</span><br><span class="line">                <span class="hljs-keyword">break</span>;</span><br><span class="line">            <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>:</span><br><span class="line">                modify(x, y);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="例题2"><a href="#例题2" class="headerlink" title="例题2"></a>例题2</h3><p><a href="https://www.luogu.org/problemnew/show/P3203" target="_blank" rel="noopener"><strong>P3203</strong> [HNOI2010]弹飞绵羊</a> </p>
+<p>题目没有那么直白了，我们考虑建图。</p>
+<p>观察到$k$仅能为正，考虑把每个点与它能抵达的所有点连边，这样就建成了一颗树。</p>
+<p>对于可能跳过的情况，直接连接到一个超级汇点$n + 1$上。</p>
+<p>建完图后，我们可以发现，每个点的答案即为它在以$n + 1$为根的有根树中的深度。</p>
+<p>对于改$k$这个操作，我们发现连边的依据是$k$，那么这个操作相当于断旧边、连新边，考虑LCT。</p>
+<p>此时我们再想想答案（即节点深度）怎么在LCT中体现。</p>
+<p>对于每个被询问的点，不妨将它到$n + 1$节点的链$Split$出来，此时，这个节点的子树大小即为节点深度。</p>
+<p>LCT维护即可。</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cctype&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> LL long long</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">namespace</span> FastIO &#123;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">inline</span> LL <span class="hljs-title">read</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">char</span> ch = getchar(); LL r = <span class="hljs-number">0</span>, w = <span class="hljs-number">1</span>;</span><br><span class="line">        <span class="hljs-keyword">while</span>(!<span class="hljs-built_in">isdigit</span>(ch)) &#123;<span class="hljs-keyword">if</span>(ch == <span class="hljs-string">'-'</span>) w = <span class="hljs-number">-1</span>; ch = getchar();&#125;</span><br><span class="line">        <span class="hljs-keyword">while</span>(<span class="hljs-built_in">isdigit</span>(ch)) &#123;r = r * <span class="hljs-number">10</span> + ch - <span class="hljs-string">'0'</span>, ch = getchar();&#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> r * w;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">void</span> _write(LL x) &#123;</span><br><span class="line">        <span class="hljs-keyword">if</span>(x &lt; <span class="hljs-number">0</span>) <span class="hljs-built_in">putchar</span>(<span class="hljs-string">'-'</span>), x = -x;</span><br><span class="line">        <span class="hljs-keyword">if</span>(x &gt; <span class="hljs-number">9</span>) _write(x / <span class="hljs-number">10</span>);</span><br><span class="line">        <span class="hljs-built_in">putchar</span>(x % <span class="hljs-number">10</span> + <span class="hljs-string">'0'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">write</span><span class="hljs-params">(LL x)</span> </span>&#123;</span><br><span class="line">        _write(x);</span><br><span class="line">        <span class="hljs-built_in">puts</span>(<span class="hljs-string">""</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> FastIO;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">200005</span>;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt; <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">swap</span><span class="hljs-params">(T &amp;x, T &amp;y)</span> </span>&#123;T tmp = x; x = y, y = tmp;&#125;</span><br><span class="line"><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt; <span class="hljs-function"><span class="hljs-keyword">inline</span> T <span class="hljs-title">min</span><span class="hljs-params">(T a, T b)</span> </span>&#123;<span class="hljs-keyword">return</span> a &lt; b ? a : b;&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Node</span> &#123;</span></span><br><span class="line">    <span class="hljs-keyword">int</span> ch[<span class="hljs-number">2</span>], fa, sum;</span><br><span class="line">    <span class="hljs-keyword">bool</span> rev;</span><br><span class="line">&#125; tr[N];</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">isleft</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> tr[tr[p].fa].ch[<span class="hljs-number">0</span>] == p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">isroot</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">int</span> fa = tr[p].fa;</span><br><span class="line">    <span class="hljs-keyword">return</span> tr[fa].ch[<span class="hljs-number">0</span>] != p &amp;&amp; tr[fa].ch[<span class="hljs-number">1</span>] != p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">upd</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">int</span> ls = tr[p].ch[<span class="hljs-number">0</span>], rs = tr[p].ch[<span class="hljs-number">1</span>];</span><br><span class="line">    tr[p].sum = tr[ls].sum + tr[rs].sum + <span class="hljs-number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">reverse</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    swap(tr[p].ch[<span class="hljs-number">0</span>], tr[p].ch[<span class="hljs-number">1</span>]);</span><br><span class="line">    tr[p].rev ^= <span class="hljs-number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">pushdown</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">int</span> ls = tr[p].ch[<span class="hljs-number">0</span>], rs = tr[p].ch[<span class="hljs-number">1</span>];</span><br><span class="line">    <span class="hljs-keyword">if</span>(tr[p].rev) &#123;</span><br><span class="line">        <span class="hljs-keyword">if</span>(ls) reverse(ls);</span><br><span class="line">        <span class="hljs-keyword">if</span>(rs) reverse(rs);</span><br><span class="line">        tr[p].rev ^= <span class="hljs-number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">int</span> sta[N], stop;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">pushto</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    stop = <span class="hljs-number">0</span>;</span><br><span class="line">    <span class="hljs-keyword">while</span>(!isroot(p)) &#123;</span><br><span class="line">        sta[stop++] = p;</span><br><span class="line">        p = tr[p].fa;</span><br><span class="line">    &#125; </span><br><span class="line">    pushdown(p);</span><br><span class="line">    <span class="hljs-keyword">while</span>(stop) &#123;</span><br><span class="line">        pushdown(sta[--stop]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">rotate</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">bool</span> t = !isleft(p); <span class="hljs-keyword">int</span> fa = tr[p].fa, ffa = tr[fa].fa;</span><br><span class="line">    tr[p].fa = ffa; <span class="hljs-keyword">if</span>(!isroot(fa)) tr[ffa].ch[!isleft(fa)] = p;</span><br><span class="line">    tr[fa].ch[t] = tr[p].ch[!t]; tr[tr[fa].ch[t]].fa = fa;</span><br><span class="line">    tr[p].ch[!t] = fa; tr[fa].fa = p;</span><br><span class="line">    upd(fa);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">splay</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    pushto(p);</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> fa = tr[p].fa; !isroot(p); rotate(p), fa = tr[p].fa) &#123;</span><br><span class="line">        <span class="hljs-keyword">if</span>(!isroot(fa)) rotate(isleft(fa) == isleft(p) ? fa : p);</span><br><span class="line">    &#125;</span><br><span class="line">    upd(p);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">access</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> q = <span class="hljs-number">0</span>; p; q = p, p = tr[p].fa) &#123;</span><br><span class="line">        splay(p);</span><br><span class="line">        tr[p].ch[<span class="hljs-number">1</span>] = q;</span><br><span class="line">        upd(p);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">makert</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    access(p);</span><br><span class="line">    splay(p);</span><br><span class="line">    reverse(p);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findrt</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    access(p);</span><br><span class="line">    splay(p);</span><br><span class="line">    <span class="hljs-keyword">while</span>(tr[p].ch[<span class="hljs-number">0</span>]) p = tr[p].ch[<span class="hljs-number">0</span>];</span><br><span class="line">    <span class="hljs-keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">split</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u, <span class="hljs-keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">    makert(u);</span><br><span class="line">    access(v);</span><br><span class="line">    splay(v);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">link</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u, <span class="hljs-keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">    makert(u);</span><br><span class="line">    tr[u].fa = v;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">cut</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u, <span class="hljs-keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">    split(u, v);</span><br><span class="line">    <span class="hljs-keyword">if</span>(tr[v].ch[<span class="hljs-number">0</span>] != u || tr[tr[v].ch[<span class="hljs-number">0</span>]].ch[<span class="hljs-number">1</span>]) <span class="hljs-keyword">return</span>;</span><br><span class="line">    tr[u].fa = tr[v].ch[<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">int</span> n, m, k[N], op, ut, wt;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">    n = read();</span><br><span class="line">    tr[n + <span class="hljs-number">1</span>].sum = <span class="hljs-number">1</span>;</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        k[i] = read();</span><br><span class="line">        tr[i].sum = <span class="hljs-number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="hljs-keyword">int</span> x = i, y = i + k[i];</span><br><span class="line">        y = min(y, n + <span class="hljs-number">1</span>);</span><br><span class="line">        link(x, y);</span><br><span class="line">    &#125;</span><br><span class="line">    m = read();</span><br><span class="line">    <span class="hljs-keyword">while</span>(m--) &#123;</span><br><span class="line">        op = read(); ut = read() + <span class="hljs-number">1</span>;</span><br><span class="line">        <span class="hljs-keyword">if</span>(op == <span class="hljs-number">1</span>) &#123;</span><br><span class="line">            split(ut, n + <span class="hljs-number">1</span>);</span><br><span class="line">            write(tr[n + <span class="hljs-number">1</span>].sum - <span class="hljs-number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">            wt = read();</span><br><span class="line">            cut(ut, min(ut + k[ut], n + <span class="hljs-number">1</span>));</span><br><span class="line">            k[ut] = wt;</span><br><span class="line">            link(ut, min(ut + k[ut], n + <span class="hljs-number">1</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="处理子树信息"><a href="#处理子树信息" class="headerlink" title="处理子树信息"></a>处理子树信息</h2><h3 id="操作及原理-1"><a href="#操作及原理-1" class="headerlink" title="操作及原理"></a>操作及原理</h3><p>在树剖里，我们利用子树节点的<code>dfs</code>序的<strong>连续性</strong>建立<strong>线段树</strong>解决了子树信息的处理。</p>
+<p>但是在LCT中，<strong>根是会变的</strong>，维护<code>dfs</code>序似乎并不靠谱。我们考虑<strong>直接维护</strong>子树的信息：</p>
+<p>不妨对每一个点维护一个<strong>虚</strong>子树的信息，因为只有<code>access()</code>和<code>link()</code>会导致其改变，而<code>cut()</code>断开的是一条重边，不会影响一个虚子树的信息，所以只需要<code>upd()</code>一下就行了。</p>
+<h3 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h3><p>太菜了只找到了大融合。</p>
+<p><a href="https://www.luogu.org/problemnew/show/P4219" target="_blank" rel="noopener"><strong>P4219</strong> [BJOI2014]大融合</a> </p>
+<p>首先考虑一条边的负载与什么有关。通过排列组合的知识我们可以知道，负载等于起点个数乘以终点个数。</p>
+<p>起点个数与终点个数体现在树上就是断边后两个节点子树大小。</p>
+<p>由于动态连边，我们要用LCT维护这个。</p>
+<p>照着上面讲的做就行了。</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cctype&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">namespace</span> FastIO &#123;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">int</span> <span class="hljs-title">read</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">char</span> ch = getchar(); <span class="hljs-keyword">int</span> r = <span class="hljs-number">0</span>, w = <span class="hljs-number">1</span>;</span><br><span class="line">        <span class="hljs-keyword">while</span>(!<span class="hljs-built_in">isdigit</span>(ch)) &#123;<span class="hljs-keyword">if</span>(ch == <span class="hljs-string">'-'</span>) w = <span class="hljs-number">-1</span>; ch = getchar();&#125;</span><br><span class="line">        <span class="hljs-keyword">while</span>(<span class="hljs-built_in">isdigit</span>(ch)) &#123;r = r * <span class="hljs-number">10</span> + ch - <span class="hljs-string">'0'</span>, ch = getchar();&#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> r * w;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">void</span> _write(<span class="hljs-keyword">int</span> x) &#123;</span><br><span class="line">        <span class="hljs-keyword">if</span>(x &lt; <span class="hljs-number">0</span>) <span class="hljs-built_in">putchar</span>(<span class="hljs-string">'-'</span>), x = -x;</span><br><span class="line">        <span class="hljs-keyword">if</span>(x &gt; <span class="hljs-number">9</span>) _write(x / <span class="hljs-number">10</span>);</span><br><span class="line">        <span class="hljs-built_in">putchar</span>(x % <span class="hljs-number">10</span> + <span class="hljs-string">'0'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">write</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        _write(x);</span><br><span class="line">        <span class="hljs-built_in">puts</span>(<span class="hljs-string">""</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> FastIO;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">1e5</span> + <span class="hljs-number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt; <span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">swap</span><span class="hljs-params">(T &amp;x, T &amp;y)</span> </span>&#123;T tmp = x; x = y, y = tmp;&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Node</span> &#123;</span></span><br><span class="line">    <span class="hljs-keyword">int</span> ch[<span class="hljs-number">2</span>], fa, tsz, sz;</span><br><span class="line">    <span class="hljs-keyword">bool</span> rev;</span><br><span class="line">&#125; tr[N];</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">upd</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    tr[p].sz = tr[tr[p].ch[<span class="hljs-number">0</span>]].sz + tr[tr[p].ch[<span class="hljs-number">1</span>]].sz + tr[p].tsz + <span class="hljs-number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">isleft</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> tr[tr[p].fa].ch[<span class="hljs-number">0</span>] == p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">isroot</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> tr[tr[p].fa].ch[<span class="hljs-number">0</span>] != p &amp;&amp; tr[tr[p].fa].ch[<span class="hljs-number">1</span>] != p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">reverse</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    tr[p].rev ^= <span class="hljs-number">1</span>;</span><br><span class="line">    swap(tr[p].ch[<span class="hljs-number">0</span>], tr[p].ch[<span class="hljs-number">1</span>]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">pushdown</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">if</span>(tr[p].rev) &#123;</span><br><span class="line">        <span class="hljs-keyword">if</span>(tr[p].ch[<span class="hljs-number">0</span>]) reverse(tr[p].ch[<span class="hljs-number">0</span>]);</span><br><span class="line">        <span class="hljs-keyword">if</span>(tr[p].ch[<span class="hljs-number">1</span>]) reverse(tr[p].ch[<span class="hljs-number">1</span>]);</span><br><span class="line">        tr[p].rev ^= <span class="hljs-number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">int</span> sta[N], stop;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">pushto</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    stop = <span class="hljs-number">0</span>;</span><br><span class="line">    <span class="hljs-keyword">while</span>(!isroot(p)) &#123;</span><br><span class="line">        sta[stop++] = p;</span><br><span class="line">        p = tr[p].fa;</span><br><span class="line">    &#125;</span><br><span class="line">    sta[stop++] = p;</span><br><span class="line">    <span class="hljs-keyword">while</span>(stop) &#123;</span><br><span class="line">        pushdown(sta[--stop]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">rotate</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">bool</span> t = !isleft(p); <span class="hljs-keyword">int</span> fa = tr[p].fa, ffa = tr[fa].fa;</span><br><span class="line">    tr[p].fa = ffa;</span><br><span class="line">    <span class="hljs-keyword">if</span>(!isroot(fa)) tr[ffa].ch[!isleft(fa)] = p;</span><br><span class="line">    tr[fa].ch[t] = tr[p].ch[!t];</span><br><span class="line">    tr[tr[fa].ch[t]].fa = fa;</span><br><span class="line">    tr[p].ch[!t] = fa;</span><br><span class="line">    tr[fa].fa = p;</span><br><span class="line">    upd(fa);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">splay</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    pushto(p);</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> fa = tr[p].fa; !isroot(p); rotate(p), fa = tr[p].fa) &#123;</span><br><span class="line">        <span class="hljs-keyword">if</span>(!isroot(fa)) rotate(isleft(fa) == isleft(p) ? fa : p);</span><br><span class="line">    &#125;</span><br><span class="line">    upd(p);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">access</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> q = <span class="hljs-number">0</span>; p; q = p, p = tr[p].fa) &#123;</span><br><span class="line">        splay(p);</span><br><span class="line">        tr[p].tsz += tr[tr[p].ch[<span class="hljs-number">1</span>]].sz;</span><br><span class="line">        tr[p].tsz -= tr[q].sz;</span><br><span class="line">        tr[p].ch[<span class="hljs-number">1</span>] = q;</span><br><span class="line">        upd(p);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">makert</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    access(p);</span><br><span class="line">    splay(p);</span><br><span class="line">    reverse(p);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findrt</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    access(p);</span><br><span class="line">    splay(p);</span><br><span class="line">    <span class="hljs-keyword">while</span>(tr[p].ch[<span class="hljs-number">0</span>]) p = tr[p].ch[<span class="hljs-number">0</span>];</span><br><span class="line">    <span class="hljs-keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">split</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u, <span class="hljs-keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">    makert(u);</span><br><span class="line">    access(v);</span><br><span class="line">    splay(v);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">link</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u, <span class="hljs-keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">    split(u, v);</span><br><span class="line">    tr[u].fa = v;</span><br><span class="line">    tr[v].tsz += tr[u].sz;</span><br><span class="line">    upd(v);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">cut</span><span class="hljs-params">(<span class="hljs-keyword">int</span> u, <span class="hljs-keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">    split(u, v);</span><br><span class="line">    <span class="hljs-keyword">if</span>(tr[v].ch[<span class="hljs-number">0</span>] != u || tr[u].ch[<span class="hljs-number">1</span>]) <span class="hljs-keyword">return</span>;</span><br><span class="line">    tr[v].ch[<span class="hljs-number">0</span>] = tr[u].fa = <span class="hljs-number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">int</span> n, q;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">    n = read(), q = read();</span><br><span class="line">    <span class="hljs-keyword">while</span>(q--) &#123;</span><br><span class="line">        <span class="hljs-keyword">char</span> op = getchar();</span><br><span class="line">        <span class="hljs-keyword">int</span> x = read(), y = read();</span><br><span class="line">        <span class="hljs-keyword">if</span>(op == <span class="hljs-string">'A'</span>) link(x, y);</span><br><span class="line">        <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">            split(x, y);</span><br><span class="line">            write(tr[x].sz * (tr[y].sz - tr[x].sz));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><del>太菜了把<code>rotate()</code>里的<code>upd(fa)</code>写成了<code>upd(p)</code>，调了好久，自己打自己脸qwq</del></p>
+<h2 id="LCT动态加边求最大生成树"><a href="#LCT动态加边求最大生成树" class="headerlink" title="LCT动态加边求最大生成树"></a>LCT动态加边求最大生成树</h2><h3 id="操作及原理-2"><a href="#操作及原理-2" class="headerlink" title="操作及原理"></a>操作及原理</h3><p>还没学会咕咕咕咕咕…</p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/LCT/">LCT</a>, <a class="has-link-grey -link" href="/tags/数据结构/">数据结构</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/07/16/平摊分析-学习报告/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">平摊分析 学习报告</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/07/15/树链剖分-学习报告/">
+                <span class="level-item">树链剖分 学习报告</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                        <figure class="image is-128x128 has-mb-6">
+                            <img class="is-rounded" src="/images/round.jpg" alt="Minakami Yuki">
+                        </figure>
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        Minakami Yuki
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Which Dreamed it
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>最果ての空</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        88
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        5
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        86
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/Minagami" target="_blank">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Github" href="https://github.com/Minagami">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+<!--<div class="card widget" id="toc">-->
+<div class="card widget column-left is-sticky" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#问题引入">
+        <span class="has-mr-6">1</span>
+        <span>问题引入</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#Subtask-1">
+        <span class="has-mr-6">1.1</span>
+        <span>Subtask 1</span>
+        </a></li><li>
+        <a class="is-flex" href="#Subtask-2">
+        <span class="has-mr-6">1.2</span>
+        <span>Subtask 2</span>
+        </a></li><li>
+        <a class="is-flex" href="#Subtask-3">
+        <span class="has-mr-6">1.3</span>
+        <span>Subtask 3</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#定义、基本操作及原理">
+        <span class="has-mr-6">2</span>
+        <span>定义、基本操作及原理</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#一些定义">
+        <span class="has-mr-6">2.1</span>
+        <span>一些定义</span>
+        </a></li><li>
+        <a class="is-flex" href="#基本操作">
+        <span class="has-mr-6">2.2</span>
+        <span>基本操作</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#访问（Access）">
+        <span class="has-mr-6">2.2.1</span>
+        <span>访问（Access）</span>
+        </a></li><li>
+        <a class="is-flex" href="#换根（MakeRoot）">
+        <span class="has-mr-6">2.2.2</span>
+        <span>换根（MakeRoot）</span>
+        </a></li><li>
+        <a class="is-flex" href="#找根（FindRoot）">
+        <span class="has-mr-6">2.2.3</span>
+        <span>找根（FindRoot）</span>
+        </a></li><li>
+        <a class="is-flex" href="#分离树链（Split）">
+        <span class="has-mr-6">2.2.4</span>
+        <span>分离树链（Split）</span>
+        </a></li><li>
+        <a class="is-flex" href="#林克（Link）">
+        <span class="has-mr-6">2.2.5</span>
+        <span>林克（Link）</span>
+        </a></li><li>
+        <a class="is-flex" href="#卡特（Cut）">
+        <span class="has-mr-6">2.2.6</span>
+        <span>卡特（Cut）</span>
+        </a></li><li>
+        <a class="is-flex" href="#树（Tree）">
+        <span class="has-mr-6">2.2.7</span>
+        <span>树（Tree）</span>
+        </a></li><li>
+        <a class="is-flex" href="#单点修改（Modify）">
+        <span class="has-mr-6">2.2.8</span>
+        <span>单点修改（Modify）</span>
+        </a></li><li>
+        <a class="is-flex" href="#判根（Isroot）">
+        <span class="has-mr-6">2.2.9</span>
+        <span>判根（Isroot）</span>
+        </a></li><li>
+        <a class="is-flex" href="#旋转（Rotate）">
+        <span class="has-mr-6">2.2.10</span>
+        <span>旋转（Rotate）</span>
+        </a></li><li>
+        <a class="is-flex" href="#伸展（Splay）">
+        <span class="has-mr-6">2.2.11</span>
+        <span>伸展（Splay）</span>
+        </a></li></ul></li></ul></li><li>
+        <a class="is-flex" href="#应用">
+        <span class="has-mr-6">3</span>
+        <span>应用</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#直接运用">
+        <span class="has-mr-6">3.1</span>
+        <span>直接运用</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#操作及原理">
+        <span class="has-mr-6">3.1.1</span>
+        <span>操作及原理</span>
+        </a></li><li>
+        <a class="is-flex" href="#例题1">
+        <span class="has-mr-6">3.1.2</span>
+        <span>例题1</span>
+        </a></li><li>
+        <a class="is-flex" href="#例题2">
+        <span class="has-mr-6">3.1.3</span>
+        <span>例题2</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#处理子树信息">
+        <span class="has-mr-6">3.2</span>
+        <span>处理子树信息</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#操作及原理-1">
+        <span class="has-mr-6">3.2.1</span>
+        <span>操作及原理</span>
+        </a></li><li>
+        <a class="is-flex" href="#例题">
+        <span class="has-mr-6">3.2.2</span>
+        <span>例题</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#LCT动态加边求最大生成树">
+        <span class="has-mr-6">3.3</span>
+        <span>LCT动态加边求最大生成树</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#操作及原理-2">
+        <span class="has-mr-6">3.3.1</span>
+        <span>操作及原理</span>
+        </a></li></ul></li></ul></li></ul>
+        </div>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="https://i.loli.net/2019/10/10/y9zYaVHLsNt1Cek.png" alt="LCT 学习报告" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 Minakami Yuki&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+
+    <!--背景线条-->
+    <!--<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-1" count="99" src="dist/canvas-nest.js"></script>-->
+    <!--<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-1" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

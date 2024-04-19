@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 3.9.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>动态DP 学习报告 - Yuki&#39;s Blog</title>
+
+
+
+
+
+
+
+
+<link rel="icon" href="/images/round.jpg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/tomorrow.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<!--<body class="is-2-column">-->
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="https://i.loli.net/2019/10/10/y9zYaVHLsNt1Cek.png" alt="动态DP 学习报告" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/notes">笔记</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="https://i.loli.net/2019/09/26/u2oSXEezlfsHt4w.jpg" alt="动态DP 学习报告">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-09-26T07:00:57.000Z">2019-09-26</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/学习报告/">学习报告</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    8 分钟 读完 (大约 1171 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                动态DP 学习报告
+            
+        </h1>
+        <div class="content">
+            <h1 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h1><p>考虑一个问题：<br>求树上最大权独立集的权值大小。其中点权可更改。</p>
+<a id="more"></a>
+
+<h2 id="不带修情况"><a href="#不带修情况" class="headerlink" title="不带修情况"></a>不带修情况</h2><p>先考虑<strong>不带修</strong>的情况。很简单，直接*<em>树形 DP *</em>求就行了。</p>
+<p>设 $f_{i,0}$ 表示点 $i$ <strong>不被选择</strong>时的答案，$f_{i_,1}$ 表示点 $i$ <strong>被选择</strong>时的答案。</p>
+<p>那么状态转移方程为：</p>
+<p>$$\begin{cases}<br>f_{i,0} = \sum\limits_{j\in \mathrm{son_i}} \max({f_{j, 0}, f_{j, 1}}) \\ f_{i, 1} = w_i + \sum\limits_{j\in\mathrm{son_i}}f_{j, 0}<br>\end{cases}$$</p>
+<p>答案为：$\max(f_{rt_,0}, f_{rt, 1})$。</p>
+<h2 id="带修情况"><a href="#带修情况" class="headerlink" title="带修情况"></a>带修情况</h2><p>我们对该树进行<strong>树链剖分</strong>。</p>
+<p>设 $g_{i, 0}$ 表示点 $i$ 及其<strong>重儿子</strong>都不被选择时的答案，$g_{i, 1}$ 表示点 $i$ 被选择、点 $i$ 的重儿子不被选择时的答案。</p>
+<p><strong>$\mathrm{son_i}$ 定义变为点 $i$ 的重儿子。</strong></p>
+<p>由 $g_{i, 0/1}$ 向 $f_{i, 0/1}$ 转移，我们有：</p>
+<p>$$\begin{cases} f_{i, 0} = g_{i, 0} + \max(f_{\mathrm{son_i}, 0}, f_{\mathrm{son_i}, 1}) \\ f_{i, 1} = g_{i, 1} + f_{\mathrm{son_i}, 0} \end{cases}$$</p>
+<p>答案为：$\max(f_{rt, 0}, f_{rt, 1})$。</p>
+<h3 id="广义矩乘"><a href="#广义矩乘" class="headerlink" title="广义矩乘"></a>广义矩乘</h3><p>重新定义<strong>矩阵乘法</strong> $A \times B = C$ 为 $C_{i, j} = \max\limits_{k = 1} ^ n (A_{i, k} + B_{k, j})$。</p>
+<p>那么上面的<strong>状态转移方程</strong>可以写成：</p>
+<p>$$\begin{bmatrix} g_{i, 0} &amp; g_{i, 0} \\ g_{i, 1} &amp; -\infty \end{bmatrix} \times \begin{bmatrix}f_{\mathrm{son_i}, 0} \\ f_{\mathrm{son_i}, 1} \end{bmatrix} = \begin{bmatrix}f_{i, 0} \\ f_{i, 1} \end{bmatrix}$$</p>
+<p>所以当我们<strong>修改</strong>了点 $i$ 的点权时，只需要修改 $g_{i, 1}$ 和点 $i$ 到 $rt$ 的每一条重链。</p>
+<h1 id="算法过程"><a href="#算法过程" class="headerlink" title="算法过程"></a>算法过程</h1><ul>
+<li>首先，可以在对原树<strong>树剖</strong>的<strong>同时</strong>进行第一遍<strong>树形 DP</strong> ，求出 $f$ 与 $g$ 的初值。</li>
+<li>然后对每一条<strong>重链</strong>建<strong>线段树</strong>维护一下<strong>区间广义矩乘</strong>。</li>
+<li>修改的话直接修改 $g_{i, 1}$ 和<strong>线段树</strong>中 $i$ 节点的矩阵。</li>
+<li>然后需要计算<strong>链顶矩阵</strong>的变化量，并且<strong>上传到它的父节点</strong>。</li>
+<li>查询输出根到所在重链的链尾矩阵的区间乘就行了。</li>
+</ul>
+<p>如果用 LCT 维护的话，改哪个点 <code>access</code> 哪个点，不用来回跳重链，比较方便。<del>但是我懒得写 LCT。</del></p>
+<h1 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a>参考代码</h1><p>以<a href="https://www.luogu.org/problem/P4719" target="_blank" rel="noopener">Luogu P4719 【模板】动态 DP</a>为例。</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cctype&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> LL long long</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> LL <span class="hljs-title">read</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">char</span> ch = getchar(); LL r = <span class="hljs-number">0</span>, w = <span class="hljs-number">1</span>;</span><br><span class="line">    <span class="hljs-keyword">while</span>(!<span class="hljs-built_in">isdigit</span>(ch)) &#123;<span class="hljs-keyword">if</span>(ch == <span class="hljs-string">'-'</span>) w = <span class="hljs-number">-1</span>; ch = getchar();&#125;</span><br><span class="line">    <span class="hljs-keyword">while</span>(<span class="hljs-built_in">isdigit</span>(ch)) &#123;r = r * <span class="hljs-number">10</span> + ch - <span class="hljs-string">'0'</span>, ch = getchar();&#125;</span><br><span class="line">    <span class="hljs-keyword">return</span> r * w;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt; <span class="hljs-function"><span class="hljs-keyword">inline</span> T <span class="hljs-title">max</span><span class="hljs-params">(T a, T b)</span> </span>&#123;<span class="hljs-keyword">return</span> a &gt; b ? a : b;&#125;</span><br><span class="line"><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt; <span class="hljs-function"><span class="hljs-keyword">inline</span> T <span class="hljs-title">min</span><span class="hljs-params">(T a, T b)</span> </span>&#123;<span class="hljs-keyword">return</span> a &lt; b ? a : b;&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> N = <span class="hljs-number">5e5</span> + <span class="hljs-number">6</span>;</span><br><span class="line"><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> M = N &lt;&lt; <span class="hljs-number">1</span>;</span><br><span class="line"><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> INF = <span class="hljs-number">0x3f3f3f3f</span>;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">int</span> n, m;</span><br><span class="line"><span class="hljs-keyword">int</span> head[N], ver[M], nxt[M], cnt;</span><br><span class="line"><span class="hljs-keyword">int</span> d[N], sz[N], tp[N], ed[N], fa[N], son[N], ptn[N], dfn[N], idx;</span><br><span class="line"><span class="hljs-keyword">int</span> a[N], f[N][<span class="hljs-number">2</span>];</span><br><span class="line"></span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Matrix</span> &#123;</span></span><br><span class="line">    <span class="hljs-keyword">int</span> g[<span class="hljs-number">2</span>][<span class="hljs-number">2</span>];</span><br><span class="line">    Matrix() &#123;<span class="hljs-built_in">memset</span>(g, <span class="hljs-number">0</span>, <span class="hljs-keyword">sizeof</span> g);&#125;</span><br><span class="line">    Matrix <span class="hljs-keyword">operator</span> * (<span class="hljs-keyword">const</span> Matrix &amp;a) <span class="hljs-keyword">const</span> &#123;</span><br><span class="line">        Matrix res;</span><br><span class="line">        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt;= <span class="hljs-number">1</span>; i++)</span><br><span class="line">            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt;= <span class="hljs-number">1</span>; j++)</span><br><span class="line">                <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> k = <span class="hljs-number">0</span>; k &lt;= <span class="hljs-number">1</span>; k++)</span><br><span class="line">                    res.g[i][j] = max(res.g[i][j], g[i][k] + a.g[k][j]);</span><br><span class="line">        <span class="hljs-keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; t[N], g[N];</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    ver[++cnt] = y, nxt[cnt] = head[x], head[x] = cnt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">dfs1</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    sz[x] = <span class="hljs-number">1</span>;</span><br><span class="line">    f[x][<span class="hljs-number">1</span>] = a[x];</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i = head[x]; i; i = nxt[i]) &#123;</span><br><span class="line">        <span class="hljs-keyword">int</span> y = ver[i];</span><br><span class="line">        <span class="hljs-keyword">if</span>(y == fa[x]) <span class="hljs-keyword">continue</span>;</span><br><span class="line">        fa[y] = x;</span><br><span class="line">        d[y] = d[x] + <span class="hljs-number">1</span>;</span><br><span class="line">        dfs1(y);</span><br><span class="line">        sz[y] += sz[x];</span><br><span class="line">        <span class="hljs-keyword">if</span>(sz[y] &gt; sz[son[x]]) son[x] = y;</span><br><span class="line">        f[x][<span class="hljs-number">1</span>] += f[y][<span class="hljs-number">0</span>];</span><br><span class="line">        f[x][<span class="hljs-number">0</span>] += max(f[y][<span class="hljs-number">0</span>], f[y][<span class="hljs-number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">dfs2</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> top)</span> </span>&#123;</span><br><span class="line">    ptn[dfn[x] = ++idx] = x;</span><br><span class="line">    tp[x] = top;</span><br><span class="line">    ed[top] = idx;</span><br><span class="line">    g[x].g[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>] = a[x];</span><br><span class="line">    g[x].g[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>] = -INF;</span><br><span class="line">    <span class="hljs-keyword">if</span>(son[x]) dfs2(son[x], top);</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i = head[x]; i; i = nxt[i]) &#123;</span><br><span class="line">        <span class="hljs-keyword">int</span> y = ver[i];</span><br><span class="line">        <span class="hljs-keyword">if</span>(y == fa[x] || y == son[x]) <span class="hljs-keyword">continue</span>;</span><br><span class="line">        dfs2(y, y);</span><br><span class="line">        g[x].g[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] += max(f[y][<span class="hljs-number">0</span>], f[y][<span class="hljs-number">1</span>]);</span><br><span class="line">        g[x].g[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>] += f[y][<span class="hljs-number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    g[x].g[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>] = g[x].g[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> ls (o &lt;&lt; 1)</span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> rs (o &lt;&lt; 1 | 1)</span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> mid ((l + r) &gt;&gt; 1)</span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> upd(o) t[o] = t[ls] * t[rs]</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">build</span><span class="hljs-params">(<span class="hljs-keyword">int</span> o, <span class="hljs-keyword">int</span> l, <span class="hljs-keyword">int</span> r)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">if</span>(l == r) &#123;t[o] = g[ptn[l]]; <span class="hljs-keyword">return</span>;&#125;</span><br><span class="line">    build(ls, l, mid);</span><br><span class="line">    build(rs, mid + <span class="hljs-number">1</span>, r);</span><br><span class="line">    upd(o);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function">Matrix <span class="hljs-title">query</span><span class="hljs-params">(<span class="hljs-keyword">int</span> o, <span class="hljs-keyword">int</span> l, <span class="hljs-keyword">int</span> r, <span class="hljs-keyword">int</span> ll, <span class="hljs-keyword">int</span> rr)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">if</span>(ll &lt;= l &amp;&amp; rr &gt;= r) <span class="hljs-keyword">return</span> t[o];</span><br><span class="line">    <span class="hljs-keyword">if</span>(rr &lt;= mid) <span class="hljs-keyword">return</span> query(ls, l, mid, ll, rr);</span><br><span class="line">    <span class="hljs-keyword">if</span>(ll &gt; mid) <span class="hljs-keyword">return</span> query(rs, mid + <span class="hljs-number">1</span>, r, ll, rr);</span><br><span class="line">    <span class="hljs-keyword">return</span> query(ls, l, mid, ll, rr) * query(rs, mid + <span class="hljs-number">1</span>, r, ll, rr);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">modify</span><span class="hljs-params">(<span class="hljs-keyword">int</span> o, <span class="hljs-keyword">int</span> l, <span class="hljs-keyword">int</span> r, <span class="hljs-keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">if</span>(l == r) &#123;t[o] = g[ptn[x]]; <span class="hljs-keyword">return</span>;&#125;</span><br><span class="line">    <span class="hljs-keyword">if</span>(x &lt;= mid) modify(ls, l, mid, x);</span><br><span class="line">    <span class="hljs-keyword">else</span> modify(rs, mid + <span class="hljs-number">1</span>, r, x);</span><br><span class="line">    upd(o);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">modify</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    g[x].g[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>] += k - a[x];</span><br><span class="line">    a[x] = k;</span><br><span class="line">    <span class="hljs-keyword">while</span>(x) &#123;</span><br><span class="line">        Matrix las = query(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, n, dfn[tp[x]], ed[tp[x]]);</span><br><span class="line">        modify(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, n, dfn[x]);</span><br><span class="line">        Matrix now = query(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, n, dfn[tp[x]], ed[tp[x]]);</span><br><span class="line">        x = fa[tp[x]];</span><br><span class="line">        g[x].g[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] += max(now.g[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>], now.g[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>]) - max(las.g[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>], las.g[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>]);</span><br><span class="line">        g[x].g[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>] = g[x].g[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>];</span><br><span class="line">        g[x].g[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>] += now.g[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] - las.g[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">    n = read(), m = read();</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) a[i] = read();</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="hljs-keyword">int</span> x = read(), y = read();</span><br><span class="line">        add(x, y);</span><br><span class="line">        add(y, x);</span><br><span class="line">    &#125;</span><br><span class="line">    d[<span class="hljs-number">1</span>] = <span class="hljs-number">1</span>;</span><br><span class="line">    dfs1(<span class="hljs-number">1</span>);</span><br><span class="line">    dfs2(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>);</span><br><span class="line">    build(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, n);</span><br><span class="line">    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= m; i++) &#123;</span><br><span class="line">        <span class="hljs-keyword">int</span> x = read(), k = read();</span><br><span class="line">        modify(x, k);</span><br><span class="line">        Matrix ans = query(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, n, <span class="hljs-number">1</span>, ed[<span class="hljs-number">1</span>]);</span><br><span class="line">        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d\n"</span>, max(ans.g[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>], ans.g[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>]));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/DDP/">DDP</a>, <a class="has-link-grey -link" href="/tags/DP/">DP</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/09/28/Luogu-P3379-【模板】最近公共祖先-LCA-解题报告/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">Luogu P3379 【模板】最近公共祖先(LCA) 解题报告</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/09/25/模拟退火-学习报告/">
+                <span class="level-item">模拟退火 学习报告</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                        <figure class="image is-128x128 has-mb-6">
+                            <img class="is-rounded" src="/images/round.jpg" alt="Minakami Yuki">
+                        </figure>
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        Minakami Yuki
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Which Dreamed it
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>最果ての空</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        88
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        5
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        86
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/Minagami" target="_blank">
+                关注我</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Github" href="https://github.com/Minagami">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+<!--<div class="card widget" id="toc">-->
+<div class="card widget column-left is-sticky" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                目录
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#引入">
+        <span class="has-mr-6">1</span>
+        <span>引入</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#不带修情况">
+        <span class="has-mr-6">1.1</span>
+        <span>不带修情况</span>
+        </a></li><li>
+        <a class="is-flex" href="#带修情况">
+        <span class="has-mr-6">1.2</span>
+        <span>带修情况</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#广义矩乘">
+        <span class="has-mr-6">1.2.1</span>
+        <span>广义矩乘</span>
+        </a></li></ul></li></ul></li><li>
+        <a class="is-flex" href="#算法过程">
+        <span class="has-mr-6">2</span>
+        <span>算法过程</span>
+        </a></li><li>
+        <a class="is-flex" href="#参考代码">
+        <span class="has-mr-6">3</span>
+        <span>参考代码</span>
+        </a></li></ul>
+        </div>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="https://i.loli.net/2019/10/10/y9zYaVHLsNt1Cek.png" alt="动态DP 学习报告" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 Minakami Yuki&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+
+    <!--背景线条-->
+    <!--<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-1" count="99" src="dist/canvas-nest.js"></script>-->
+    <!--<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-1" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>
